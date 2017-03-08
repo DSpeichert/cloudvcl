@@ -51,6 +51,7 @@ class User(models.Model):
     is_instructor = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     user_groups = models.ManyToManyField('UserGroup')
+    images = models.ManyToManyField('Image')
 
     def __str__(self):
         return self.username
