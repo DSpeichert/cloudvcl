@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 
 
 class Assignment(models.Model):
@@ -43,13 +44,15 @@ class Image(models.Model):
         return self.uuid
 
 
-class User(models.Model):
-    username = models.CharField(max_length=30)
+class User(AbstractUser):
     limit_instances = models.IntegerField(default=0)
     limit_cpus = models.IntegerField(default=0)
     limit_ram = models.IntegerField(default=0, verbose_name="RAM limit in bytes")
-    is_instructor = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+    is_instructor = models.BooleanField(
+        'instructor',
+        default=False,
+        help_text='Designates whether this user should be treated as an instructor.'
+    )
     courses = models.ManyToManyField('Course')
     images = models.ManyToManyField('Image')
 
