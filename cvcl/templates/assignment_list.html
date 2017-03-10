@@ -3,5 +3,9 @@
 {% block content %}
     <h1>Assignment List</h1>
 
-    TODO
+    {% for assignment in object_list %}
+        <li>{{ assignment.pub_date|date }} - {{ assignment.description }}</li>
+    {% empty %}
+        <li>No assignments yet.</li>
+    {% endfor %}
 {% endblock %}
