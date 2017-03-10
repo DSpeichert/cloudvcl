@@ -12,12 +12,18 @@ admin.site.register(Vm)
 admin.site.register(VmDefinition)
 
 
+@admin.register(User)
 class CustomUserAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ('is_instructor',)
     list_filter = UserAdmin.list_filter + ('is_instructor',)
-    fieldsets = UserAdmin.fieldsets
-    fieldsets[2][1]['fields'] = ('is_active', 'is_instructor', 'is_staff', 'is_superuser',
-                                  'groups', 'user_permissions',)
-
-
-admin.site.register(User, CustomUserAdmin)
+    fieldsets = UserAdmin.fieldsets + (
+        ('Instructor Data', {'fields': ('is_instructor',
+                                        'limit_instances',
+                                        'limit_cpus',
+                                        'limit_ram',
+                                        'images',
+                                        'courses'
+                                        )
+                             }
+         ),
+    )

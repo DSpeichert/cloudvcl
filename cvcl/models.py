@@ -25,23 +25,32 @@ class Environment(models.Model):
 
 
 class EnvironmentDefinition(models.Model):
+    name = models.CharField(max_length=50)
+    instructor = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE,
+        limit_choices_to={'is_instructor': True}
+    )
+
     def __str__(self):
-        return self.id
+        return self.name
 
 
 # This is simply a reference to OpenStack Flavors. Only flavors represented by UUIDs here are available to users.
 class Flavor(models.Model):
-    uuid = models.UUIDField()
+    uuid = models.CharField(max_length=36)
+    name = models.TextField()
 
     def __str__(self):
-        return self.uuid
+        return self.name
 
 
 class Image(models.Model):
-    uuid = models.UUIDField()
+    uuid = models.CharField(max_length=36)
+    name = models.TextField()
 
     def __str__(self):
-        return self.uuid
+        return self.name
 
 
 class User(AbstractUser):
@@ -62,8 +71,12 @@ class User(AbstractUser):
 
 class Course(models.Model):
     name = models.CharField(max_length=30)
-    instructor = models.ForeignKey('User', on_delete=models.CASCADE, limit_choices_to={'is_instructor': True},
-                                   related_name='instructs')
+    instructor = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE,
+        limit_choices_to={'is_instructor': True},
+        related_name='instructs'
+    )
     students = models.ManyToManyField('User')
 
     def __str__(self):
@@ -72,7 +85,7 @@ class Course(models.Model):
 
 # an instance of VMDefinition that exists in OpenStack cloud
 class Vm(models.Model):
-    uuid = models.UUIDField()
+    uuid = models.CharField(max_length=36)
     ip_address = models.GenericIPAddressField()
     environment = models.ForeignKey('Environment', on_delete=models.CASCADE)
     vm_definition = models.ForeignKey('VmDefinition')
@@ -82,6 +95,8 @@ class Vm(models.Model):
 
 
 class VmDefinition(models.Model):
+    name = models.CharField(max_length=50)
+    environment = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
     image = models.ForeignKey('Image', on_delete=models.CASCADE)
     flavor = models.ForeignKey('Flavor', on_delete=models.CASCADE)
     user_script = models.TextField()
