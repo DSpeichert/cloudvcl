@@ -1,7 +1,11 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1>Environment Definition List</h1>
+    <h1>Environment Definition List
+        <div class="pull-right">
+            <a class="btn btn-default" href="{% url 'envdefs.create' %}" role="button">Create</a>
+        </div>
+    </h1>
 
     TODO
 {% endblock %}

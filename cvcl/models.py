@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 
 class Assignment(models.Model):
@@ -35,6 +36,9 @@ class EnvironmentDefinition(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('envdefs.detail', kwargs={'pk': self.id})
+
 
 # This is simply a reference to OpenStack Flavors. Only flavors represented by UUIDs here are available to users.
 class Flavor(models.Model):
@@ -62,8 +66,8 @@ class User(AbstractUser):
         default=False,
         help_text='Designates whether this user should be treated as an instructor.'
     )
-    courses = models.ManyToManyField('Course')
-    images = models.ManyToManyField('Image')
+    courses = models.ManyToManyField('Course', blank=True, null=True)
+    images = models.ManyToManyField('Image', blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -103,3 +107,6 @@ class VmDefinition(models.Model):
 
     def __str__(self):
         return self.id
+
+    def get_absolute_url(self):
+        return reverse('environment', kwargs={'id': self.id})
