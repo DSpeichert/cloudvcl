@@ -5,5 +5,5 @@ Cloud VCL
 How to use/test:
 
 1. Run migrations: `./manage.py migrate`
-2. Create admin account: `./manage.py createsuperadmin`
+2. Create admin account: `./manage.py createsuperuser`
 3. Run server: `./manage.py runserver`

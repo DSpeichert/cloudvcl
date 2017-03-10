@@ -7,7 +7,7 @@ class Assignment(models.Model):
     description = models.TextField()
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField()
-    user_group = models.ForeignKey('UserGroup', on_delete=models.CASCADE)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE)
     environment_definition = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -50,18 +50,18 @@ class User(models.Model):
     limit_ram = models.IntegerField(default=0, verbose_name="RAM limit in bytes")
     is_instructor = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    user_groups = models.ManyToManyField('UserGroup')
+    courses = models.ManyToManyField('Course')
     images = models.ManyToManyField('Image')
 
     def __str__(self):
         return self.username
 
 
-class UserGroup(models.Model):
+class Course(models.Model):
     name = models.CharField(max_length=30)
     instructor = models.ForeignKey('User', on_delete=models.CASCADE, limit_choices_to={'is_instructor': True},
                                    related_name='instructs')
-    users = models.ManyToManyField('User')
+    students = models.ManyToManyField('User')
 
     def __str__(self):
         return self.id
@@ -79,9 +79,9 @@ class Vm(models.Model):
 
 
 class VmDefinition(models.Model):
-    user_script = models.TextField()
     image = models.ForeignKey('Image', on_delete=models.CASCADE)
     flavor = models.ForeignKey('Flavor', on_delete=models.CASCADE)
+    user_script = models.TextField()
 
     def __str__(self):
         return self.id
