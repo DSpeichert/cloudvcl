@@ -1,0 +1,19 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <h1>User Group List</h1>
+
+    {% if my_usergroup_list %}
+    <ul>
+
+      {% for UserGroup in my_usergroup_list %}
+      <li>
+        <a href="{{ UserGroup.get_absolute_url }}">{{ UserGroup.name }}</a> 
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no usergroups in the database.</p>
+    {% endif %}       
+{% endblock %}
