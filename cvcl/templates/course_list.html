@@ -15,12 +15,12 @@
         </tr>
         {% for ed in course_list %}
             <tr>
-                <td>{{ ed.name }}</td>
+                <td><a href="{% url "courses.detail" ed.id %}">{{ ed.name }}</a></td>
                 <td>
-                {% url 'courses.update' pk=ed.id as url %}
-                {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
-                {% url 'courses.delete' pk=ed.id as url %}
-                {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                    {% url 'courses.update' pk=ed.id as url %}
+                    {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                    {% url 'courses.delete' pk=ed.id as url %}
+                    {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
                 </td>
             </tr>
         {% endfor %}
