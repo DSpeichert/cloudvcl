@@ -1,7 +1,7 @@
-from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 
 class Assignment(models.Model):
@@ -41,7 +41,7 @@ class Course(models.Model):
 
 # an instance of EnvironmentDefinition that exists in OpenStack cloud
 class Environment(models.Model):
-    assignment = models.ForeignKey('Assignment', on_delete=models.CASCADE)
+    assignment = models.ForeignKey('Assignment', on_delete=models.CASCADE, related_name='environments')
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -101,7 +101,7 @@ class User(AbstractUser):
 class Vm(models.Model):
     uuid = models.CharField(max_length=36)
     ip_address = models.GenericIPAddressField()
-    environment = models.ForeignKey('Environment', on_delete=models.CASCADE)
+    environment = models.ForeignKey('Environment', on_delete=models.CASCADE, related_name='vms')
     vm_definition = models.ForeignKey('VmDefinition')
 
     def __str__(self):

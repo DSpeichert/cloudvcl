@@ -1,11 +1,9 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1>Course Detail</h1>
+    <h1>Course: {{ course.name }}</h1>
 
-    {% for course in object_list %}
-        <li>{{ course.name }}</li>
-    {% empty %}
-        <li>No courses yet.</li>
-    {% endfor %}
+    {% if user.is_instructor %}
+        TODO: list of user
+    {% endif %}
 {% endblock %}

@@ -1,11 +1,38 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
-    <h1>Assignment Detail</h1>
+    <h1>Assignment: {{ assignment.name }}
+        <div class="pull-right">
+            <a class="btn btn-default" href="{% url 'assignments' %}" role="button">Back</a>
+        </div>
+    </h1>
+    {% if assignment.course.instructor == user %}
+        <p class="lead">This is a list of all environments created by your students.</p>
+        {% if assignment.environments %}
+            <table class="table table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>Student</th>
+                    <th></th>
+                </tr>
 
-    {% for assignment in object_list %}
-        <li>{{ assignment.pub_date|date }} - {{ assignment.description }}</li>
-    {% empty %}
-        <li>No assignments yet.</li>
-    {% endfor %}
+                {% for e in assignment.environments.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ e.user }}</td>
+                        <td><a class="btn btn-default" href="{% url "environments.detail" e.id %}">Enter Environment</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            No assignments currently.
+        {% endif %}
+    {% else %}
+        <div class="pull-right">
+            <a class="btn btn-default" href="{% url 'assignments.create' %}" role="button">Launch</a>
+        </div>
+    {% endif %}
 {% endblock %}
+

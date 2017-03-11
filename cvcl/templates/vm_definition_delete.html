@@ -2,13 +2,13 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>Remove Assignment: {{ assignment.name }}</h1>
+    <h1>Remove VM Definition: {{ vmdefinition.name }}</h1>
 
     <form action="" method="post" class="form">
         {% csrf_token %}
-        <p>Are you sure you want to delete assignment: {{ object }}?</p>
+        <p>Are you sure you want to delete VM Definition: {{ vmdefinition.name }}?</p>
 
-        {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting all assignments with this name.' %}
+        {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting VM Definition.' %}
         {% buttons %}
             <button type="submit" class="btn btn-danger pull-right">
                 {% bootstrap_icon "remove" %} Delete irreversibly

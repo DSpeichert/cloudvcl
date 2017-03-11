@@ -1,11 +1,11 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1>Assignment Detail</h1>
+    <h1>{{ environment.user.username }}'s environment for {{ environment.assignment.name }}</h1>
 
-    {% for assignment in object_list %}
-        <li>{{ assignment.pub_date|date }} - {{ assignment.description }}</li>
-    {% empty %}
-        <li>No assignments yet.</li>
-    {% endfor %}
+    <ul class="nav nav-tabs">
+        {% for vm in assignment.vms %}
+            <li role="presentation" class="active"><a href="#">{{ vm.name }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

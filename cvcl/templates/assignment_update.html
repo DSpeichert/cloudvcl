@@ -1,8 +1,8 @@
 {% extends "master.html" %}
-
 {% load bootstrap3 %}
+
 {% block content %}
-    <h1>Update Environment Definition: {{ assignments.description }}</h1>
+    <h1>Update Assignment: {{ assignments.name }}</h1>
 
     <form action="" method="post" class="form">
         {% csrf_token %}
@@ -11,6 +11,9 @@
             <button type="submit" class="btn btn-primary">
                 {% bootstrap_icon "ok" %} Update
             </button>
+            <a href="{% url "assignment" %}" class="btn btn-default">
+                {% bootstrap_icon "remove" %} Back
+            </a>
         {% endbuttons %}
     </form>
 {% endblock %}

@@ -11,6 +11,10 @@
             <button type="submit" class="btn btn-primary">
                 {% bootstrap_icon "ok" %} Update
             </button>
+            </button>
+            <a href="{% url "environments" %}" class="btn btn-default">
+                {% bootstrap_icon "remove" %} Back
+            </a>
         {% endbuttons %}
     </form>
 {% endblock %}

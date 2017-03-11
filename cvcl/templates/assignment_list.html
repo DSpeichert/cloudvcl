@@ -14,10 +14,9 @@
         <tr>
             <th>Course</th>
             <th>Assignment Name</th>
-            <th>Assignment Description</th>
-            <th>Assignment Start Date</th>
-            <th>Assignment End Date</th>
-            <th>Course</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             {% if user.is_instructor %}
                 <th></th>
             {% endif %}
@@ -29,7 +28,6 @@
                 <td>{{ assignment.description }}</td>
                 <td>{{ assignment.start_date }}</td>
                 <td>{{ assignment.end_date }}</td>
-                <td>{{ assignment.course }}</td>
                 {% if user.is_instructor %}
                     <td>
                         {% url 'assignments.update' pk=assignment.id as url %}
