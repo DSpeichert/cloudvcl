@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
     <h1>Environment Definition List
@@ -7,7 +8,18 @@
         </div>
     </h1>
 
-    {% for ed in environmentdefinition_list %}
-        {{ ed.name }} <br/>
-    {% endfor %}
+    <table class="table table-hover">
+        <tr>
+            <th>Environment Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for ed in environmentdefinition_list %}
+            <tr>
+                <td>{{ ed.name }}</td>
+                {% url 'envdefs.detail' pk=ed.id as url %}
+                <td>{% bootstrap_button button_type='link' content='Edit' href=url %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}
