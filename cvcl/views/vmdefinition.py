@@ -34,7 +34,7 @@ class VmDefinitionUpdate(LoginRequiredMixin, UpdateView):
     form_class = VmDefinitionForm
 
     def get_form_kwargs(self):
-        kwargs = super(VmDefinitionCreate, self).get_form_kwargs()
+        kwargs = super(VmDefinitionUpdate, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 

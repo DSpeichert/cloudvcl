@@ -7,13 +7,15 @@
     <form action="" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form layout='horizontal' %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "ok" %} Update
-            </button>
-            <a href="{% url "assignment" %}" class="btn btn-default">
-                {% bootstrap_icon "remove" %} Back
-            </a>
-        {% endbuttons %}
+        <div class="pull-right">
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "ok" %} Update
+                </button>
+                <a href="{% url "assignments" %}" class="btn btn-default">
+                    {% bootstrap_icon "remove" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
     </form>
 {% endblock %}

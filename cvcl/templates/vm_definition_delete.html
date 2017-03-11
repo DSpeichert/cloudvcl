@@ -7,12 +7,15 @@
     <form action="" method="post" class="form">
         {% csrf_token %}
         <p>Are you sure you want to delete VM Definition: {{ vmdefinition.name }}?</p>
-
-        {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting VM Definition.' %}
-        {% buttons %}
-            <button type="submit" class="btn btn-danger pull-right">
-                {% bootstrap_icon "remove" %} Delete irreversibly
-            </button>
-        {% endbuttons %}
+        <div class="pull-right">
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">
+                    {% bootstrap_icon "remove" %} Delete irreversibly
+                </button>
+                <a href="{% url "envdefs.detail" vmdefinition.environment.id %}" class="btn btn-default">
+                    {% bootstrap_icon "remove" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
     </form>
 {% endblock %}

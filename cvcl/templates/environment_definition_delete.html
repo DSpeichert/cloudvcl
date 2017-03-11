@@ -7,12 +7,16 @@
     <form action="" method="post" class="form">
         {% csrf_token %}
         <p>Are you sure you want to delete environment definition: {{ object }}?</p>
-
         {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting environment definition will also delete all assignments using it.' %}
-        {% buttons %}
-            <button type="submit" class="btn btn-danger pull-right">
-                {% bootstrap_icon "remove" %} Delete irreversibly
-            </button>
-        {% endbuttons %}
+        <div class="pull-right">
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">
+                    {% bootstrap_icon "remove" %} Delete irreversibly
+                </button>
+                <a href="{% url "envdefs" %}" class="btn btn-default">
+                    {% bootstrap_icon "remove" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
     </form>
 {% endblock %}

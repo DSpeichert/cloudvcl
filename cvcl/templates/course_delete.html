@@ -7,12 +7,16 @@
     <form action="" method="post" class="form">
         {% csrf_token %}
         <p>Are you sure you want to delete course: {{ object }}?</p>
-
         {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting course will also delete all assignments in it.' %}
-        {% buttons %}
-            <button type="submit" class="btn btn-danger pull-right">
-                {% bootstrap_icon "remove" %} Delete irreversibly
-            </button>
-        {% endbuttons %}
+        <div class="pull-right">
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">
+                    {% bootstrap_icon "remove" %} Delete irreversibly
+                </button>
+                <a href="{% url "courses" %}" class="btn btn-default">
+                    {% bootstrap_icon "remove" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
     </form>
 {% endblock %}
