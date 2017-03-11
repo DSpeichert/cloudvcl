@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from cvcl.views import *
 from . import views
@@ -12,15 +12,15 @@ urlpatterns = [
     url(r'^assignments/create$', AssignmentCreate.as_view(), name='assignments.create'),  # instructor
     url(r'^assignments/(?P<pk>\d+)$', AssignmentDetail.as_view(), name='assignments.detail'),  # instructor
     url(r'^assignments/(?P<pk>\d+)/update$', AssignmentUpdate.as_view(), name='assignments.update'),  # instructor
-    url(r'^assignments/(?P<pk>\d+)/delete', AssignmentDelete.as_view(), name='assignments.delete'),  # instructor
+    url(r'^assignments/(?P<pk>\d+)/delete$', AssignmentDelete.as_view(), name='assignments.delete'),  # instructor
     url(r'^courses$', CourseList.as_view(), name='courses'),  # student, instructor
     url(r'^courses/create$', CourseCreate.as_view(), name='courses.create'),  # instructor
-    url(r'^courses$/(?P<pk>\d+)$', CourseDetail.as_view(), name='courses.detail'),  # instructor
-    url(r'^courses$/(?P<pk>\d+)/update$', CourseUpdate.as_view(), name='courses.update'),  # instructor
-    url(r'^courses$/(?P<pk>\d+)/delete', CourseDelete.as_view(), name='courses.delete'),  # instructor
+    url(r'^courses/(?P<pk>\d+)$', CourseDetail.as_view(), name='courses.detail'),  # instructor
+    url(r'^courses/(?P<pk>\d+)/update$', CourseUpdate.as_view(), name='courses.update'),  # instructor
+    url(r'^courses/(?P<pk>\d+)/delete$', CourseDelete.as_view(), name='courses.delete'),  # instructor
     url(r'^envdefs$', EnvironmentDefinitionList.as_view(), name='envdefs'),  # instructor
     url(r'^envdefs/create$', EnvironmentDefinitionCreate.as_view(), name='envdefs.create'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)$', EnvironmentDefinitionDetail.as_view(), name='envdefs.detail'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)/update$', EnvironmentDefinitionUpdate.as_view(), name='envdefs.update'),  # instructor
-    url(r'^envdefs/(?P<pk>\d+)/delete', EnvironmentDefinitionDelete.as_view(), name='envdefs.delete'),  # instructor
+    url(r'^envdefs/(?P<pk>\d+)/delete$', EnvironmentDefinitionDelete.as_view(), name='envdefs.delete'),  # instructor
 ]
