@@ -66,8 +66,8 @@ class User(AbstractUser):
         default=False,
         help_text='Designates whether this user should be treated as an instructor.'
     )
-    courses = models.ManyToManyField('Course', blank=True, null=True)
-    images = models.ManyToManyField('Image', blank=True, null=True)
+    courses = models.ManyToManyField('Course', blank=True)
+    images = models.ManyToManyField('Image', blank=True)
 
     def __str__(self):
         return self.username

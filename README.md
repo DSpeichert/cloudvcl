@@ -10,3 +10,9 @@ How to use/test:
 1. Sync images: `./manage.py syncimages`
 1. Sync flavors: `./manage.py syncflavors`
 1. Run server: `./manage.py runserver`
+
+
+# Dev Docs
+
+* https://django-bootstrap3.readthedocs.io/en/latest/
+* https://getbootstrap.com/components/

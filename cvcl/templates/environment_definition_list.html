@@ -7,5 +7,7 @@
         </div>
     </h1>
 
-    TODO
+    {% for ed in environmentdefinition_list %}
+        {{ ed.name }} <br/>
+    {% endfor %}
 {% endblock %}
