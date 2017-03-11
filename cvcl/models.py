@@ -12,11 +12,14 @@ class Assignment(models.Model):
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
     environment_definition = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ["end_date"]
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('assignments.detail', kwargs={'id': self.id})
+        return reverse('assignments.detail', kwargs={'pk': self.id})
 
 
 class Course(models.Model):
@@ -27,7 +30,7 @@ class Course(models.Model):
         limit_choices_to={'is_instructor': True},
         related_name='instructs'
     )
-    students = models.ManyToManyField('User')
+    students = models.ManyToManyField('User', blank=True)
 
     def __str__(self):
         return self.id
@@ -115,4 +118,4 @@ class VmDefinition(models.Model):
         return self.id
 
     def get_absolute_url(self):
-        return reverse('environment', kwargs={'id': self.id})
+        return reverse('environment', kwargs={'pk': self.id})
