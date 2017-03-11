@@ -1,7 +1,8 @@
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
 from ..models import *
 
 
@@ -25,10 +26,31 @@ class EnvironmentDefinitionDetail(LoginRequiredMixin, DetailView):
     model = EnvironmentDefinition
     template_name = './environment_definition_detail.html'
 
+    def get_queryset(self):
+        return EnvironmentDefinition.objects.filter(instructor_id=self.request.user.id)
+
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class EnvironmentDefinitionList(LoginRequiredMixin, ListView):
     template_name = './environment_definition_list.html'
+
+    def get_queryset(self):
+        return EnvironmentDefinition.objects.filter(instructor_id=self.request.user.id)
+
+
+@method_decorator(user_passes_test(is_instructor_check), name='dispatch')
+class EnvironmentDefinitionUpdate(LoginRequiredMixin, UpdateView):
+    template_name = './environment_definition_update.html'
+    fields = ['name']
+
+    def get_queryset(self):
+        return EnvironmentDefinition.objects.filter(instructor_id=self.request.user.id)
+
+
+@method_decorator(user_passes_test(is_instructor_check), name='dispatch')
+class EnvironmentDefinitionDelete(LoginRequiredMixin, DeleteView):
+    template_name = './environment_definition_delete.html'
+    success_url = reverse_lazy('envdefs')
 
     def get_queryset(self):
         return EnvironmentDefinition.objects.filter(instructor_id=self.request.user.id)

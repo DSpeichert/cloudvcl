@@ -16,8 +16,12 @@
         {% for ed in environmentdefinition_list %}
             <tr>
                 <td>{{ ed.name }}</td>
-                {% url 'envdefs.detail' pk=ed.id as url %}
-                <td>{% bootstrap_button button_type='link' content='Edit' href=url %}</td>
+                <td>
+                {% url 'envdefs.update' pk=ed.id as url %}
+                {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                {% url 'envdefs.delete' pk=ed.id as url %}
+                {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                </td>
             </tr>
         {% endfor %}
     </table>

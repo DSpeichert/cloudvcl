@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^envdefs$', EnvironmentDefinitionList.as_view(), name='envdefs'),  # instructor
     url(r'^envdefs/create$', EnvironmentDefinitionCreate.as_view(), name='envdefs.create'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)$', EnvironmentDefinitionDetail.as_view(), name='envdefs.detail'),  # instructor
+    url(r'^envdefs/(?P<pk>\d+)/update$', EnvironmentDefinitionUpdate.as_view(), name='envdefs.update'),  # instructor
+    url(r'^envdefs/(?P<pk>\d+)/delete', EnvironmentDefinitionDelete.as_view(), name='envdefs.delete'),  # instructor
 ]
