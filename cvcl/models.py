@@ -15,6 +15,26 @@ class Assignment(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('assignments.detail', kwargs={'id': self.id})
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=30)
+    instructor = models.ForeignKey(
+        'User',
+        on_delete=models.CASCADE,
+        limit_choices_to={'is_instructor': True},
+        related_name='instructs'
+    )
+    students = models.ManyToManyField('User')
+
+    def __str__(self):
+        return self.id
+
+    def get_absolute_url(self):
+        return reverse('courses.detail', kwargs={'id': self.id})
+
 
 # an instance of EnvironmentDefinition that exists in OpenStack cloud
 class Environment(models.Model):
@@ -71,20 +91,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-
-
-class Course(models.Model):
-    name = models.CharField(max_length=30)
-    instructor = models.ForeignKey(
-        'User',
-        on_delete=models.CASCADE,
-        limit_choices_to={'is_instructor': True},
-        related_name='instructs'
-    )
-    students = models.ManyToManyField('User')
-
-    def __str__(self):
-        return self.id
 
 
 # an instance of VMDefinition that exists in OpenStack cloud

@@ -1,7 +1,29 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
-    <h1>Course List</h1>
+    <h1>Course List
+        <div class="pull-right">
+            <a class="btn btn-primary" href="{% url 'courses.create' %}" role="button">Create</a>
+        </div>
+    </h1>
 
-    TODO
+    <table class="table table-hover">
+        <tr>
+            <th>Course Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for ed in course_list %}
+            <tr>
+                <td>{{ ed.name }}</td>
+                <td>
+                {% url 'courses.update' pk=ed.id as url %}
+                {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                {% url 'courses.delete' pk=ed.id as url %}
+                {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}
