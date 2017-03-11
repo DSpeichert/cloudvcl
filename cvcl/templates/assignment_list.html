@@ -19,11 +19,11 @@
         </tr>
         {% for assignments in object_list %}
             <tr>
-                <td>{{ assignment.name }}</td>
+                <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
                 <td>{{ assignment.description }}</td>
                 <td>{{ assignment.start_date }}</td>
                 <td>{{ assignment.end_date }}</td>
-                <td>{{ assignment.course}}</td>
+                <td>{{ assignment.course }}</td>
                 <td>
                     {% url 'assignments.update' pk=assignment.id as url %}
                     {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
