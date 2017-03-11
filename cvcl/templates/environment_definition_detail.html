@@ -1,7 +1,34 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
-    <h1>Environment Definition: {{ environmentdefinition.name }}</h1>
+    <h1>Environment Definition: {{ environment_definition.name }}
+        <div class="pull-right">
+            <a class="btn btn-primary" href="{% url 'envdefs.createvmdef' environment_definition.id %}" role="button">Create
+                VM Definition</a>
+        </div>
+    </h1>
 
-    TODO
+    <p class="lead">Students spawning an environment from this definition will see those VMs.</p>
+    <table class="table table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Flavor</th>
+            <th>Action</th>
+        </tr>
+        {% for vmd in vm_definitions %}
+            <tr>
+                <td>{{ vmd.name }}</td>
+                <td>{{ vmd.image.name }}</td>
+                <td>{{ vmd.flavor.name }}</td>
+                <td>
+                    {% url 'vmdef.update' pk=vmd.id as url %}
+                    {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                    {% url 'vmdef.delete' pk=vmd.id as url %}
+                    {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

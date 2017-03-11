@@ -5,7 +5,7 @@
     <h1>Assignment List
         {% if user.is_instructor %}
             <div class="pull-right">
-                <a class="btn btn-default" href="{% url 'assignments.create' %}" role="button">Create</a>
+                <a class="btn btn-primary" href="{% url 'assignments.create' %}" role="button">Create</a>
             </div>
         {% endif %}
     </h1>
