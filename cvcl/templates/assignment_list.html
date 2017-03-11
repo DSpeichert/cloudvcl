@@ -1,11 +1,30 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
-    <h1>Assignment List</h1>
+    <h1>Assignment List
+        <div class="pull-right">
+            <a class="btn btn-default" href="{% url 'assignments.create' %}" role="button">Create</a>
+        </div>
+    </h1></h1>
 
-    {% for assignment in object_list %}
-        <li>{{ assignment.pub_date|date }} - {{ assignment.description }}</li>
-    {% empty %}
-        <li>No assignments yet.</li>
-    {% endfor %}
+    <table class="table table-hover">
+        <tr>
+            <th>Assignment Name</th>
+            <th>Assignment Description</th>
+            <th>Assignment Date</th>
+        </tr>
+        {% for assignments in object_list %}
+            <tr>
+                <td>{{ assignment.name }}</td>
+                <td>
+                    {% url 'assignments.update' pk=assignment.id as url %}
+                    {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                    {% url 'assignments.delete' pk=assignment.id as url %}
+                    {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}
