@@ -9,7 +9,7 @@
     </h1>
     {% if assignment.course.instructor == user %}
         <p class="lead">This is a list of all environments created by your students.</p>
-        {% if assignment.environments %}
+        {% if assignment.environments.all %}
             <table class="table table-hover">
                 <tr>
                     <th>#</th>
@@ -27,7 +27,7 @@
                 {% endfor %}
             </table>
         {% else %}
-            No assignments currently.
+            No environments exist yet.
         {% endif %}
     {% else %}
         <div class="pull-right">

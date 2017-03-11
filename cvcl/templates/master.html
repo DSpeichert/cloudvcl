@@ -43,10 +43,12 @@
                         Definitions</a></li>
                 {% endif %}
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a>Logged in as <strong>{{ user.get_username }}</strong></a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            </ul>
+            {% if user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>Logged in as <strong>{{ user.get_username }}</strong></a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            {% endif %}
         </div><!--/.nav-collapse -->
     </div>
 </nav>
