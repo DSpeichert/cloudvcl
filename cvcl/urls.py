@@ -8,7 +8,6 @@ urlpatterns = [
     url(r'^logout$', views.logout, name='logout'),  # logout page for all
     url(r'^environments/(?P<pk>\d+)$', EnvironmentDetail.as_view(), name='environments.detail'),
     url(r'^assignments$', AssignmentList.as_view(), name='assignments'),  # student, instructor (list)
-    url(r'^assignments/(?P<pk>\d+)$', AssignmentDetail.as_view(), name='assignments'),  # instructor (edits assignment)
     url(r'^assignments/create$', AssignmentCreate.as_view(), name='assignments.create'),  # instructor
     url(r'^assignments/(?P<pk>\d+)$', AssignmentDetail.as_view(), name='assignments.detail'),  # instructor
     url(r'^assignments/(?P<pk>\d+)/update$', AssignmentUpdate.as_view(), name='assignments.update'),  # instructor

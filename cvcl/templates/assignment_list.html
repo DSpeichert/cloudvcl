@@ -3,9 +3,11 @@
 
 {% block content %}
     <h1>Assignment List
-        <div class="pull-right">
-            <a class="btn btn-default" href="{% url 'assignments.create' %}" role="button">Create</a>
-        </div>
+        {% if user.is_instructor %}
+            <div class="pull-right">
+                <a class="btn btn-default" href="{% url 'assignments.create' %}" role="button">Create</a>
+            </div>
+        {% endif %}
     </h1>
 
     <table class="table table-hover">
@@ -15,21 +17,25 @@
             <th>Assignment Start Date</th>
             <th>Assignment End Date</th>
             <th>Course</th>
-
+            {% if user.is_instructor %}
+                <th></th>
+            {% endif %}
         </tr>
-        {% for assignments in object_list %}
+        {% for assignment in object_list %}
             <tr>
                 <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
                 <td>{{ assignment.description }}</td>
                 <td>{{ assignment.start_date }}</td>
                 <td>{{ assignment.end_date }}</td>
                 <td>{{ assignment.course }}</td>
-                <td>
-                    {% url 'assignments.update' pk=assignment.id as url %}
-                    {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
-                    {% url 'assignments.delete' pk=assignment.id as url %}
-                    {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-                </td>
+                {% if user.is_instructor %}
+                    <td>
+                        {% url 'assignments.update' pk=assignment.id as url %}
+                        {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                        {% url 'assignments.delete' pk=assignment.id as url %}
+                        {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
