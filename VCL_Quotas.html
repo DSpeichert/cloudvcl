@@ -51,7 +51,6 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">Users</a></li>
             <li><a href="#">Instructors</a></li>
-			<li><a href="#">Images</a></li>
 			<li><a href="#">Classes</a></li>
           </ul>
         </div>
@@ -73,19 +72,22 @@
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 				<div class="panel-body">
-				<h6>CPU, RAM, DISK</h6>
-				<select>
-					<option value="1ghz">1 GHZ</option>
-					<option value="2ghz">2 GHZ</option>
-				</select>
-				<select>
-					<option value="2gbram">2 GB</option>
-					<option value="4gbram">4 GB</option>
-				</select>
-				<select>
-					<option value="20gbdisk">20 GB</option>
-					<option value="40gbdisk">40 GB</option>
-				</select>
+					<form>
+					  CPU (GHz): 
+					  <input type="text" name="cpuquota">
+					  &nbsp; RAM (GB):
+					  <input type="text" name="ramquota">
+					  &nbsp; Instance Count:
+					  <input = type="text" name="diskquota">
+					  &nbsp; <input type="submit" value="Save All">
+					</form>
+					<br>
+					<form action="">
+						<input type="checkbox" name="image" value="Windows 10 3.4">Windows 10 3.4 &nbsp;
+						<input type="checkbox" name="image" value="Ubuntu 10.15">Ubuntu 10.15 &nbsp;
+						<input type="checkbox" name="image" value="MacOSX 8.11">MacOSX 8.11 &nbsp;
+						<input type="submit" value="Save">
+					</form>
 				</div>
 				</div>
 			</div>
@@ -99,19 +101,22 @@
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 				<div class="panel-body">
-				<h6>CPU, RAM, DISK</h6>
-				<select>
-					<option value="1ghz">1 GHZ</option>
-					<option value="2ghz">2 GHZ</option>
-				</select>
-				<select>
-					<option value="2gbram">2 GB</option>
-					<option value="4gbram">4 GB</option>
-				</select>
-				<select>
-					<option value="20gbdisk">20 GB</option>
-					<option value="40gbdisk">40 GB</option>
-				</select>
+			<form>
+					  CPU (GHz): 
+					  <input type="text" name="cpuquota">
+					  &nbsp; RAM (GB):
+					  <input type="text" name="ramquota">
+					  &nbsp; Instance Count:
+					  <input = type="text" name="diskquota">
+					  &nbsp; <input type="submit" value="Save All">
+					</form>
+					<br>
+					<form action="">
+						<input type="checkbox" name="image" value="Windows 10 3.4">Windows 10 3.4 &nbsp;
+						<input type="checkbox" name="image" value="Ubuntu 10.15">Ubuntu 10.15 &nbsp;
+						<input type="checkbox" name="image" value="MacOSX 8.11">MacOSX 8.11 &nbsp;
+						<input type="submit" value="Save">
+					</form>
 				</div>
 				</div>
 			</div>
