@@ -1,8 +1,9 @@
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from ..models import *
+from ..forms import VmDefinitionForm
 
 
 def is_instructor_check(user):
@@ -11,13 +12,16 @@ def is_instructor_check(user):
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class VmDefinitionCreate(LoginRequiredMixin, CreateView):
-    model = VmDefinition
     template_name = './vm_definition_create.html'
-    fields = ['name', 'image', 'flavor', 'user_script']
+    form_class = VmDefinitionForm
+
+    def get_form_kwargs(self):
+        kwargs = super(VmDefinitionCreate, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         form.instance.environment_id = self.kwargs['pk']
-        # TODO check if image is allowed for instructor
         return super(VmDefinitionCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -25,18 +29,14 @@ class VmDefinitionCreate(LoginRequiredMixin, CreateView):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class VmDefinitionDetail(LoginRequiredMixin, DetailView):
-    template_name = './vm_definition_detail.html'
-    context_object_name = 'vm_definition'
-
-    def get_queryset(self):
-        return VmDefinition.objects.filter(environment__in=self.request.user.environment_definitions.all())
-
-
-@method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class VmDefinitionUpdate(LoginRequiredMixin, UpdateView):
     template_name = './vm_definition_update.html'
-    fields = ['name', 'image', 'flavor', 'user_script']
+    form_class = VmDefinitionForm
+
+    def get_form_kwargs(self):
+        kwargs = super(VmDefinitionCreate, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_queryset(self):
         return VmDefinition.objects.filter(environment__in=self.request.user.environment_definitions.all())
