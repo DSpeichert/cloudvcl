@@ -33,10 +33,10 @@ class Course(models.Model):
     students = models.ManyToManyField('User', blank=True)
 
     def __str__(self):
-        return self.id
+        return self.name
 
     def get_absolute_url(self):
-        return reverse('courses.detail', kwargs={'id': self.id})
+        return reverse('courses.detail', kwargs={'pk': self.id})
 
 
 # an instance of EnvironmentDefinition that exists in OpenStack cloud
@@ -45,7 +45,7 @@ class Environment(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class EnvironmentDefinition(models.Model):
@@ -115,7 +115,7 @@ class VmDefinition(models.Model):
     user_script = models.TextField()
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     def get_absolute_url(self):
         return reverse('environment', kwargs={'pk': self.id})
