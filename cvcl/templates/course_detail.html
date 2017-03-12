@@ -1,9 +1,34 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
     <h1>Course: {{ course.name }}</h1>
-
-    {% if user.is_instructor %}
-        TODO: list of user
-    {% endif %}
+    <table class="table table-hover">
+        <tr>
+            <th>Student username</th>
+        </tr>
+        {% if user.is_instructor %}
+            <p class="lead">This is a list of all students in this course.</p>
+            {% for student in course.students.all %}
+                <tr>
+                    <td>{{ student.username }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+            <li>No students to display in the course selected</li>
+        {% endif %}
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        <div class="pull-right">
+            {% buttons %}
+                {% url 'courses.detail.update' pk=ed.id as url %}
+                {% bootstrap_button button_type='link' content='Add Students' button_class='btn btn-primary' href=url %}
+                </button>
+                <a href="{% url "courses" %}" class="btn btn-default">
+                    {% bootstrap_icon "remove" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
+    </form>
 {% endblock %}

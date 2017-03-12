@@ -4,16 +4,15 @@
 {% block content %}
     <h1>Assignment: {{ assignment.name }}
         <div class="pull-right">
-            <a class="btn btn-default" href="{% url 'assignments' %}" role="button">Back</a>
+            <a class="btn btn-default" href="{% url 'assignments' %}" role="button">Back
+                {% bootstrap_icon "remove" %}</a>
         </div>
     </h1>
-
     {% if user in assignment.course.students.all %}
         <div class="text-center">
-            <a class="btn btn-default" href="{% url 'assignments.create' %}" role="button">Launch</a>
+            <a class="btn btn-primary" href="" role="button">Launch</a>
         </div>
     {% endif %}
-
     {% if assignment.course.instructor == user %}
         <p class="lead">This is a list of all environments created by your students.</p>
         {% if assignment.environments.all %}
