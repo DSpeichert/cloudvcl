@@ -3,7 +3,7 @@ from openstack.connection import Connection
 from django.conf import settings
 
 
-def create_connection():
+def os_connect():
     prof = Profile()
     prof.set_region(Profile.ALL, settings.OS_REGION_NAME)
 
@@ -17,3 +17,7 @@ def create_connection():
         user_domain_name='default',
         project_domain_name='default'
     )
+
+
+def get_default_network_id():
+    return settings.OS_NETWORK_ID

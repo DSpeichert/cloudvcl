@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # connecting to OpenStack API
-        conn = osapi.create_connection()
+        conn = osapi.os_connect()
         os_flavors = list(conn.compute.flavors())
         for os_flavor in os_flavors:
             flavor, created = Flavor.objects.get_or_create(uuid=os_flavor.id)

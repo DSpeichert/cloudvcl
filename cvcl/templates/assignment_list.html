@@ -6,7 +6,6 @@
         {% if user.is_instructor %}
             <div class="pull-right">
                 <a class="btn btn-primary" href="{% url 'assignments.create' %}" role="button">Create</a>
-                <a class="btn btn-primary" href="" role="button">Update</a>
             </div>
         {% endif %}
     </h1>
@@ -23,18 +22,18 @@
         </tr>
         {% for assignment in object_list %}
             <tr>
-                <td>{{ assignment.course.name }}</td>
+                <td><a href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a></td>
                 <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
                 <td>{{ assignment.description }}</td>
                 <td>{{ assignment.start_date }}</td>
                 <td>{{ assignment.end_date }}</td>
-                {% if user.is_instructor %}
+                {% if assignment.course.instructor == user %}
                     <td>
                         {% url 'assignments.update' pk=assignment.id as url %}
                         {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+
                         {% url 'assignments.delete' pk=assignment.id as url %}
                         {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-                        {% url 'assignments.update' pk=assignment.id as url %}
                     </td>
                 {% endif %}
             </tr>

@@ -5,6 +5,8 @@ from django.utils import timezone
 
 
 class Assignment(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=30)
     description = models.TextField()
     start_date = models.DateTimeField(default=timezone.now)
@@ -23,6 +25,8 @@ class Assignment(models.Model):
 
 
 class Course(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=30)
     instructor = models.ForeignKey(
         'User',
@@ -41,14 +45,21 @@ class Course(models.Model):
 
 # an instance of EnvironmentDefinition that exists in OpenStack cloud
 class Environment(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     assignment = models.ForeignKey('Assignment', on_delete=models.CASCADE, related_name='environments')
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
 
+    def get_absolute_url(self):
+        return reverse('environments.detail', kwargs={'pk': self.id})
+
 
 class EnvironmentDefinition(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=50)
     instructor = models.ForeignKey(
         'User',
@@ -99,16 +110,23 @@ class User(AbstractUser):
 
 # an instance of VMDefinition that exists in OpenStack cloud
 class Vm(models.Model):
-    uuid = models.CharField(max_length=36)
-    ip_address = models.GenericIPAddressField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     environment = models.ForeignKey('Environment', on_delete=models.CASCADE, related_name='vms')
     vm_definition = models.ForeignKey('VmDefinition')
+    uuid = models.CharField(max_length=36)
+    state = models.CharField(max_length=10, blank=True, null=True)
+    ip_address = models.GenericIPAddressField(unpack_ipv4=True, blank=True, null=True)
+    username = models.CharField(max_length=255, blank=True, null=True)
+    password = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.uuid
 
 
 class VmDefinition(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=50)
     environment = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
     image = models.ForeignKey('Image', on_delete=models.CASCADE)

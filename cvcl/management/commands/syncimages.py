@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # connecting to OpenStack API
-        conn = osapi.create_connection()
+        conn = osapi.os_connect()
         os_images = list(conn.image.images())
         for os_image in os_images:
             image, created = Image.objects.get_or_create(uuid=os_image.id)

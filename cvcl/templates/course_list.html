@@ -17,19 +17,18 @@
                 <th>Actions</th>
             {% endif %}
         </tr>
-        {% for ed in course_list %}
+        {% for course in course_list %}
             <tr>
-                <td><a href="{% url "courses.detail" ed.id %}">{{ ed.name }}</a></td>
-                {% if user.is_instructor %}
+                <td><a href="{% url "courses.detail" course.id %}">{{ course.name }}</a></td>
+                {% if course.instructor == user %}
                     <td>
-                        {% url 'courses.update' pk=ed.id as url %}
+                        {% url 'courses.update' pk=course.id as url %}
                         {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
-                        {% url 'courses.delete' pk=ed.id as url %}
+                        {% url 'courses.delete' pk=course.id as url %}
                         {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
                     </td>
                 {% endif %}
             </tr>
         {% endfor %}
     </table>
-
 {% endblock %}

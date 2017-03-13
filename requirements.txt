@@ -1,3 +1,4 @@
 Django>=1.10.6
 openstacksdk>=0.9.14
 django-bootstrap3>=8.2.1
+pyyaml>=3.11

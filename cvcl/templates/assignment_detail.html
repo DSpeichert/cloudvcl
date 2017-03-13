@@ -4,15 +4,32 @@
 {% block content %}
     <h1>Assignment: {{ assignment.name }}
         <div class="pull-right">
-            <a class="btn btn-default" href="{% url 'assignments' %}" role="button">Back
-                {% bootstrap_icon "remove" %}</a>
+            <a class="btn btn-default" href="{% url 'assignments' %}" role="button">
+                {% bootstrap_icon "chevron-left" %} Back
+            </a>
+            <a class="btn btn-warning" href="{% url 'assignments.update' pk=assignment.id %}" role="button">
+                {% bootstrap_icon "pencil" %} Update
+            </a>
         </div>
     </h1>
     {% if user in assignment.course.students.all %}
-        <div class="text-center">
-            <a class="btn btn-primary" href="" role="button">Launch</a>
-        </div>
+        {% if environment %}
+            <div class="text-center">
+                <a class="btn btn-primary" href="{% url 'environments.detail' pk=environment.id %}" role="button">Enter your
+                    environment</a>
+                <a class="btn btn-danger" href="{% url 'environments.delete' pk=environment.id %}" role="button">Delete
+                    your environment</a>
+            </div>
+        {% else %}
+            <div class="text-center">
+                <form action="{% url 'assignments.launch' assignment.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Launch a new environment for this assignment</button>
+                </form>
+            </div>
+        {% endif %}
     {% endif %}
+
     {% if assignment.course.instructor == user %}
         <p class="lead">This is a list of all environments created by your students.</p>
         {% if assignment.environments.all %}
@@ -37,4 +54,3 @@
         {% endif %}
     {% endif %}
 {% endblock %}
-
