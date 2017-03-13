@@ -1,46 +1,80 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1>Welcome to Cloud VCL</h1>
+    <h1 align="center">Welcome to Cloud VCL</h1>
 
+    </br>
     <p>
-        You have entered the Virtual Computing Lab (VCL). Navigate to the following pages to start working.
+        You have entered the Virtual Computing Lab (VCL)!
     </p>
 
     {% if user.is_instructor %}
         <div class="alert alert-border alert-info alert-block" role="alert">
             <p>
-                <strong>You're an instructor!</strong> Here are your quotas:
+                <strong>You're an instructor!</strong> Below you’ll find what you were allocated by your system
+                administrator:
             </p>
+            </br>
+
             <ul class="list-inline">
                 <li>Instance count: {{ user.limit_instances }}</li>
                 <li>CPU count: {{ user.limit_cpus }}</li>
                 <li>Total RAM: {{ user.limit_ram|filesizeformat }}</li>
             </ul>
+
+            </br>
             <p>
-                A reminder: your quota is shared among all your students in all your courses.
+                <u>Your allocated quota is shared among all your students in all your courses</u>.
             </p>
         </div>
 
+        <p>
+            Steps in order to create an assignment:
+        </p>
+
+        <ol>
+            <li>Create course from Courses</li>
+            <li>Create environment definition from Environment Definitions</li>
+            <li>Create VM definition within Environment Definition</li>
+            <li>Create assignment from Assignments</li>
+        </ol>
+
+        </br>
         <h4>Assignments</h4>
         <p>
-            Go here to view assignments that have been started by your students. From here you will be able to view and
-            manage the virtual environments that they've created
-            for each assignment.
+            This page allows you to create assignments; however, you will first need to create a new Course as well as
+            an
+            Environment Definition. After you have created those two components, provide the assignment name, a
+            description,
+            and start and end date, select the specific Course and Environment Definition from the dropdown menus to
+            finish
+            creating the assignment. At any given time you may edit the assignment or choose to delete it through the
+            assignment list.
         </p>
 
+        </br>
         <h4>Courses</h4>
         <p>
-            Go here to view the details of courses that you are instructing, such as the list of students and active
-            assignments.
+            This page allows you to create courses. Once you begin creating a course, you will be instructed to add
+            students.
+            If you forget to add a student, you may return to edit the course within the course list in order to add or
+            remove students.
+            You can also delete a course or multiple courses.
         </p>
 
+        </br>
         <h4>Environments Definitions</h4>
         <p>
-            Go here to define the name, image, and flavor for virtual environments that virtual machines will spawn
-            from.
+            This page allows you to create environment definitions. After naming the environment definition, you will
+            see the option to
+            create a VM Definition (it is required for you to create a VM Definition for each Environment Definition in
+            order for students
+            to have a working virtual machine). In the Create VM Definition page, provide a name and then select your
+            image and flavor from
+            the dropdown menus. You can also create additional VM Definitions or choose to edit them.
         </p>
     {% else %}
+        </br>
         <h4>Assignments</h4>
         <p>
             Go here to view your current assignments. Before their end date, you will be able to launch a virtual
@@ -48,9 +82,11 @@
             virtual machines to complete that assignment.
         </p>
 
+        </br>
         <h4>Courses</h4>
         <p>
-            Go here to view the details of courses that you're enrolled in.
+            Go here to view the details of courses that you're enrolled in as well as assignments given in those
+            courses.
         </p>
     {% endif %}
 
