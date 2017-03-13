@@ -142,9 +142,8 @@ class Vm(models.Model):
         try:
             server = nova.servers.get(self.uuid)
             console = server.get_console_url('novnc')
-            # print(console['console'])
             return console['console']
-        except NovaNotFound as e:
+        except NovaNotFound:
             pass
 
 
