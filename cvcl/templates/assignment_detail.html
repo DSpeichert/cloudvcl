@@ -3,6 +3,7 @@
 
 {% block content %}
     <h1>{{ assignment }}
+        <small>{{ assignment.course }}</small>
         <div class="pull-right">
             <a class="btn btn-default" href="{% url 'assignments' %}" role="button">
                 {% bootstrap_icon "chevron-left" %} Back
