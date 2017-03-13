@@ -5,7 +5,8 @@
     <h1>Course List
         {% if user.is_instructor %}
             <div class="pull-right">
-                <a class="btn btn-primary" href="{% url 'courses.create' %}" role="button">Create</a>
+                <a class="btn btn-primary" href="{% url 'courses.create' %}" role="button">
+                    {% bootstrap_icon "plus" %} Create</a>
             </div>
         {% endif %}
     </h1>
@@ -13,21 +14,19 @@
     <table class="table table-hover">
         <tr>
             <th>Course Name</th>
-            {% if user.is_instructor %}
-                <th>Actions</th>
-            {% endif %}
         </tr>
         {% for course in course_list %}
             <tr>
-                <td><a href="{% url "courses.detail" course.id %}">{{ course.name }}</a></td>
-                {% if course.instructor == user %}
-                    <td>
-                        {% url 'courses.update' pk=course.id as url %}
-                        {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
-                        {% url 'courses.delete' pk=course.id as url %}
-                        {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-                    </td>
-                {% endif %}
+                <td><a href="{% url "courses.detail" course.id %}">{{ course.name }}</a>
+                    {% if course.instructor == user %}
+                        <div class="pull-right">
+                            {% url 'courses.update' pk=course.id as url %}
+                            {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                            {% url 'courses.delete' pk=course.id as url %}
+                            {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                        </div>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </table>

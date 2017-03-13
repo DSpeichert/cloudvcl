@@ -2,6 +2,8 @@ from django.http import HttpResponseNotFound
 from django.views.generic import DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.db.models import Q
 from ..models import *
 
 
@@ -11,7 +13,8 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
 
     def get_queryset(self):
         queryset = super(EnvironmentDetail, self).get_queryset()
-        return queryset.filter(user=self.request.user).prefetch_related()
+        return queryset.filter(
+            Q(user=self.request.user) | Q(assignment__course__instructor=self.request.user)).prefetch_related()
 
     def get_context_data(self, **kwargs):
         context = super(EnvironmentDetail, self).get_context_data(**kwargs)
@@ -25,6 +28,15 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
 
         return context
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        if self.kwargs.get('uuid', None) is None:
+            first_vm = self.object.vms.first()
+            if first_vm is not None:
+                return redirect(first_vm)
+        return self.render_to_response(context)
+
 
 class EnvironmentDelete(LoginRequiredMixin, DeleteView):
     model = Environment
@@ -32,7 +44,8 @@ class EnvironmentDelete(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         queryset = super(EnvironmentDelete, self).get_queryset()
-        return queryset.filter(user=self.request.user)
+        return queryset.filter(
+            Q(user=self.request.user) | Q(assignment__course__instructor=self.request.user)).prefetch_related()
 
     def get_success_url(self):
         return reverse_lazy('assignments.detail', kwargs={'pk': self.object.assignment.id})

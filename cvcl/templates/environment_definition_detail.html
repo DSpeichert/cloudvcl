@@ -4,12 +4,14 @@
 {% block content %}
     <h1>Environment Definition: {{ environment_definition.name }}
         <div class="pull-right">
-            <a class="btn btn-primary" href="{% url 'envdefs.createvmdef' environment_definition.id %}" role="button">Create
-                VM Definition</a>
+            <a class="btn btn-primary" href="{% url 'envdefs.createvmdef' environment_definition.id %}" role="button">
+                {% bootstrap_icon "plus" %} Create VM Definition</a>
+            <a class="btn btn-warning" href="{% url 'envdefs.update' environment_definition.id %}" role="button">
+                {% bootstrap_icon "pencil" %} Update name</a>
         </div>
     </h1>
 
-    <p class="lead">Students spawning an environment from this definition will see those VMs.</p>
+    <p class="lead">Students spawning an environment from this environment definition will receive the following VMs</p>
     <table class="table table-hover">
         <tr>
             <th>Name</th>

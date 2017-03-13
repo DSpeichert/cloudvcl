@@ -2,75 +2,88 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>Course: {{ course.name }}
+    <h1>{{ course }}
         <div class="pull-right">
             {% buttons %}
                 <a href="{% url "courses" %}" class="btn btn-default">
                     {% bootstrap_icon "chevron-left" %} Back
                 </a>
-                <a href="{% url "courses.delete" pk=course.id %}" class="btn btn-danger">
-                    {% bootstrap_icon "trash" %} Delete course
-                </a>
+                {% if assignment.course.instructor == user %}
+                    <a href="{% url "courses.delete" pk=course.id %}" class="btn btn-danger">
+                        {% bootstrap_icon "trash" %} Delete course
+                    </a>
+                {% endif %}
             {% endbuttons %}
         </div>
+        <small>Instructor: {{ course.instructor }}</small>
     </h1>
 
     <h2>Assignment List
-        {% if course.instructor == user %}
+        {% if assignment.course.instructor == user %}
             <div class="pull-right">
                 <a class="btn btn-primary" href="{% url 'assignments.create' %}" role="button">
                     {% bootstrap_icon "plus" %} Create Assignment</a>
             </div>
         {% endif %}
     </h2>
-    <table class="table table-hover">
-        <tr>
-            <th>Course</th>
-            <th>Assignment Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            {% if course.instructor == user %}
-                <th></th>
-            {% endif %}
-        </tr>
-        {% for assignment in course.assignments.all %}
-            <tr>
-                <td><a href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a></td>
-                <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
-                <td>{{ assignment.description }}</td>
-                <td>{{ assignment.start_date }}</td>
-                <td>{{ assignment.end_date }}</td>
-                {% if assignment.course.instructor == user %}
-                    <td>
-                        {% url 'assignments.update' pk=assignment.id as url %}
-                        {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
 
-                        {% url 'assignments.delete' pk=assignment.id as url %}
-                        {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-                        {% url 'assignments.update' pk=assignment.id as url %}
-                    </td>
+    {% if course.current_assignments or course.instructor == user and course.assignments.all %}
+        <table class="table table-hover">
+            <tr>
+                <th>Course</th>
+                <th>Assignment Name</th>
+                <th>Description</th>
+                <th>Dates Available</th>
+                {% if course.instructor == user %}
+                    <th></th>
                 {% endif %}
             </tr>
-        {% endfor %}
-    </table>
+            {% for assignment in course.assignments.all %}
+                {% if course.instructor == user or assignment.is_current %}
+                    <tr>
+                        <td><a href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a>
+                        </td>
+                        <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
+                        <td>{{ assignment.description }}</td>
+                        <td>{{ assignment.start_date }} - {{ assignment.end_date }}
+                            {% if not assignment.is_current %}
+                                <br/><span class="label label-default">CURRENTLY HIDDEN FROM STUDENTS</span>
+                            {% endif %}
+                        </td>
+                        {% if assignment.course.instructor == user %}
+                            <td>
+                                {% url 'assignments.update' pk=assignment.id as url %}
+                                {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+
+                                {% url 'assignments.delete' pk=assignment.id as url %}
+                                {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                                {% url 'assignments.update' pk=assignment.id as url %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No assignments available.</p>
+    {% endif %}
 
     {% if course.instructor == user %}
         <h2>Students in this course
             <div class="pull-right">
-                {% url 'courses.update' pk=course.id as url %}
-                {% bootstrap_button button_type='link' content='Add Students / Edit Course' button_class='btn btn-warning' href=url %}
+                <a href="{% url "courses.update" pk=course.id %}" class="btn btn-warning">
+                    {% bootstrap_icon "pencil" %} Add/Remove Students / Edit Course</a>
             </div>
         </h2>
 
         <table class="table table-hover">
             <tr>
-                <th>Student username</th>
+                <th>Student</th>
             </tr>
             {% if course.students.all %}
                 {% for student in course.students.all %}
                     <tr>
-                        <td>{{ student.username }}</td>
+                        <td>{{ student }}</td>
                     </tr>
                 {% endfor %}
             {% else %}

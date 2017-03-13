@@ -22,7 +22,6 @@ class CustomUserAdmin(UserAdmin):
                                         'limit_cpus',
                                         'limit_ram',
                                         'images',
-                                        'courses'
                                         )
                              }
          ),

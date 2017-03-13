@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.crypto import get_random_string
 from django.db import transaction
+from django.db.models import Q
 import yaml, base64
 from passlib.hash import sha512_crypt
 from ..models import *
@@ -37,8 +38,9 @@ class AssignmentDetail(LoginRequiredMixin, DetailView):
     template_name = './assignment_detail.html'
 
     def get_queryset(self):
-        return Assignment.objects.filter(course__in=self.request.user.instructs.all()) | Assignment.objects.filter(
-            course__in=self.request.user.courses.all(), start_date__lte=timezone.now(), end_date__gte=timezone.now())
+        return Assignment.objects.filter(Q(course__in=self.request.user.instructs.all()) | Q(
+            course__in=self.request.user.studies.all(), start_date__lte=timezone.now(),
+            end_date__gte=timezone.now())).distinct()
 
     def get_context_data(self, **kwargs):
         context = super(AssignmentDetail, self).get_context_data(**kwargs)
@@ -53,8 +55,9 @@ class AssignmentList(LoginRequiredMixin, ListView):
     template_name = './assignment_list.html'
 
     def get_queryset(self):
-        return Assignment.objects.filter(course__in=self.request.user.instructs.all()) | Assignment.objects.filter(
-            course__in=self.request.user.courses.all(), start_date__lte=timezone.now(), end_date__gte=timezone.now())
+        return Assignment.objects.filter(Q(course__in=self.request.user.instructs.all()) | Q(
+            course__in=self.request.user.studies.all(), start_date__lte=timezone.now(),
+            end_date__gte=timezone.now())).distinct()
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
@@ -83,10 +86,16 @@ class AssignmentDelete(LoginRequiredMixin, DeleteView):
 @method_decorator(transaction.atomic, name='dispatch')
 class AssignmentLaunch(LoginRequiredMixin, View):
     def post(self, request, **kwargs):
-        assignment = get_object_or_404(Assignment,
-                                       pk=kwargs['pk'],
-                                       start_date__lte=timezone.now(),
-                                       end_date__gte=timezone.now())
+        assignment = get_object_or_404(Assignment, pk=kwargs['pk'])
+        if assignment.course.instructor != request.user:
+            if assignment.start_date > timezone.now() or assignment.end_date < timezone.now():
+                # student's can't launch environment outside specified dates
+                return HttpResponseForbidden()
+        else:
+            if assignment.end_date < timezone.now():
+                # instructors can't launch environment after assignment expired (it would get cleaned up soon)
+                return HttpResponseForbidden()
+
         if request.user not in assignment.course.students.all():
             # student not in course/assignment
             return HttpResponseForbidden()
@@ -115,7 +124,7 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 ],
             }, default_flow_style=False)
             server = os_conn.compute.create_server(
-                name=vmd.name,
+                name=vmd.name + '.' + username,
                 image_id=vmd.image.uuid,
                 flavor_id=vmd.flavor.uuid,
                 networks=[{"uuid": get_default_network_id()}],

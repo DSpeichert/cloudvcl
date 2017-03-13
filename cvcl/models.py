@@ -26,6 +26,9 @@ class Assignment(models.Model):
     def get_absolute_url(self):
         return reverse('assignments.detail', kwargs={'pk': self.id})
 
+    def is_current(self):
+        return not (self.start_date > timezone.now() or self.end_date < timezone.now())
+
 
 class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -37,13 +40,16 @@ class Course(models.Model):
         limit_choices_to={'is_instructor': True},
         related_name='instructs',
     )
-    students = models.ManyToManyField('User', blank=True)
+    students = models.ManyToManyField('User', blank=True, related_name='studies')
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('courses.detail', kwargs={'pk': self.id})
+
+    def current_assignments(self):
+        return self.assignments.filter(start_date__lte=timezone.now(), end_date__gte=timezone.now())
 
 
 # an instance of EnvironmentDefinition that exists in OpenStack cloud
@@ -104,11 +110,10 @@ class User(AbstractUser):
         default=False,
         help_text='Designates whether this user should be treated as an instructor.'
     )
-    courses = models.ManyToManyField('Course', blank=True)
     images = models.ManyToManyField('Image', blank=True)
 
     def __str__(self):
-        return self.username
+        return self.get_full_name() + ' (' + self.get_username() + ')' if self.get_full_name() != '' else self.get_username()
 
 
 # an instance of VMDefinition that exists in OpenStack cloud
@@ -128,7 +133,7 @@ class Vm(models.Model):
         return self.uuid
 
     def get_absolute_url(self):
-        return reverse('environment.detail', kwargs={'pk': self.environment.id, 'uuid': self.uuid})
+        return reverse('environments.detail', kwargs={'pk': self.environment.id, 'uuid': self.uuid})
 
     def get_vnc(self):
         os_conn = os_connect()

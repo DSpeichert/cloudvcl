@@ -2,23 +2,29 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>Assignment: {{ assignment.name }}
+    <h1>{{ assignment }}
         <div class="pull-right">
             <a class="btn btn-default" href="{% url 'assignments' %}" role="button">
                 {% bootstrap_icon "chevron-left" %} Back
             </a>
-            <a class="btn btn-warning" href="{% url 'assignments.update' pk=assignment.id %}" role="button">
-                {% bootstrap_icon "pencil" %} Update
-            </a>
+            {% if assignment.course.instructor == user %}
+                <a class="btn btn-warning" href="{% url 'assignments.update' pk=assignment.id %}" role="button">
+                    {% bootstrap_icon "pencil" %} Update Assignment
+                </a>
+                <a class="btn btn-primary" href="{% url 'envdefs.detail' pk=assignment.environment_definition.id %}"
+                   role="button">
+                    {% bootstrap_icon "chevron-right" %} Environment Definition
+                </a>
+            {% endif %}
         </div>
     </h1>
     {% if user in assignment.course.students.all %}
         {% if environment %}
             <div class="text-center">
-                <a class="btn btn-primary" href="{% url 'environments.detail' pk=environment.id %}" role="button">Enter your
-                    environment</a>
-                <a class="btn btn-danger" href="{% url 'environments.delete' pk=environment.id %}" role="button">Delete
-                    your environment</a>
+                <a class="btn btn-primary" href="{% url 'environments.detail' pk=environment.id %}" role="button">
+                    Enter your environment</a>
+                <a class="btn btn-danger" href="{% url 'environments.delete' pk=environment.id %}" role="button">
+                    Delete your environment</a>
             </div>
         {% else %}
             <div class="text-center">
@@ -28,9 +34,17 @@
                 </form>
             </div>
         {% endif %}
+    {% else %}
+        <p class="text-center">
+            You can see this assignment but you cannot launch your environment.
+            Add yourself to course {{ assignment.course }} as a student to be able to launch an environment for it.
+            <a class="btn btn-warning" href="{% url 'courses.update' pk=assignment.course.id %}" role="button">
+                {% bootstrap_icon "pencil" %} Edit this course</a>
+        </p>
     {% endif %}
+
     {% if assignment.course.instructor == user %}
-        <p class="lead">This is a list of all environments created by your students.</p>
+        <h2>List of students' environments</h2>
         {% if assignment.environments.all %}
             <table class="table table-hover">
                 <tr>

@@ -2,15 +2,22 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>{{ environment.user.username }}'s environment for {{ environment.assignment.name }}
+    <h1>{{ environment.user }}'s environment for {{ environment.assignment.name }}
         <div class="pull-right">
             <a class="btn btn-default" href="{% url 'assignments.detail' pk=environment.assignment.id %}" role="button">
                 {% bootstrap_icon "chevron-left" %} Back
             </a>
-            {% url 'environments.delete' pk=environment.id as url %}
-            {% bootstrap_button button_type='link' content='Delete environment' button_class='btn-danger' href=url %}
+            <a class="btn btn-danger" href="{% url 'assignments.delete' pk=environment.assignment.id %}" role="button">
+                {% bootstrap_icon "trash" %} Delete environment
+            </a>
         </div>
     </h1>
+
+    <p>
+        <strong>Environment created on</strong> {{ environment.created_at }}
+        <strong>Assignment ends on</strong> {{ environment.assignment.end_date }}
+        <strong>Your VMs will be deleted in {{ environment.assignment.end_date|timeuntil }}!</strong>
+    </p>
 
     <ul class="nav nav-tabs">
         {% for vm in environment.vms.all %}
@@ -21,13 +28,18 @@
         {% endfor %}
     </ul>
 
-    <ul>
-        <li>Image: {{ vm.vm_definition.image.name }}</li>
-        <li>IP Address: {{ vm.ip_address }}</li>
-        <li>Username: {{ vm.username }}</li>
-        <li>Password: {{ vm.password }}</li>
-    </ul>
+    {% if vm %}
+        <div class="alert alert-info alert-border">
+            <ul class="list-inline">
+                <li>Image: <strong>{{ vm.vm_definition.image.name }}</strong></li>
+                <li>IP Address: <strong>{{ vm.ip_address }}</strong></li>
+                <li>Username: <strong>{{ vm.username }}</strong></li>
+                <li>Password: <strong>{{ vm.password }}</strong></li>
+            </ul>
+        </div>
 
-    <iframe id="console_embed" src="{{ vm.get_vnc.url }}" style="width: 100%; height: 638px;"></iframe>
-
+        <iframe id="console_embed" src="{{ vm.get_vnc.url }}" style="width: 100%; height: 638px;"></iframe>
+    {% else %}
+        This environment is empty. Contact your instructor: {{ environment.assignment.course.instructor }}
+    {% endif %}
 {% endblock %}

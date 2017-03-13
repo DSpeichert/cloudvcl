@@ -3,43 +3,52 @@
 {% block content %}
     <h1>Welcome to Cloud VCL</h1>
 
-    <div id="lipsum" style="text-align: justify;">
+    <p>
+        You have entered the Virtual Computing Lab (VCL). Navigate to the following pages to start working.
+    </p>
+
+    {% if user.is_instructor %}
+        <div class="alert alert-border alert-info alert-block" role="alert">
+            <p>
+                <strong>You're an instructor!</strong> Here are your quotas:
+            </p>
+            <ul class="list-inline">
+                <li>Instance count: {{ user.limit_instances }}</li>
+                <li>CPU count: {{ user.limit_cpus }}</li>
+                <li>Total RAM: {{ user.limit_ram|filesizeformat }}</li>
+            </ul>
+            <p>
+                A reminder: your quota is shared among all your students in all your courses.
+            </p>
+        </div>
+
+        <h4>Assignments</h4>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non semper enim. Nunc sit amet eros
-            euismod, volutpat leo id, laoreet ex. Integer ultrices sollicitudin varius. Etiam urna nisl, pulvinar eu
-            fringilla sed, iaculis vitae ligula. Integer posuere, neque et lacinia iaculis, odio mauris tristique enim,
-            vitae fermentum felis felis nec tortor. Integer arcu massa, venenatis efficitur lacus eget, euismod finibus
-            diam. Nunc ut dolor at eros suscipit tempor.
+            Go here to view assignments that have been started by your students. From here you will be able to view and
+            manage the virtual environments that they've created
+            for each assignment.
         </p>
+        <h4>Courses</h4>
         <p>
-            Duis id ultrices nisl. Aenean quis scelerisque magna, eu molestie leo. Sed accumsan pharetra pellentesque.
-            Phasellus eu elit quis nibh auctor elementum. Vestibulum cursus venenatis nisl a varius. Maecenas eu nisl
-            odio. Fusce volutpat dui nibh, a placerat tortor maximus ac. Mauris fringilla, dui non suscipit tempor,
-            mauris mi commodo dui, et sodales velit nunc eu turpis. Morbi malesuada eleifend enim sed posuere.
+            Go here to view the details of courses that you are instructing, such as the list of students and active
+            assignments.
         </p>
+        <h4>Environments Definitions</h4>
         <p>
-            Nulla et turpis ac nunc euismod aliquam non sed lacus. Nullam ac dictum dui. Nunc eu metus viverra, eleifend
-            eros et, venenatis tellus. Nullam lacus dolor, vulputate ut nibh sollicitudin, iaculis sagittis augue. Morbi
-            eu malesuada nibh. Proin consequat bibendum tortor a euismod. In in nulla sagittis, accumsan mauris eget,
-            feugiat nisi. Aliquam dolor nibh, iaculis sit amet orci cursus, mollis molestie nibh. Praesent posuere ac
-            eros nec blandit. Integer hendrerit pulvinar semper.
+            Go here to define the name, image, and flavor for virtual environments that virtual machines will spawn
+            from.
         </p>
+    {% else %}
+        <h4><b>Assignments</h4>
         <p>
-            Cras dolor metus, facilisis eget fringilla vel, efficitur nec augue. Vestibulum vitae mattis sapien.
-            Pellentesque ultricies pharetra felis, sit amet posuere est egestas rutrum. Donec nec consectetur nibh.
-            Quisque vitae feugiat arcu. Aliquam enim diam, elementum vel scelerisque eu, ullamcorper eget quam. Cras
-            eget risus blandit, egestas sapien ac, tempus purus. Integer mauris quam, fringilla sit amet leo sed,
-            posuere rhoncus arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis hendrerit ligula
-            nisi, id tristique libero feugiat at. Fusce congue nulla ex, eu semper sem tincidunt sed. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Duis aliquam ipsum eu lorem luctus convallis. Vestibulum aliquet
-            nulla eu tempus ultrices. Aliquam vehicula ligula a urna egestas tempor. Aenean ornare mattis lectus sed
-            consectetur.
+            Go here to view your current assignments. Before their end date, you will be able to launch a virtual
+            environment for each assignment, allowing you to work with
+            virtual machines to complete that assignment.
         </p>
+        <h4>Courses</h4>
         <p>
-            In malesuada elit ut velit tempor cursus. Suspendisse ultrices metus ut turpis ultricies tempus. Nunc quam
-            arcu, dapibus quis molestie vitae, semper eget nibh. Nunc lacinia mi blandit risus suscipit malesuada.
-            Aliquam mattis nulla nec tempor ornare. In vitae auctor risus, id interdum urna. Interdum et malesuada fames
-            ac ante ipsum primis in faucibus. Vestibulum eget tempus augue, non suscipit lectus.
-        </p></div>
+            Go here to view the details of courses that you're enrolled in.
+        </p>
+    {% endif %}
 
 {% endblock %}
