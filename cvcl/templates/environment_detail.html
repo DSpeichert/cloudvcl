@@ -2,12 +2,12 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>{{ environment.user }}'s environment for {{ environment.assignment.name }}
+    <h1>{{ environment.assignment.name }} <small>{{ environment.user }}'s environment</small>
         <div class="pull-right">
             <a class="btn btn-default" href="{% url 'assignments.detail' pk=environment.assignment.id %}" role="button">
                 {% bootstrap_icon "chevron-left" %} Back
             </a>
-            <a class="btn btn-danger" href="{% url 'assignments.delete' pk=environment.assignment.id %}" role="button">
+            <a class="btn btn-danger" href="{% url 'environments.delete' pk=environment.id %}" role="button">
                 {% bootstrap_icon "trash" %} Delete environment
             </a>
         </div>

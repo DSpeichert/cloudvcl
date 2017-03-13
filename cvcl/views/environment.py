@@ -45,7 +45,7 @@ class EnvironmentDelete(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         queryset = super(EnvironmentDelete, self).get_queryset()
         return queryset.filter(
-            Q(user=self.request.user) | Q(assignment__course__instructor=self.request.user)).prefetch_related()
+            Q(user=self.request.user) | Q(assignment__course__instructor=self.request.user))
 
     def get_success_url(self):
         return reverse_lazy('assignments.detail', kwargs={'pk': self.object.assignment.id})

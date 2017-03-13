@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.dispatch import receiver
 from .osapi import os_connect
 from novaclient import client as nc
+from novaclient.exceptions import NotFound as NovaNotFound
 
 
 class Assignment(models.Model):
@@ -138,16 +139,19 @@ class Vm(models.Model):
     def get_vnc(self):
         os_conn = os_connect()
         nova = nc.Client("2.1", session=os_conn.session)
-        server = nova.servers.get(self.uuid)
-        console = server.get_console_url('novnc')
-        # print(console['console'])
-        return console['console']
+        try:
+            server = nova.servers.get(self.uuid)
+            console = server.get_console_url('novnc')
+            # print(console['console'])
+            return console['console']
+        except NovaNotFound as e:
+            pass
 
 
 @receiver(models.signals.post_delete, sender=Vm)
 def delete_file(sender, instance, *args, **kwargs):
     os_conn = os_connect()
-    os_conn.compute.delete_server(instance.uuid)
+    os_conn.compute.delete_server(instance.uuid, Force=True)
 
 
 class VmDefinition(models.Model):
