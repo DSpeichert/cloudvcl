@@ -16,12 +16,13 @@
         {% for vm in environment.vms.all %}
             {% url 'environments.detail' pk=environment.id uuid=vm.uuid as url %}
             <li role="presentation" {% if url in request.path %}class="active"{% endif %}>
-                <a href="{{ url }}">{{ vm.name }}</a>
+                <a href="{{ url }}">{{ vm.name }} ({{ vm.status }})</a>
             </li>
         {% endfor %}
     </ul>
 
     <ul>
+        <li>Image: {{ vm.vm_definition.image.name }}</li>
         <li>IP Address: {{ vm.ip_address }}</li>
         <li>Username: {{ vm.username }}</li>
         <li>Password: {{ vm.password }}</li>

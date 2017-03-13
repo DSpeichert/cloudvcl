@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^envdefs/(?P<pk>\d+)/update$', EnvironmentDefinitionUpdate.as_view(), name='envdefs.update'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)/delete$', EnvironmentDefinitionDelete.as_view(), name='envdefs.delete'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)/createvmdef$', VmDefinitionCreate.as_view(), name='envdefs.createvmdef'),  # instructor
-    url(r'^vmdef/(?P<pk>\d+)/update$', VmDefinitionUpdate.as_view(), name='vmdef.update'),  # instructor
-    url(r'^vmdef/(?P<pk>\d+)/delete$', VmDefinitionDelete.as_view(), name='vmdef.delete'),  # instructor
+    url(r'^vmdefinitions/(?P<pk>\d+)/update$', VmDefinitionUpdate.as_view(), name='vmdef.update'),  # instructor
+    url(r'^vmdefinitions/(?P<pk>\d+)/delete$', VmDefinitionDelete.as_view(), name='vmdef.delete'),  # instructor
 ]

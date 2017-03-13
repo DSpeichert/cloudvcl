@@ -127,19 +127,22 @@ class Vm(models.Model):
     def __str__(self):
         return self.uuid
 
+    def get_absolute_url(self):
+        return reverse('environment.detail', kwargs={'pk': self.environment.id, 'uuid': self.uuid})
+
     def get_vnc(self):
         os_conn = os_connect()
         nova = nc.Client("2.1", session=os_conn.session)
         server = nova.servers.get(self.uuid)
         console = server.get_console_url('novnc')
-        print(console['console'])
+        # print(console['console'])
         return console['console']
 
 
 @receiver(models.signals.post_delete, sender=Vm)
 def delete_file(sender, instance, *args, **kwargs):
     os_conn = os_connect()
-    os_conn.servers.delete(instance.uuid)
+    os_conn.compute.delete_server(instance.uuid)
 
 
 class VmDefinition(models.Model):
@@ -155,4 +158,4 @@ class VmDefinition(models.Model):
         return str(self.id)
 
     def get_absolute_url(self):
-        return reverse('environment', kwargs={'pk': self.id})
+        return reverse('envdefs.detail', kwargs={'pk': self.environment.id})

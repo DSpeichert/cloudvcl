@@ -8,7 +8,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.crypto import get_random_string
 from django.db import transaction
-import yaml, base64, io
+import yaml, base64
+from passlib.hash import sha512_crypt
 from ..models import *
 from ..forms import AssignmentForm
 from ..osapi import get_default_network_id, os_connect
@@ -99,15 +100,26 @@ class AssignmentLaunch(LoginRequiredMixin, View):
 
         for vmd in environment.assignment.environment_definition.vmdefinition_set.all():
             os_conn = os_connect()
+            username = self.request.user.username
             password = get_random_string(length=8)
-            user_data = {password: password}
-            print(os_conn.image.get_image(vmd.image.uuid))
+            user_data = '#cloud-config\n' + yaml.dump({
+                # 'password': password,
+                'users': [
+                    'default',
+                    {
+                        'name': username,
+                        'sudo': 'ALL = (ALL) NOPASSWD: ALL',
+                        'lock_passwd': False,
+                        'passwd': sha512_crypt.encrypt(password),
+                    }
+                ],
+            }, default_flow_style=False)
             server = os_conn.compute.create_server(
                 name=vmd.name,
                 image_id=vmd.image.uuid,
                 flavor_id=vmd.flavor.uuid,
                 networks=[{"uuid": get_default_network_id()}],
-                user_data=yaml.dump(user_data)
+                user_data=base64.b64encode(bytes(user_data, 'utf-8')).decode('utf-8')
             )
 
             vm = environment.vms.create(
@@ -116,12 +128,13 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 status=server.status,
                 ip_address=server.access_ipv4,
                 vm_definition=vmd,
+                username=username,
                 password=password,
             )
             server = os_conn.compute.wait_for_server(server)
-            #print(server)
+            # print(server)
             server = os_conn.compute.get_server(server.id)
-            #print(server)
+            # print(server)
             vm.status = server.status
             vm.ip_address = server.addresses[list(server.addresses.keys())[0]][0]['addr']
             vm.save()
