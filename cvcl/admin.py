@@ -7,7 +7,6 @@ admin.site.register(Environment)
 admin.site.register(EnvironmentDefinition)
 admin.site.register(Flavor)
 admin.site.register(Image)
-admin.site.register(Course)
 admin.site.register(Vm)
 admin.site.register(VmDefinition)
 
@@ -26,3 +25,9 @@ class CustomUserAdmin(UserAdmin):
                              }
          ),
     )
+
+
+@admin.register(Course)
+class CustomCourseAdmin(admin.ModelAdmin):
+    list_display = ('name', 'instructor',)
+    list_filter = ('instructor',)
