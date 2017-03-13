@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Remove Environment: {{ environment.name }}</h1>
+
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        <p>Are you sure you want to delete environment: {{ environment.name }} and course {{ course.name }}?</p>
+        {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting environment will also delete all your virtual machines.' %}
+        <div class="pull-right">
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">
+                    {% bootstrap_icon "remove" %} Delete irreversibly
+                </button>
+                <a href="{% url "courses" %}" class="btn btn-default">
+                    {% bootstrap_icon "remove" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
+    </form>
+{% endblock %}

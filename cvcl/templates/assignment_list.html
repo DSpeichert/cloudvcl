@@ -34,6 +34,7 @@
 
                         {% url 'assignments.delete' pk=assignment.id as url %}
                         {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                        {% url 'assignments.update' pk=assignment.id as url %}
                     </td>
                 {% endif %}
             </tr>

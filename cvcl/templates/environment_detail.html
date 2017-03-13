@@ -8,4 +8,22 @@
             <li role="presentation" class="active"><a href="#">{{ vm.name }}</a></li>
         {% endfor %}
     </ul>
+
+    {% for vm in environment.vms %}
+
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">{{ vm.name }}</a></li>
+            <li role="presentation"><a href="#">{{ vm.name }}</a></li>
+            <li role="presentation"><a href="#">{{ vn.name }}</a></li>
+            <iframe src="URL" name="iframe_a"></iframe>
+        </ul>
+        <button type="submit" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} Delete
+        </button>
+        <a href="{% url "assignments.detail" %}" class="btn btn-default">
+        {% bootstrap_icon "remove" %} Back
+
+
+
+    {% endfor %}
 {% endblock %}
