@@ -2,6 +2,9 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.dispatch import receiver
+from .osapi import os_connect
+from novaclient import client as nc
 
 
 class Assignment(models.Model):
@@ -115,13 +118,28 @@ class Vm(models.Model):
     environment = models.ForeignKey('Environment', on_delete=models.CASCADE, related_name='vms')
     vm_definition = models.ForeignKey('VmDefinition')
     uuid = models.CharField(max_length=36)
-    state = models.CharField(max_length=10, blank=True, null=True)
+    name = models.CharField(max_length=50)
+    status = models.CharField(max_length=10, blank=True, null=True)
     ip_address = models.GenericIPAddressField(unpack_ipv4=True, blank=True, null=True)
     username = models.CharField(max_length=255, blank=True, null=True)
     password = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.uuid
+
+    def get_vnc(self):
+        os_conn = os_connect()
+        nova = nc.Client("2.1", session=os_conn.session)
+        server = nova.servers.get(self.uuid)
+        console = server.get_console_url('novnc')
+        print(console['console'])
+        return console['console']
+
+
+@receiver(models.signals.post_delete, sender=Vm)
+def delete_file(sender, instance, *args, **kwargs):
+    os_conn = os_connect()
+    os_conn.servers.delete(instance.uuid)
 
 
 class VmDefinition(models.Model):

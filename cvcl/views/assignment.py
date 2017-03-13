@@ -101,6 +101,7 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             os_conn = os_connect()
             password = get_random_string(length=8)
             user_data = {password: password}
+            print(os_conn.image.get_image(vmd.image.uuid))
             server = os_conn.compute.create_server(
                 name=vmd.name,
                 image_id=vmd.image.uuid,
@@ -109,13 +110,20 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 user_data=yaml.dump(user_data)
             )
 
-            environment.vms.create(
+            vm = environment.vms.create(
+                name=server.name,
                 uuid=server.id,
+                status=server.status,
                 ip_address=server.access_ipv4,
                 vm_definition=vmd,
                 password=password,
             )
             server = os_conn.compute.wait_for_server(server)
-            print(server)
+            #print(server)
+            server = os_conn.compute.get_server(server.id)
+            #print(server)
+            vm.status = server.status
+            vm.ip_address = server.addresses[list(server.addresses.keys())[0]][0]['addr']
+            vm.save()
 
         return redirect(environment)

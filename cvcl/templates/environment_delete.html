@@ -13,8 +13,8 @@
                 <button type="submit" class="btn btn-danger">
                     {% bootstrap_icon "remove" %} Delete irreversibly
                 </button>
-                <a href="{% url "courses" %}" class="btn btn-default">
-                    {% bootstrap_icon "remove" %} Back
+                <a href="{% url "environments.detail" pk=environment.id %}" class="btn btn-default">
+                    {% bootstrap_icon "chevron-left" %} Back
                 </a>
             {% endbuttons %}
         </div>

@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.conf.urls import url
 
 from cvcl.views import *
 from . import views
@@ -6,7 +6,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),  # welcome page for all
     url(r'^logout$', views.logout, name='logout'),  # logout page for all
-    url(r'^environments/(?P<pk>\d+)$', EnvironmentDetail.as_view(), name='environments.detail'),
+    url(r'^environments/(?P<pk>\d+)(?:/vm/(?P<uuid>[a-z0-9\-]+))?$', EnvironmentDetail.as_view(),
+        name='environments.detail'),
     url(r'^environments/(?P<pk>\d+)/delete$', EnvironmentDelete.as_view(), name='environments.delete'),
     url(r'^assignments$', AssignmentList.as_view(), name='assignments'),  # student, instructor (list)
     url(r'^assignments/create$', AssignmentCreate.as_view(), name='assignments.create'),  # instructor

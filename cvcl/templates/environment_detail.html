@@ -1,29 +1,32 @@
 {% extends "master.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
-    <h1>{{ environment.user.username }}'s environment for {{ environment.assignment.name }}</h1>
+    <h1>{{ environment.user.username }}'s environment for {{ environment.assignment.name }}
+        <div class="pull-right">
+            <a class="btn btn-default" href="{% url 'assignments.detail' pk=environment.assignment.id %}" role="button">
+                {% bootstrap_icon "chevron-left" %} Back
+            </a>
+            {% url 'environments.delete' pk=environment.id as url %}
+            {% bootstrap_button button_type='link' content='Delete environment' button_class='btn-danger' href=url %}
+        </div>
+    </h1>
 
     <ul class="nav nav-tabs">
-        {% for vm in assignment.vms %}
-            <li role="presentation" class="active"><a href="#">{{ vm.name }}</a></li>
+        {% for vm in environment.vms.all %}
+            {% url 'environments.detail' pk=environment.id uuid=vm.uuid as url %}
+            <li role="presentation" {% if url in request.path %}class="active"{% endif %}>
+                <a href="{{ url }}">{{ vm.name }}</a>
+            </li>
         {% endfor %}
     </ul>
 
-    {% for vm in environment.vms %}
+    <ul>
+        <li>IP Address: {{ vm.ip_address }}</li>
+        <li>Username: {{ vm.username }}</li>
+        <li>Password: {{ vm.password }}</li>
+    </ul>
 
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#">{{ vm.name }}</a></li>
-            <li role="presentation"><a href="#">{{ vm.name }}</a></li>
-            <li role="presentation"><a href="#">{{ vn.name }}</a></li>
-            <iframe src="URL" name="iframe_a"></iframe>
-        </ul>
-        <button type="submit" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} Delete
-        </button>
-        <a href="{% url "assignments.detail" %}" class="btn btn-default">
-        {% bootstrap_icon "remove" %} Back
+    <iframe id="console_embed" src="{{ vm.get_vnc.url }}" style="width: 100%; height: 638px;"></iframe>
 
-
-
-    {% endfor %}
 {% endblock %}
