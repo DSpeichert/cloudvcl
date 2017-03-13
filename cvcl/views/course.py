@@ -26,7 +26,7 @@ class CourseDetail(LoginRequiredMixin, DetailView):
     template_name = './course_detail.html'
 
     def get_queryset(self):
-        return Course.objects.filter(instructor=self.request.user)
+        return Course.objects.filter(instructor=self.request.user).prefetch_related()
 
 
 class CourseList(LoginRequiredMixin, ListView):

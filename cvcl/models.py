@@ -14,7 +14,7 @@ class Assignment(models.Model):
     description = models.TextField()
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField()
-    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, related_name='assignments')
     environment_definition = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
 
     class Meta:

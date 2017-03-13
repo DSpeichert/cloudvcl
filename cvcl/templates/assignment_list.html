@@ -20,7 +20,7 @@
                 <th></th>
             {% endif %}
         </tr>
-        {% for assignment in object_list %}
+        {% for assignment in assignment_list %}
             <tr>
                 <td><a href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a></td>
                 <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
