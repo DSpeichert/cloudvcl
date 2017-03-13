@@ -150,7 +150,7 @@ class Vm(models.Model):
 @receiver(models.signals.post_delete, sender=Vm)
 def delete_file(sender, instance, *args, **kwargs):
     os_conn = os_connect()
-    os_conn.compute.delete_server(instance.uuid, Force=True)
+    os_conn.compute.delete_server(instance.uuid, force=True)
 
 
 class VmDefinition(models.Model):
