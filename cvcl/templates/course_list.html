@@ -11,23 +11,27 @@
         {% endif %}
     </h1>
 
-    <table class="table table-hover">
-        <tr>
-            <th>Course Name</th>
-        </tr>
-        {% for course in course_list %}
+    {% if course_list %}
+        <table class="table table-hover">
             <tr>
-                <td><a href="{% url "courses.detail" course.id %}">{{ course.name }}</a>
-                    {% if course.instructor == user %}
-                        <div class="pull-right">
-                            {% url 'courses.update' pk=course.id as url %}
-                            {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
-                            {% url 'courses.delete' pk=course.id as url %}
-                            {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-                        </div>
-                    {% endif %}
-                </td>
+                <th>Course Name</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for course in course_list %}
+                <tr>
+                    <td><a href="{% url "courses.detail" course.id %}">{{ course.name }}</a>
+                        {% if course.instructor == user %}
+                            <div class="pull-right">
+                                {% url 'courses.update' pk=course.id as url %}
+                                {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
+                                {% url 'courses.delete' pk=course.id as url %}
+                                {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no courses to show.</p>
+    {% endif %}
 {% endblock %}
