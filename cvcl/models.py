@@ -30,6 +30,8 @@ class Assignment(models.Model):
     def is_current(self):
         return not (self.start_date > timezone.now() or self.end_date < timezone.now())
 
+    is_current.boolean = True
+
 
 class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -66,6 +68,9 @@ class Environment(models.Model):
     def get_absolute_url(self):
         return reverse('environments.detail', kwargs={'pk': self.id})
 
+    def course(self):
+        return self.assignment.course
+
 
 class EnvironmentDefinition(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -77,6 +82,9 @@ class EnvironmentDefinition(models.Model):
         limit_choices_to={'is_instructor': True},
         related_name='environment_definitions',
     )
+
+    class Meta:
+        verbose_name = "Environment Definition"
 
     def __str__(self):
         return self.name
@@ -130,6 +138,9 @@ class Vm(models.Model):
     username = models.CharField(max_length=255, blank=True, null=True)
     password = models.CharField(max_length=255, blank=True, null=True)
 
+    class Meta:
+        verbose_name = "VM"
+
     def __str__(self):
         return self.uuid
 
@@ -146,6 +157,15 @@ class Vm(models.Model):
         except NovaNotFound:
             pass
 
+    def assignment(self):
+        return self.environment.assignment
+
+    def course(self):
+        return self.environment.assignment.course
+
+    def user(self):
+        return self.environment.user
+
 
 @receiver(models.signals.post_delete, sender=Vm)
 def delete_file(sender, instance, *args, **kwargs):
@@ -161,6 +181,9 @@ class VmDefinition(models.Model):
     image = models.ForeignKey('Image', on_delete=models.CASCADE)
     flavor = models.ForeignKey('Flavor', on_delete=models.CASCADE)
     user_script = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "VM Definition"
 
     def __str__(self):
         return str(self.id)

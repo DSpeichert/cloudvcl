@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+import logging
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -125,3 +126,8 @@ OS_PROJECT_NAME = 'vcl'
 OS_USERNAME = 'vcl'
 OS_PASSWORD = ''
 OS_NETWORK_ID = '309ca65e-0a3a-4c34-a84f-b07adcf82f21'
+
+try:
+    from .local_settings import *
+except ImportError:
+    logging.warning("No local_settings file found.")
