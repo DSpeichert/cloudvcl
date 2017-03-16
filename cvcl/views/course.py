@@ -1,6 +1,7 @@
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -12,10 +13,11 @@ def is_instructor_check(user):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class CourseCreate(LoginRequiredMixin, CreateView):
+class CourseCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Course
     template_name = './course_create.html'
     fields = ['name', 'students']
+    success_message = "%(name)s was created successfully"
 
     def form_valid(self, form):
         form.instance.instructor = self.request.user
@@ -38,18 +40,20 @@ class CourseList(LoginRequiredMixin, ListView):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class CourseUpdate(LoginRequiredMixin, UpdateView):
+class CourseUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = './course_update.html'
     fields = ['name', 'students']
+    success_message = "%(name)s was updated successfully"
 
     def get_queryset(self):
         return Course.objects.filter(instructor=self.request.user)
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class CourseDelete(LoginRequiredMixin, DeleteView):
+class CourseDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = './course_delete.html'
     success_url = reverse_lazy('courses')
+    success_message = "%(name)s was deleted successfully"
 
     def get_queryset(self):
         return Course.objects.filter(instructor=self.request.user)

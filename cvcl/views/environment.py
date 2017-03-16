@@ -1,6 +1,7 @@
 from django.http import HttpResponseNotFound
 from django.views.generic import DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models import Q
@@ -43,7 +44,7 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
         return self.render_to_response(context)
 
 
-class EnvironmentDelete(LoginRequiredMixin, DeleteView):
+class EnvironmentDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Environment
     template_name = './environment_delete.html'
 

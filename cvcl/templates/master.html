@@ -8,7 +8,8 @@
     {% block title %}<title>Cloud VCL</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
 
     <!-- Add additional CSS in static file -->
     {% load static %}
@@ -55,11 +56,11 @@
 
 <div class="container">
 
+    {% bootstrap_messages %}
     {% block content %}{% endblock %}
 
 </div> <!-- /container -->
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% bootstrap_javascript jquery=1 %}
 </body>
 </html>

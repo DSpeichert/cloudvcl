@@ -1,16 +1,18 @@
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.views import View
-from django.http import HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.crypto import get_random_string
 from django.db import transaction
 from django.db.models import Q
-import yaml, base64
 from passlib.hash import sha512_crypt
+import base64
+import yaml
 from ..models import *
 from ..forms import AssignmentForm
 from ..osapi import get_default_network_id, os_connect
@@ -21,9 +23,10 @@ def is_instructor_check(user):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class AssignmentCreate(LoginRequiredMixin, CreateView):
+class AssignmentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = './assignment_create.html'
     form_class = AssignmentForm
+    success_message = "%(name)s was created successfully"
 
     def get_form_kwargs(self):
         kwargs = super(AssignmentCreate, self).get_form_kwargs()
@@ -61,9 +64,10 @@ class AssignmentList(LoginRequiredMixin, ListView):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class AssignmentUpdate(LoginRequiredMixin, UpdateView):
+class AssignmentUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = './assignment_update.html'
     form_class = AssignmentForm
+    success_message = "%(name)s was updated successfully"
 
     def get_form_kwargs(self):
         kwargs = super(AssignmentUpdate, self).get_form_kwargs()
@@ -75,9 +79,10 @@ class AssignmentUpdate(LoginRequiredMixin, UpdateView):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class AssignmentDelete(LoginRequiredMixin, DeleteView):
+class AssignmentDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = './assignment_delete.html'
     success_url = reverse_lazy('assignments')
+    success_message = "%(name)s was deleted successfully"
 
     def get_queryset(self):
         return Assignment.objects.filter(course__in=self.request.user.instructs.all())
@@ -90,15 +95,23 @@ class AssignmentLaunch(LoginRequiredMixin, View):
         if assignment.course.instructor != request.user:
             if assignment.start_date > timezone.now() or assignment.end_date < timezone.now():
                 # student's can't launch environment outside specified dates
-                return HttpResponseForbidden()
+                messages.error(request, 'This assignment is not active.')
+                return redirect("assignments.list")
 
         if request.user not in assignment.course.students.all():
             # student not in course/assignment
-            return HttpResponseForbidden()
+            messages.error(request, 'You are not in this course!')
+            return redirect("assignments.list")
 
         if assignment.environments.filter(user=request.user):
             # already exists
-            return HttpResponseForbidden()
+            messages.error(request, 'You already have an environment for this assignment.')
+            return redirect(assignment)
+
+        if not assignment.environment_definition.vmdefinition_set.count():
+            messages.error(request, "This assignment has empty environment. It doesn't make sense to launch it." +
+                           "Contact your instructor.")
+            return redirect(assignment)
 
         environment = Environment(assignment=assignment, user=request.user)
         environment.save()
