@@ -91,10 +91,6 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             if assignment.start_date > timezone.now() or assignment.end_date < timezone.now():
                 # student's can't launch environment outside specified dates
                 return HttpResponseForbidden()
-        else:
-            if assignment.end_date < timezone.now():
-                # instructors can't launch environment after assignment expired (it would get cleaned up soon)
-                return HttpResponseForbidden()
 
         if request.user not in assignment.course.students.all():
             # student not in course/assignment

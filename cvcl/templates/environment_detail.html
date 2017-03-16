@@ -2,7 +2,8 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>{{ environment.assignment.name }} <small>{{ environment.user }}'s environment</small>
+    <h1>{{ environment.assignment.name }}
+        <small>{{ environment.user }}'s environment</small>
         <div class="pull-right">
             <a class="btn btn-default" href="{% url 'assignments.detail' pk=environment.assignment.id %}" role="button">
                 {% bootstrap_icon "chevron-left" %} Back
@@ -38,7 +39,17 @@
             </ul>
         </div>
 
-        <iframe id="console_embed" src="{{ vm.get_vnc.url }}" style="width: 100%; height: 638px;"></iframe>
+        {% if vnc %}
+            <p class="small">Please note: CTRL+C/CTRL+V doesn't work in this console.
+                <a class="btn btn-default btn-xs" target="_blank" href="{{ vnc.url }}">Open console in full screen mode</a></p>
+            <iframe id="console_embed" src="{{ vnc.url }}" style="width: 100%; height: 638px;"></iframe>
+        {% else %}
+            <div class="alert alert-danger alert-border">
+                There was a problem loading console for your VM. Please try refreshing this page.<br/>
+                If the problem persists, contact your instructor {{ environment.assignment.course.instructor }} for
+                help.
+            </div>
+        {% endif %}
     {% else %}
         This environment is empty. Contact your instructor: {{ environment.assignment.course.instructor }}
     {% endif %}

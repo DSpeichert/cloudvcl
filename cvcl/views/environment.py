@@ -26,6 +26,11 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
         else:
             context['vm'] = self.object.vms.first()
 
+        try:
+            context['vnc'] = context['vm'].get_vnc()
+        except:
+            pass
+
         return context
 
     def get(self, request, *args, **kwargs):
