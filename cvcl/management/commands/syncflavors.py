@@ -13,6 +13,10 @@ class Command(BaseCommand):
         for os_flavor in os_flavors:
             flavor, created = Flavor.objects.get_or_create(uuid=os_flavor.id)
             flavor.name = os_flavor.name
+            flavor.vcpus = os_flavor.vcpus or 0
+            flavor.ram = os_flavor.ram or 0
+            flavor.swap = os_flavor.swap or 0
+            flavor.disk = os_flavor.disk or 0
             flavor.save()
             self.stdout.write(self.style.SUCCESS('Successfully saved/updated flavor "%s"' % flavor))
 

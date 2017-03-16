@@ -45,6 +45,9 @@ class Course(models.Model):
     )
     students = models.ManyToManyField('User', blank=True, related_name='studies')
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -85,6 +88,7 @@ class EnvironmentDefinition(models.Model):
 
     class Meta:
         verbose_name = "Environment Definition"
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -97,6 +101,13 @@ class EnvironmentDefinition(models.Model):
 class Flavor(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
+    vcpus = models.IntegerField()
+    ram = models.IntegerField()
+    swap = models.IntegerField()
+    disk = models.IntegerField()
+
+    class Meta:
+        ordering = ['ram']
 
     def __str__(self):
         return self.name
@@ -168,7 +179,7 @@ class Vm(models.Model):
 
 
 @receiver(models.signals.post_delete, sender=Vm)
-def delete_file(sender, instance, *args, **kwargs):
+def delete_vm(sender, instance, *args, **kwargs):
     os_conn = os_connect()
     os_conn.compute.delete_server(instance.uuid, force=True)
 

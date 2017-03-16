@@ -10,8 +10,6 @@ class CloudVCLAdminSite(AdminSite):
 
 
 admin_site = CloudVCLAdminSite(name='myadmin')
-admin_site.register(Flavor)
-admin_site.register(Image)
 
 
 @admin.register(Assignment, site=admin_site)
@@ -33,6 +31,18 @@ class CustomEnvironmentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'assignment', 'course',)
     list_display_links = ('user', 'assignment', 'course',)
     list_filter = ('assignment',)
+
+
+@admin.register(Flavor, site=admin_site)
+class CustomFlavorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'vcpus', 'ram', 'swap', 'disk',)
+    list_filter = ('vcpus', 'ram', 'swap', 'disk',)
+
+
+@admin.register(Image, site=admin_site)
+class CustomImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name',)
+    list_filter = ()
 
 
 @admin.register(User, site=admin_site)
@@ -74,7 +84,7 @@ class CustomVmAdmin(admin.ModelAdmin):
 
 
 @admin.register(VmDefinition, site=admin_site)
-class VmDefinition(admin.ModelAdmin):
+class CustomVmDefinitionAdmin(admin.ModelAdmin):
     list_display = ('name', 'image', 'flavor',)
     list_display_links = ('image', 'flavor',)
     list_filter = ('image', 'flavor',)
