@@ -5,3 +5,4 @@ pyyaml>=3.11
 python-novaclient>=7.1.0
 passlib>=1.7.1
 django-bootstrap3-datetimepicker-2>=2.4.2
+git+https://github.com/Brown-University-Library/django-shibboleth-remoteuser.git
