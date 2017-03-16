@@ -108,14 +108,22 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             messages.error(request, 'You already have an environment for this assignment.')
             return redirect(assignment)
 
+        # Check for empty environment
         if not assignment.environment_definition.vmdefinition_set.count():
             messages.error(request, "This assignment has empty environment. It doesn't make sense to launch it." +
                            "Contact your instructor.")
             return redirect(assignment)
 
+        # Check quotas
+        if not assignment.environment_definition.has_instructor_free_quota_for(assignment.course.instructor):
+            messages.error(request, "Your instructor ran out of quota. Contact your instructor.")
+            return redirect(assignment)
+
+        # Save environment to DB
         environment = Environment(assignment=assignment, user=request.user)
         environment.save()
 
+        # Create VMs
         for vmd in environment.assignment.environment_definition.vmdefinition_set.all():
             os_conn = os_connect()
             username = self.request.user.username
@@ -149,10 +157,11 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 username=username,
                 password=password,
             )
+            vm.save()
+            vm.claim_instructor_quota()
+
             server = os_conn.compute.wait_for_server(server)
-            # print(server)
             server = os_conn.compute.get_server(server.id)
-            # print(server)
             vm.status = server.status
             vm.ip_address = server.addresses[list(server.addresses.keys())[0]][0]['addr']
             vm.save()

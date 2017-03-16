@@ -11,15 +11,21 @@
     {% if user.is_instructor %}
         <div class="alert alert-border alert-info alert-block" role="alert">
             <p>
-                <strong>You're an instructor!</strong> Below you’ll find what you were allocated by your system
-                administrator:
+                <strong>You're an instructor!</strong> Below you’ll find your current usage and quota:
             </p>
             </br>
 
             <ul class="list-inline">
-                <li>Instance count: {{ user.limit_instances }}</li>
-                <li>CPU count: {{ user.limit_cpus }}</li>
-                <li>Total RAM: {{ user.limit_ram|filesizeformat }}</li>
+                <li>Instance count: {{ user.usage_instances }} / {{ user.limit_instances }}</li>
+                <li>CPU count: {{ user.usage_vcpus }} / {{ user.limit_vcpus }}</li>
+
+                {% widthratio user.usage_ram 1 1048576 as used_ram %}
+                {% widthratio user.limit_ram 1 1048576 as ram_quota %}
+                <li>Total RAM: {{ used_ram | filesizeformat }} / {{ ram_quota|filesizeformat }}</li>
+
+                {% widthratio user.usage_disk 1 1073741824 as used_disk %}
+                {% widthratio user.limit_disk 1 1073741824 as disk_quota %}
+                <li>Total disk: {{ used_disk|filesizeformat }} / {{ disk_quota|filesizeformat }}</li>
             </ul>
 
             </br>

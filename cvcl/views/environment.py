@@ -47,6 +47,7 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
 class EnvironmentDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Environment
     template_name = './environment_delete.html'
+    success_message = "environment for %(assignment__name)s was deleted successfully"
 
     def get_queryset(self):
         queryset = super(EnvironmentDelete, self).get_queryset()

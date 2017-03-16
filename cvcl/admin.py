@@ -37,23 +37,27 @@ class CustomEnvironmentAdmin(admin.ModelAdmin):
 class CustomFlavorAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'vcpus', 'ram', 'swap', 'disk',)
     list_filter = ('vcpus', 'ram', 'swap', 'disk',)
+    readonly_fields = ('vcpus', 'ram', 'swap', 'disk',)
 
 
 @admin.register(Image, site=admin_site)
 class CustomImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name',)
-    list_filter = ()
+    list_display = ('id', 'name', 'size', 'min_ram', 'min_disk',)
+    list_filter = ('min_ram', 'min_disk',)
+    readonly_fields = ('min_ram', 'min_disk',)
 
 
 @admin.register(User, site=admin_site)
 class CustomUserAdmin(UserAdmin):
-    list_display = UserAdmin.list_display + ('is_instructor',)
+    list_display = UserAdmin.list_display + ('is_instructor', 'usage_instances', 'limit_instances', 'usage_vcpus',
+                                             'limit_vcpus', 'usage_ram', 'limit_ram', 'usage_disk', 'limit_disk',)
     list_filter = UserAdmin.list_filter + ('is_instructor',)
     fieldsets = UserAdmin.fieldsets + (
         ('Instructor Data', {'fields': ('is_instructor',
                                         'limit_instances',
-                                        'limit_cpus',
+                                        'limit_vcpus',
                                         'limit_ram',
+                                        'limit_disk',
                                         'images',
                                         )
                              }

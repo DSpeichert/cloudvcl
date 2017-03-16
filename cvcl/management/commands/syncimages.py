@@ -13,6 +13,9 @@ class Command(BaseCommand):
         for os_image in os_images:
             image, created = Image.objects.get_or_create(uuid=os_image.id)
             image.name = os_image.name
+            image.size = os_image.size
+            image.min_ram = os_image.min_ram
+            image.min_disk = os_image.min_disk
             image.save()
             self.stdout.write(self.style.SUCCESS('Successfully saved/updated image "%s"' % image))
 

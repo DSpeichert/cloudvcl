@@ -96,15 +96,33 @@ class EnvironmentDefinition(models.Model):
     def get_absolute_url(self):
         return reverse('envdefs.detail', kwargs={'pk': self.id})
 
+    def has_instructor_free_quota_for(self, instructor, number=1):
+        quota_instances = self.vmdefinition_set.count()
+        quota_vcpus = 0
+        quota_ram = 0
+        quota_disk = 0
+        for vmd in self.vmdefinition_set.all():
+            quota_vcpus += vmd.flavor.vcpus
+            quota_ram += vmd.flavor.ram
+            quota_disk += vmd.flavor.disk
+
+        quota_instances *= number
+        quota_vcpus *= number
+        quota_ram *= number
+        quota_disk *= number
+
+        return quota_instances <= instructor.free_instances() and quota_instances <= instructor.free_vcpus() and \
+               quota_ram <= instructor.free_ram() and quota_disk <= instructor.free_disk()
+
 
 # This is simply a reference to OpenStack Flavors. Only flavors represented by UUIDs here are available to users.
 class Flavor(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
-    vcpus = models.IntegerField()
-    ram = models.IntegerField()
-    swap = models.IntegerField()
-    disk = models.IntegerField()
+    vcpus = models.PositiveIntegerField(default=0)
+    ram = models.PositiveIntegerField(default=0)
+    swap = models.PositiveIntegerField(default=0)
+    disk = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['ram']
@@ -116,15 +134,23 @@ class Flavor(models.Model):
 class Image(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
+    size = models.PositiveIntegerField(default=0, verbose_name="size in bytes")
+    min_ram = models.PositiveIntegerField(default=0, verbose_name="min ram in MB")
+    min_disk = models.PositiveIntegerField(default=0, verbose_name="min disk in GB")
 
     def __str__(self):
         return self.name
 
 
 class User(AbstractUser):
-    limit_instances = models.IntegerField(default=0)
-    limit_cpus = models.IntegerField(default=0)
-    limit_ram = models.IntegerField(default=0, verbose_name="RAM limit in bytes")
+    limit_instances = models.PositiveIntegerField(default=0, verbose_name="instance limit")
+    limit_vcpus = models.PositiveIntegerField(default=0, verbose_name="vCPUs limit")
+    limit_ram = models.PositiveIntegerField(default=0, verbose_name="RAM limit in MB")
+    limit_disk = models.PositiveIntegerField(default=0, verbose_name="disk limit in GB")
+    usage_instances = models.PositiveIntegerField(default=0, verbose_name="used instances")
+    usage_vcpus = models.PositiveIntegerField(default=0, verbose_name="vCPUs usage")
+    usage_ram = models.PositiveIntegerField(default=0, verbose_name="RAM usage in MB")
+    usage_disk = models.PositiveIntegerField(default=0, verbose_name="disk usage in GB")
     is_instructor = models.BooleanField(
         'instructor',
         default=False,
@@ -134,6 +160,18 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.get_full_name() + ' (' + self.get_username() + ')' if self.get_full_name() != '' else self.get_username()
+
+    def free_instances(self):
+        return self.limit_instances - self.usage_instances
+
+    def free_vcpus(self):
+        return self.limit_vcpus - self.usage_vcpus
+
+    def free_ram(self):
+        return self.limit_ram - self.usage_ram
+
+    def free_disk(self):
+        return self.limit_disk - self.usage_disk
 
 
 # an instance of VMDefinition that exists in OpenStack cloud
@@ -168,6 +206,14 @@ class Vm(models.Model):
         except NovaNotFound:
             pass
 
+    def claim_instructor_quota(self):
+        instructor = self.environment.assignment.course.instructor
+        instructor.usage_instances += 1
+        instructor.usage_vcpus += self.vm_definition.flavor.vcpus
+        instructor.usage_ram += self.vm_definition.flavor.ram
+        instructor.usage_disk += self.vm_definition.flavor.disk
+        instructor.save()
+
     def assignment(self):
         return self.environment.assignment
 
@@ -180,8 +226,17 @@ class Vm(models.Model):
 
 @receiver(models.signals.post_delete, sender=Vm)
 def delete_vm(sender, instance, *args, **kwargs):
+    # delete in OS
     os_conn = os_connect()
     os_conn.compute.delete_server(instance.uuid, force=True)
+
+    # decrease instructor's usage
+    instructor = instance.environment.assignment.course.instructor
+    instructor.usage_instances -= 1
+    instructor.usage_vcpus -= instance.vm_definition.flavor.vcpus
+    instructor.usage_ram -= instance.vm_definition.flavor.ram
+    instructor.usage_disk -= instance.vm_definition.flavor.disk
+    instructor.save()
 
 
 class VmDefinition(models.Model):
