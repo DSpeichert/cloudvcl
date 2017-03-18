@@ -52,13 +52,16 @@
                         Definitions</a></li>
                 {% endif %}
             </ul>
-            {% if user.is_authenticated %}
-                <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
                     <li><a>Logged in as <strong>{{ user.get_username }}</strong></a></li>
-                    {% if user.is_staff %}<li><a href="{% url "admin:index" %}">Admin</a></li>{% endif %}
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-            {% endif %}
+                    {% if user.is_staff %}
+                        <li><a href="{% url "admin:index" %}">Admin</a></li>{% endif %}
+                    <li><a href="{{ logout_link }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ login_link }}">Log in</a></li>
+                {% endif %}
+            </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>

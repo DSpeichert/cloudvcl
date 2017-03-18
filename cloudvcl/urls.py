@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin_site.urls),
+    url(r'^shib/', include('shibboleth.urls', namespace='shibboleth')),
     url(r'', include('cvcl.urls')),
 ]
 

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'shibboleth',
     'cvcl',
 ]
 
@@ -190,6 +191,7 @@ BOOTSTRAP3 = {
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
                            'shibboleth.backends.ShibbolethRemoteUserBackend']
 LOGIN_URL = 'https://cloudvcl.cci.drexel.edu/Shibboleth.sso/Login'
+LOGOUT_URL = 'https://cloudvcl.cci.drexel.edu/Shibboleth.sso/Logout'
 SHIBBOLETH_ATTRIBUTE_MAP = {
     "shib-user": (True, "username"),
     "shib-given-name": (True, "first_name"),
