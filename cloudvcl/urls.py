@@ -17,8 +17,16 @@ from django.conf.urls import include, url
 from cvcl.admin import admin_site
 from django.conf import settings
 from django.conf.urls.static import static
+import django_saml2_auth.views
 
 urlpatterns = [
+    # These are the SAML2 related URLs. You can change "^saml2_auth/" regex to
+    # any path you want, like "^sso_auth/", "^sso_login/", etc. (required)
+    url(r'^saml2_auth/', include('django_saml2_auth.urls')),
+
+    # The following line will replace the default user login with SAML2 (optional)
+    url(r'^accounts/login/$', django_saml2_auth.views.signin),
+
     url(r'^admin/', admin_site.urls),
     url(r'', include('cvcl.urls')),
 ]

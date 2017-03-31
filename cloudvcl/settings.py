@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap3',
     'cvcl',
+    'django_saml2_auth',
 ]
 
 MIDDLEWARE = [
@@ -181,6 +182,29 @@ BOOTSTRAP3 = {
         'default': 'bootstrap3.renderers.FieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
+}
+
+SAML2_AUTH = {
+    # Required setting
+    'METADATA_AUTO_CONF_URL': 'https://shib.irttest.drexel.edu/idp/shibboleth',
+
+    # Optional settings
+    'NEW_USER_PROFILE': {
+        'USER_GROUPS': [],  # The default group name when a new user logs in
+        'ACTIVE_STATUS': True,  # The default active status for new users
+        'STAFF_STATUS': False,  # The staff status for new users
+        'SUPERUSER_STATUS': False,  # The superuser status for new users
+    },
+    'ATTRIBUTES_MAP': {  # Change Email/UserName/FirstName/LastName to corresponding SAML2 userprofile attributes.
+        'email': 'urn:oid:0.9.2342.19200300.100.1.3',
+        'username': 'urn:oid:0.9.2342.19200300.100.1.1',
+        'first_name': 'urn:oid:2.5.4.42',
+        'last_name': 'urn:oid:2.5.4.4',
+    },
+    # 'TRIGGER': {
+    #    'CREATE_USER': 'path.to.your.new.user.hook.method',
+    #    'BEFORE_LOGIN': 'path.to.your.login.hook.method',
+    # },
 }
 
 # OpenStack API
