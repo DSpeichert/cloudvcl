@@ -1,0 +1,33 @@
+# Project information
+site_name: 'Cloud VCL Documentation'
+site_author: 'Cloud VCL Authors'
+site_url: 'https://DSpeichert.github.io/cloudvcl'
+
+# Repository
+repo_name: 'DSpeichert/cloudvcl'
+repo_url: 'https://github.com/DSpeichert/cloudvcl'
+
+# Documentation and theme
+theme: 'material'
+
+# Copyright
+copyright: 'Copyright &copy; 2017 Cloud VCL Authors'
+
+# Options
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/DSpeichert'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite(guess_lang=false)
+  - toc(permalink=true)
+
+# Pages
+pages:
+- Home: index.md
+- Student: student.md
+- Instructor: instructor.md
+- Administrator: administrator.md

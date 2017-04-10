@@ -1,0 +1,4 @@
+pygments
+pymdown-extensions
+mkdocs-material
+mkdocs>=0.16
