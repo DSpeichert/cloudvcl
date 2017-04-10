@@ -256,3 +256,7 @@ class VmDefinition(models.Model):
 
     def get_absolute_url(self):
         return reverse('envdefs.detail', kwargs={'pk': self.environment.id})
+
+
+class ProfileImage(models.Model):
+    image = models.FileField(upload_to='profile/%Y/%m/%d')
