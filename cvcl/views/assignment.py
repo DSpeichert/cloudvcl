@@ -1,25 +1,32 @@
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
-from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib.messages.views import SuccessMessageMixin
+import base64
+
+import yaml
 from django.contrib import messages
-from django.utils.decorators import method_decorator
-from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404, redirect
-from django.utils.crypto import get_random_string
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.utils.crypto import get_random_string
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from material.frontend.views import ModelViewSet
 from passlib.hash import sha512_crypt
-import base64
-import yaml
-from ..models import *
+
 from ..forms import AssignmentForm
+from ..models import *
 from ..osapi import get_default_network_id, os_connect
 
 
 def is_instructor_check(user):
     return user.is_instructor
+
+
+class AssignmentViewSet(ModelViewSet):
+    model = Assignment
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')

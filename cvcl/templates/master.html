@@ -63,5 +63,10 @@
 </div> <!-- /container -->
 
 {% bootstrap_javascript jquery=1 %}
+{% include 'material/includes/material_css.html' %}
+<script src="{% static 'material/js/jquery-2.2.0.js' %}"></script>
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
 </body>
 </html>

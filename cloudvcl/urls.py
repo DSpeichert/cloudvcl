@@ -13,14 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
-from cvcl.admin import admin_site
 from django.conf import settings
+from django.conf.urls import include, url
 from django.conf.urls.static import static
+from material.frontend import urls as frontend_urls
+
+from cvcl.admin import admin_site
 
 urlpatterns = [
     url(r'^admin/', admin_site.urls),
-    url(r'', include('cvcl.urls')),
+    url(r'', include(frontend_urls)),
+    url(r'', include('cvcl.urls', namespace='cvcl')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

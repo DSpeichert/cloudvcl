@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from cvcl.views import *
 from . import views
@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^environments/(?P<pk>\d+)(?:/vm/(?P<uuid>[a-z0-9\-]+))?$', EnvironmentDetail.as_view(),
         name='environments.detail'),
     url(r'^environments/(?P<pk>\d+)/delete$', EnvironmentDelete.as_view(), name='environments.delete'),
+    url(r'^ass/', include(AssignmentViewSet().urls)),
     url(r'^assignments$', AssignmentList.as_view(), name='assignments'),  # student, instructor (list)
     url(r'^assignments/create$', AssignmentCreate.as_view(), name='assignments.create'),  # instructor
     url(r'^assignments/(?P<pk>\d+)$', AssignmentDetail.as_view(), name='assignments.detail'),  # instructor
