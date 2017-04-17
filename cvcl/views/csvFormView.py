@@ -13,7 +13,7 @@ from ..models import User
 # template_name = 'fileUpload.html'
 # form_class = DataForm
 # success_url = '/upload2/'
-#
+# test
 # def form_valid(self, form):
 #     form.process_data()
 #     return super().form_valid(form)

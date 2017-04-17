@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h2>CSV File Upload</h2>
+    <h2>Upload CSV File</h2>
     <form action="{% url "csv_upload" %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>

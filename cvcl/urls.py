@@ -30,6 +30,4 @@ urlpatterns = [
     url(r'^vmdefinitions/(?P<pk>\d+)/update$', VmDefinitionUpdate.as_view(), name='vmdef.update'),  # instructor
     url(r'^vmdefinitions/(?P<pk>\d+)/delete$', VmDefinitionDelete.as_view(), name='vmdef.delete'),  # instructor
                   url(r'^upload/', addreport, name='csv_upload'),
-                  ##url(r'^upload/', fileFormView.as_view(), name='file_Upload'), #FileUpload for csv file
-
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
