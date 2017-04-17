@@ -1,6 +1,8 @@
 from django.forms import ModelForm, ModelChoiceField
-from .models import Assignment, VmDefinition
-
+from .models import Assignment, VmDefinition, User
+import io
+from django import forms
+import csv
 
 class AssignmentForm(ModelForm):
     class Meta:
@@ -23,3 +25,55 @@ class VmDefinitionForm(ModelForm):
         user = kwargs.pop('user', None)  # pop the 'user' from kwargs dictionary
         super(VmDefinitionForm, self).__init__(*args, **kwargs)
         self.fields['image'] = ModelChoiceField(queryset=user.images.all())
+
+
+class fileForm():
+    tempFile = forms.FileField()
+
+    def checkData(self):
+        f = self.cleaned_data['tempfile']
+
+        if f:
+            end = f.name.split('.')[-1]
+            if end != 'csv':
+                raise forms.ValidationError('Only accept csv files')
+
+    def readData(self):
+        f = io.TextIOWrapper(self.cleaned_data['tempFile'].file)
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            print(row)
+
+            # def checkData(self):
+            #     f= self.cleaned_data['tempfile']
+            #
+            #     #check if file type is a csv file
+            #     if f:
+            #         end = f.name.split('.')[-1]
+            #         if end != 'csv':
+            #             raise forms.ValidationError('Only accept csv files')
+            #
+            # def readData(self):
+            #     f = io.TextIOWrapper(self.cleaned_data['tempFile'].file)
+            #     reader = csv.DictReader(f)
+            #
+            #     #print row in csv file
+            #     for row in reader:
+            #         print(row)
+
+
+
+
+            # def uploadView(request):
+            #     upFile = request.FILES["upFile"]
+            #     context = {}
+            #     if upFile.multiple_chunks():
+            #         context["uploadError"] = "Uploaded file is too big (%.2f MB)." % (upFile.size,)
+            #     else:
+            #         context["uploadedFile"] = upFile.read()
+            #     return render_to_response('fileUploadPage.html', context)
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()

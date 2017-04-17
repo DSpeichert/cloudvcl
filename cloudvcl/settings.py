@@ -119,6 +119,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Location on the hard drive where we want files uploaded to
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Bootstrap
 BOOTSTRAP3 = {
 

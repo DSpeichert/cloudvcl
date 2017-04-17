@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+    <h2>CSV File Upload</h2>
+    <form action="{% url "csv_upload" %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="submit"/>
+    </form>
+    {% if content %}
+        <table>
+            <tbody>
+            {% for row in content %}
+                <tr>
+                    {% for col_ in row %}
+                        <td>{{ col_ }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}
+
