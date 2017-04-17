@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ModelChoiceField
-from .models import Assignment, VmDefinition
+from .models import Assignment, VmDefinition, User
 import io
 from django import forms
 import csv
@@ -63,5 +63,17 @@ class fileForm():
             #         print(row)
 
 
-class ProfileImageForm(forms.Form):
-    image = forms.FileField(label="Select a file")
+
+
+            # def uploadView(request):
+            #     upFile = request.FILES["upFile"]
+            #     context = {}
+            #     if upFile.multiple_chunks():
+            #         context["uploadError"] = "Uploaded file is too big (%.2f MB)." % (upFile.size,)
+            #     else:
+            #         context["uploadedFile"] = upFile.read()
+            #     return render_to_response('fileUploadPage.html', context)
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()

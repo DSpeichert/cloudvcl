@@ -4,7 +4,6 @@ from django.conf import settings
 from cvcl.views import *
 from . import views
 
-
 urlpatterns = [
     url(r'^$', views.index, name='index'),  # welcome page for all
     url(r'^logout$', views.logout, name='logout'),  # logout page for all
@@ -30,7 +29,7 @@ urlpatterns = [
     url(r'^envdefs/(?P<pk>\d+)/createvmdef$', VmDefinitionCreate.as_view(), name='envdefs.createvmdef'),  # instructor
     url(r'^vmdefinitions/(?P<pk>\d+)/update$', VmDefinitionUpdate.as_view(), name='vmdef.update'),  # instructor
     url(r'^vmdefinitions/(?P<pk>\d+)/delete$', VmDefinitionDelete.as_view(), name='vmdef.delete'),  # instructor
-                  url(r'^upload/', ProfileImageView.as_view(), name='profile_image_upload'),
+                  url(r'^upload/', addreport, name='csv_upload'),
                   ##url(r'^upload/', fileFormView.as_view(), name='file_Upload'), #FileUpload for csv file
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
