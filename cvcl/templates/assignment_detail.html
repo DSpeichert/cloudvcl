@@ -32,7 +32,7 @@
             <div class="text-center">
                 <form action="{% url 'assignments.launch' assignment.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Launch a new environment for this assignment</button>
+                    <button type="submit" class="btn btn-success">Launch a new environment for this assignment</button>
                 </form>
             </div>
         {% endif %}
