@@ -4,3 +4,4 @@ django-bootstrap3>=8.2.1
 pyyaml>=3.11
 python-novaclient>=7.1.0
 passlib>=1.7.1
+django-bootstrap3-datetimepicker-2>=2.4.2
