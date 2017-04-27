@@ -71,7 +71,7 @@ class CourseDeleteStudents(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         course = get_object_or_404(Course, pk=self.kwargs['pk'])
         if not course.instructor == self.request.user:
             return redirect("courses")
-        return super(CourseDeleteStudents, self).get()
+        return super(CourseDeleteStudents, self).get(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -93,7 +93,7 @@ class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
         course = get_object_or_404(Course, pk=self.kwargs['pk'])
         if not course.instructor == self.request.user:
             return redirect("courses")
-        return super(CourseAddStudents, self).get()
+        return super(CourseAddStudents, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
         course_id = self.kwargs['pk']
