@@ -6,7 +6,7 @@
         {% if user.is_instructor %}
         <div class="pull-right">
             <a class="btn btn-primary" href="{% url 'envdefs.create' %}" role="button">
-                {% bootstrap_icon "plus" %} Create</a>
+                {% bootstrap_icon "plus" %} Create Environment Definition</a>
         </div>
     {% endif %}
     </h1>
@@ -14,17 +14,17 @@
     <table class="table table-hover">
         <tr>
             <th>Name</th>
-            <th>Actions</th>
         </tr>
         {% for ed in environmentdefinition_list %}
             <tr>
-                <td><a href="{% url "envdefs.detail" ed.id %}">{{ ed.name }}</a></td>
-                <td>
+                <td><a href="{% url "envdefs.detail" ed.id %}">{{ ed.name }}</a>
+                <div class="pull-right">
                     {% url 'envdefs.update' pk=ed.id as url %}
                     {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
                     {% url 'envdefs.delete' pk=ed.id as url %}
                     {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-                </td>
+                </div>
+            </td>
             </tr>
         {% endfor %}
     </table>

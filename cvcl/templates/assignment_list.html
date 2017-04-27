@@ -21,6 +21,7 @@
                 {% if assignment.course.instructor == user %}
                     <th></th>
                 {% endif %}
+                <th></th> <!-- This extends the top table line to the far right -->
             </tr>
             {% for assignment in assignment_list %}
                 <tr>
