@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1>Welcome to Cloud VCL</h1>
+    <h1 id="home-header">Welcome to Cloud VCL</h1>
 
     </br>
     <p>
@@ -39,10 +39,10 @@
         </p>
 
         <ol>
-            <li>Create course from Courses</li>
-            <li>Create environment definition from Environment Definitions</li>
-            <li>Create VM definition within Environment Definition</li>
-            <li>Create assignment from Assignments</li>
+            <li>Create course from <a href="{% url 'courses' %}">Courses</a></li>
+            <li>Create environment definition from <a href="{% url 'envdefs' %}">Environment Definitions</a></li>
+            <li>Create VM definition within <a href="{% url 'envdefs' %}">Environment Definition</a></li>
+            <li>Create assignment from <a href="{% url 'assignments' %}">Assignments</a></li>
         </ol>
 
         </br>
