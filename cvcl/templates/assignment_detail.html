@@ -16,8 +16,16 @@
                    role="button">
                     {% bootstrap_icon "chevron-right" %} Environment Definition
                 </a>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseText"
+                        aria-expanded="false" aria-controls="collapseText">
+                    {% bootstrap_icon "question-sign" %}Help
+                </button>
+                <div class="collapse" id="collapseText">
+                <div class="well">
+                    <h5>Lorem Ipsum</h5>
+                </div>
             {% endif %}
-        </div>
+            </div>
     </h1>
 
     {% if user in assignment.course.students.all %}
@@ -32,7 +40,9 @@
             <div class="text-center">
                 <form action="{% url 'assignments.launch' assignment.id %}" method="post">
                     {% csrf_token %}
-                    <button id="launch-env" type="submit" class="btn btn-success">Launch a new environment for this assignment</button>
+                    <button id="launch-env" type="submit" class="btn btn-success">Launch a new environment for this
+                        assignment
+                    </button>
                 </form>
             </div>
         {% endif %}

@@ -8,10 +8,19 @@
                 {% bootstrap_icon "pencil" %} Update Environment Name</a>
             <a class="btn btn-primary" href="{% url 'envdefs.createvmdef' environment_definition.id %}" role="button">
                 {% bootstrap_icon "plus" %} Create VM Definition</a>
-        </div>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseText"
+                    aria-expanded="false" aria-controls="collapseText">
+                {% bootstrap_icon "question-sign" %}Help
+            </button>
+            <div class="collapse" id="collapseText">
+                <div class="well">
+                    <h5>Lorem Ipsum</h5>
+                </div>
+            </div>
     </h1>
 
-    <p class="lead">Students spawning an environment from this environment definition will receive the following VMs:</p>
+    <p class="lead">Students spawning an environment from this environment definition will receive the following
+        VMs:</p>
     <table class="table table-hover">
         <tr>
             <th>Name</th>
