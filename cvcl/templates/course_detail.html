@@ -71,6 +71,8 @@
     {% if course.instructor == user %}
         <h2>Students in this course
             <div class="pull-right">
+                <a href="{% url "courses.add_students" pk=course.id %}" class="btn btn-warning">
+                    {% bootstrap_icon "upload" %} Student CSV Upload</a>
                 <a href="{% url "courses.update" pk=course.id %}" class="btn btn-warning">
                     {% bootstrap_icon "pencil" %} Add/Remove Students</a>
             </div>
@@ -83,7 +85,11 @@
             {% if course.students.all %}
                 {% for student in course.students.all %}
                     <tr>
-                        <td>{{ student }}</td>
+                        <td>{{ student }}
+                            <form action="{% url 'courses.delete_students' user_pk=student.pk pk=course.pk %}"
+                                  method="post">
+                                {% csrf_token %}<input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
                     </tr>
                 {% endfor %}
             {% else %}

@@ -119,6 +119,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Specify email domain address for users being added to database through uploaded CSV file
+EMAIL_DOMAIN = '@email.com'
+
 # Bootstrap
 BOOTSTRAP3 = {
 
