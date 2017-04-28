@@ -73,7 +73,6 @@ WSGI_APPLICATION = 'cloudvcl.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -83,7 +82,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -103,7 +101,6 @@ AUTH_USER_MODEL = 'cvcl.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/New_York'
@@ -116,8 +113,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
 STATIC_URL = '/static/'
+LOGIN_URL = '/login'
+LOGOUT_URL = '/Shibboleth.sso/Logout'
 
 # Specify email domain address for users being added to database through uploaded CSV file
 EMAIL_DOMAIN = '@email.com'
@@ -181,6 +179,32 @@ BOOTSTRAP3 = {
         'default': 'bootstrap3.renderers.FieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
+}
+
+# Modify authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+]
+
+# Shibboleth options
+SHIBBOLETH_SESSION_AUTH = {
+    'IDP_ATTRIBUTE': 'Shib-Identity-Provider',
+    'AUTHORIZED_IDPS': [
+        'https://connect.drexel.edu/idp',
+        'https://shib.irttest.drexel.edu/idp'
+    ],
+    #
+    # note that we use Apache environment variables directly rather than the
+    # HTTP_xxx variables which are derived from the HTTP request headers.
+    # The HTTP_xxx variety is vulnerable to potential spoofing
+    #
+    'USER_ATTRIBUTES': [
+        ('uid', 'username', True),
+        ('mail', 'email', True),
+        ('givenName', 'first_name', False),
+        ('sn', 'last_name', False),
+    ]
 }
 
 # OpenStack API

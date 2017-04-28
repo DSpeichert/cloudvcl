@@ -10,14 +10,17 @@
     {% load bootstrap3 %}
     {% bootstrap_css %}
     {% bootstrap_javascript jquery=1 %}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"/>
 
     <!-- Material Design fonts -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 
     <!-- Bootstrap Material Design -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css" />
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css"/>
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css"/>
 
     <!-- Add additional CSS in static file -->
     {% load static %}
@@ -55,8 +58,13 @@
             {% if user.is_authenticated %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a>Logged in as <strong>{{ user.get_username }}</strong></a></li>
-                    {% if user.is_staff %}<li><a href="{% url "admin:index" %}">Admin</a></li>{% endif %}
+                    {% if user.is_staff %}
+                        <li><a href="{% url "admin:index" %}">Admin</a></li>{% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'login' %}">Log in</a></li>
                 </ul>
             {% endif %}
         </div><!--/.nav-collapse -->

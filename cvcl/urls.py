@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),  # welcome page for all
+    url(r'^login', views.shib_login, name='login'),  # login page for all
     url(r'^logout$', views.logout, name='logout'),  # logout page for all
     url(r'^environments/(?P<pk>\d+)(?:/vm/(?P<uuid>[a-z0-9\-]+))?$', EnvironmentDetail.as_view(),
         name='environments.detail'),
