@@ -101,7 +101,7 @@ class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
         if course.instructor != self.request.user:
             return redirect("courses")
         form.process_data(course_id)
-        return super().form_valid(form)
+        return super(CourseAddStudents, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
