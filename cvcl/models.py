@@ -256,3 +256,13 @@ class VmDefinition(models.Model):
 
     def get_absolute_url(self):
         return reverse('envdefs.detail', kwargs={'pk': self.environment.id})
+
+        # # Model for handling Install Packages cloud-init script
+        # class packageInstall(models.model):
+        #     # Missing Foreign Key Relationship with PackageInstallScript and VMDefintion
+        #     # Additional Fields?
+        #     # script = models.ForeignKey()
+        #     packageName = models.CharField(max_length=70)
+        #     packageUpgrade = models.BooleanField = False  # Set Default Value for packageUpgrade to False
+        #     packageUpdate = models.BooleanField = False  # Set Default Value for packageUpdate to False
+        #     packageReboot = models.BooleanField = False  # PackageRebootifRequired
