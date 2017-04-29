@@ -123,6 +123,17 @@ class AssignmentLaunch(LoginRequiredMixin, View):
         environment = Environment(assignment=assignment, user=request.user)
         environment.save()
 
+        # Check if VM definitions have image and flavors
+        # It's possible that previously configured image/flavor was deleted when it was removed from OpenStack
+        for vmd in environment.assignment.environment_definition.vmdefinition_set.all():
+            if vmd.image is None:
+                messages.error(request, 'One of VM Definitions is missing an image. Ask your instructor to fix this.')
+                return redirect(assignment)
+
+            if vmd.flavor is None:
+                messages.error(request, 'One of VM Definitions is missing a flavor. Ask your instructor to fix this.')
+                return redirect(assignment)
+
         # Create VMs
         for vmd in environment.assignment.environment_definition.vmdefinition_set.all():
             os_conn = os_connect()

@@ -120,9 +120,9 @@ class Flavor(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
     vcpus = models.PositiveIntegerField(default=0)
-    ram = models.PositiveIntegerField(default=0)
-    swap = models.PositiveIntegerField(default=0)
-    disk = models.PositiveIntegerField(default=0)
+    ram = models.PositiveIntegerField(default=0, verbose_name="RAM size in MB")
+    swap = models.PositiveIntegerField(default=0, verbose_name="swap size in MB")
+    disk = models.PositiveIntegerField(default=0, verbose_name="disk size in GB")
 
     class Meta:
         ordering = ['ram']
@@ -134,7 +134,7 @@ class Flavor(models.Model):
 class Image(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
-    size = models.PositiveIntegerField(default=0, verbose_name="size in bytes")
+    size = models.BigIntegerField(default=0, verbose_name="size in bytes")
     min_ram = models.PositiveIntegerField(default=0, verbose_name="min ram in MB")
     min_disk = models.PositiveIntegerField(default=0, verbose_name="min disk in GB")
 
@@ -244,8 +244,8 @@ class VmDefinition(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=50)
     environment = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
-    image = models.ForeignKey('Image', on_delete=models.CASCADE)
-    flavor = models.ForeignKey('Flavor', on_delete=models.CASCADE)
+    image = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, blank=False)
+    flavor = models.ForeignKey('Flavor', on_delete=models.SET_NULL, null=True, blank=False)
     user_script = models.TextField(blank=True, null=True)
 
     class Meta:
