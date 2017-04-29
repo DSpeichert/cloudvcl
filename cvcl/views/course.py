@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.db.models import Q
 from ..models import *
-from ..forms import csvForm
+from ..forms import CourseUploadCsvForm
 
 
 def is_instructor_check(user):
@@ -86,7 +86,7 @@ class CourseDeleteStudents(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
     template_name = 'user_upload.html'
-    form_class = csvForm
+    form_class = CourseUploadCsvForm
 
     # Checks if the user is the instructor for this course
     def get(self, request, *args, **kwargs):
@@ -101,7 +101,7 @@ class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
         if course.instructor != self.request.user:
             return redirect("courses")
         form.process_data(course_id)
-        return super().form_valid(form)
+        return super(CourseAddStudents, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
