@@ -177,4 +177,10 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             vm.ip_address = server.addresses[list(server.addresses.keys())[0]][0]['addr']
             vm.save()
 
+            ip_owner_history = vm.ip_owner_history.create(
+                ip_address=vm.ip_address,
+                user=request.user
+            )
+            ip_owner_history.save()
+
         return redirect(environment)
