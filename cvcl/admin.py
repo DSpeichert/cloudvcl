@@ -90,11 +90,11 @@ class CustomVmAdmin(admin.ModelAdmin):
 @admin.register(VmDefinition, site=admin_site)
 class CustomVmDefinitionAdmin(admin.ModelAdmin):
     list_display = ('name', 'image', 'flavor',)
-    list_display_links = ('image', 'flavor',)
+    list_display_links = ('name', 'image', 'flavor',)
     list_filter = ('image', 'flavor',)
 
 
 @admin.register(IPOwnerHistory, site=admin_site)
 class CustomIPOwnerHistoryAdmin(admin.ModelAdmin):
     list_display = ('created_at', 'end_at', 'ip_address', 'user', 'vm',)
-    list_display_links = ('user', 'vm',)
+    list_display_links = ('ip_address', 'user', 'vm',)
