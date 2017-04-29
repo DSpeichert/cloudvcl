@@ -35,7 +35,7 @@ class VmDefinitionForm(ModelForm):
         self.fields['image'] = ModelChoiceField(queryset=user.images.all())
 
 
-class csvForm(forms.Form):
+class CourseUploadCsvForm(forms.Form):
     data_file = forms.FileField()
 
     def clean_data_file(self):
