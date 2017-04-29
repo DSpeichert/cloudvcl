@@ -284,3 +284,58 @@ class IPOwnerHistory(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class InstallPackage(models.Model):
+    name = models.CharField(max_length=30)
+    package_update = models.BooleanField(default=False)
+    package_upgrade = models.BooleanField(default=False)
+    package_reboot_if_required = models.BooleanField(default=False)
+    vm_definition = models.ForeignKey('VmDefinition', on_delete=models.CASCADE, null=True,
+                                      related_name='install_packages')
+
+    class Meta:
+        verbose_name = "Install Packages"
+
+    def __str__(self):
+        return str(self.id)
+
+
+class AddUser(models.Model):
+    name = models.CharField(max_length=30)
+    primary_group = models.CharField(max_length=50, blank=True)
+    groups = models.CharField(max_length=50, blank=True)
+    lock_passwd = models.BooleanField(default=False)
+    passwd = models.CharField(max_length=255, blank=True, null=True)
+    vm_definition = models.ForeignKey('VmDefinition', on_delete=models.CASCADE, null=True, related_name='add_users')
+
+    class Meta:
+        verbose_name = "Add Users"
+
+    def __str__(self):
+        return str(self.id)
+
+
+class AddGroup(models.Model):
+    name = models.CharField(max_length=50)
+    vm_definition = models.ForeignKey('VmDefinition', on_delete=models.CASCADE, null=True, related_name='add_groups')
+
+    class Meta:
+        verbose_name = "Add Groups"
+
+    def __str__(self):
+        return str(self.id)
+
+
+class UserScript(models.Model):
+    script_per_boot = models.TextField(blank=True, null=True,
+                                       help_text="(Linux only) Run a custom script every time the system boots.")
+    script_per_instance = models.TextField(blank=True, null=True,
+                                           help_text="(Linux only) Run a custom script when a new instance is first booted.")
+    vm_definition = models.ForeignKey('VmDefinition', on_delete=models.CASCADE, null=True, related_name='user_scripts')
+
+    class Meta:
+        verbose_name = "User Scripts"
+
+    def __str__(self):
+        return str(self.id)

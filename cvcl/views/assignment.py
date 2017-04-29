@@ -155,13 +155,19 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             if vmd.timezone:
                 data_dict['timezone'] = vmd.timezone
 
-            if vmd.timezone:
+            if vmd.hostname:
                 data_dict['hostname'] = vmd.hostname
 
             user_data = '#cloud-config\n' + yaml.dump(data_dict, default_flow_style=False)
 
             if vmd.powershell_script:
                 user_data = '#ps1_sysnative\n' + vmd.powershell_script
+
+            if vmd.script_per_boot:
+                user_data = '#!/bin/sh\n' + vmd.script_per_boot
+
+            if vmd.script_per_instance:
+                user_data = '#!/bin/sh\n' + vmd.script_per_instance
 
             server = os_conn.compute.create_server(
                 name=vmd.name + '.' + username,
