@@ -155,7 +155,7 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             if vmd.timezone:
                 data_dict['timezone'] = vmd.timezone
 
-            if vmd.timezone:
+            if vmd.hostname:
                 data_dict['hostname'] = vmd.hostname
 
             user_data = '#cloud-config\n' + yaml.dump(data_dict, default_flow_style=False)
