@@ -225,7 +225,7 @@ class Vm(models.Model):
 
 
 @receiver(models.signals.post_delete, sender=Vm)
-def delete_vm(sender, instance, *args, **kwargs):
+def post_delete_vm(sender, instance, *args, **kwargs):
     # delete in OS
     os_conn = os_connect()
     os_conn.compute.delete_server(instance.uuid, force=True)
@@ -237,6 +237,14 @@ def delete_vm(sender, instance, *args, **kwargs):
     instructor.usage_ram -= instance.vm_definition.flavor.ram
     instructor.usage_disk -= instance.vm_definition.flavor.disk
     instructor.save()
+
+
+@receiver(models.signals.pre_delete, sender=Vm)
+def pre_delete_vm(sender, instance, *args, **kwargs):
+    # note the end date of IP ownership
+    for ip in instance.ip_owner_history.all():
+        ip.end_at = timezone.now()
+        ip.save()
 
 
 class VmDefinition(models.Model):
@@ -256,3 +264,18 @@ class VmDefinition(models.Model):
 
     def get_absolute_url(self):
         return reverse('envdefs.detail', kwargs={'pk': self.environment.id})
+
+
+class IPOwnerHistory(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    end_at = models.DateTimeField(null=True)
+    ip_address = models.GenericIPAddressField()
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    vm = models.ForeignKey('Vm', on_delete=models.SET_NULL, null=True, related_name='ip_owner_history')
+
+    class Meta:
+        verbose_name = "IP Owner History"
+
+    def __str__(self):
+        return str(self.id)
