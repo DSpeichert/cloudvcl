@@ -1,6 +1,6 @@
-# Traiectum Herse apertum
+# System Administrator's Guide
 
-## Vincat regis crimine
+## Configuration and Administration of Cloud VCL
 
 Lorem markdownum funis miserarum sacra, rex cornua pontum laedor!
 [Propiore](http://www.vertebar.org/) colubris inmitem, sustulerat omnia herbas
