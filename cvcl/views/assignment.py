@@ -139,7 +139,7 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             os_conn = os_connect()
             username = self.request.user.username
             password = get_random_string(length=8)
-            user_data = '#cloud-config\n' + yaml.dump({
+            data_dict = {
                 # 'password': password,
                 'users': [
                     'default',
@@ -150,7 +150,19 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                         'passwd': sha512_crypt.encrypt(password),
                     }
                 ],
-            }, default_flow_style=False)
+            }
+
+            if vmd.timezone:
+                data_dict['timezone'] = vmd.timezone
+
+            if vmd.timezone:
+                data_dict['hostname'] = vmd.hostname
+
+            user_data = '#cloud-config\n' + yaml.dump(data_dict, default_flow_style=False)
+
+            if vmd.powershell_script:
+                user_data = '#ps1_sysnative\n' + vmd.powershell_script
+
             server = os_conn.compute.create_server(
                 name=vmd.name + '.' + username,
                 image_id=vmd.image.uuid,
