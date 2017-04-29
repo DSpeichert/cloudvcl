@@ -5,11 +5,27 @@
     <h2>Upload CSV File</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-            {% bootstrap_form form %}
-        </table>
+        {% for field in form %}
+            <fieldset class="control-group">
+                <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                </div>
+
+            </fieldset>
+        {% endfor %}
+
         <br>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "file" %} Submit File
+            </button>
+        {% endbuttons %}
     </form>
+
+
+
+
+
 
 {% endblock %}
