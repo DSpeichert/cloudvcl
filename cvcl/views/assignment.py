@@ -162,12 +162,15 @@ class AssignmentLaunch(LoginRequiredMixin, View):
 
             if vmd.powershell_script:
                 user_data = '#ps1_sysnative\n' + vmd.powershell_script
+                user_data = base64.b64encode(bytes(user_data, 'utf-8')).decode('utf-8')
 
             if vmd.script_per_boot:
                 user_data = '#!/bin/sh\n' + vmd.script_per_boot
+                user_data = base64.b64encode(bytes(user_data, 'utf-8')).decode('utf-8')
 
             if vmd.script_per_instance:
                 user_data = '#!/bin/sh\n' + vmd.script_per_instance
+                user_data = base64.b64encode(bytes(user_data, 'utf-8')).decode('utf-8')
 
             server = os_conn.compute.create_server(
                 name=vmd.name + '.' + username,
