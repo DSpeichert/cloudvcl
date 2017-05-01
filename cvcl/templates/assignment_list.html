@@ -7,17 +7,37 @@
             <div class="pull-right">
                 <a class="btn btn-primary" href="{% url 'assignments.create' %}" role="button">
                     {% bootstrap_icon "plus" %} Create Assignment</a>
-
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseText"
                         aria-expanded="false" aria-controls="collapseText">
-                    {% bootstrap_icon "question-sign" %}Help
+                    {% bootstrap_icon "question-sign" %} Help
                 </button>
-                <div class="collapse" id="collapseText">
-                    <div class="well">
-                        <h5>Lorem Ipsum</h5>
+            </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="collapse" id="collapseText">
+                                <div class="well well-sm">
+                                    {% if user.is_instructor %}
+                                        <h5><p>As an instructor, you are tasked to create a VCL Assignment for each assignment
+                                            on the course website that requires a student to utilize a virtual environment to complete.
+                                            Each VCL Assignment will be assigned to one Course, and they will become available to the
+                                            students in that Course upon the "Start Date" specified. The Assignment will close and all
+                                            associate Environments will be terminated upon the "End Date".</p><p>Click "Create Assignment" to
+                                            do this, but first you must ensure that a Course and Environment definition have been created
+                                            so that they can be assigned to the Assignment.</p>
+                                        </h5>
+                                    {% else %}
+                                        <h5>On this page you will see a list of VCL assignments that correspond to assignments
+                                            given by your instructor in Drexel Learn. A VCL assignment provides you with a virtual
+                                            environment to work in until the due date of that assignment. <br> Click on the VCL
+                                            assignment name to view the details of an existing environment or to create a new one.
+                                        </h5>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         {% endif %}
     </h1>
 
