@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.crypto import get_random_string
 from django.db import transaction
 from django.db.models import Q
+from email.mime.text import MIMEText
 from passlib.hash import sha512_crypt
 import base64
 import yaml
@@ -159,6 +160,8 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 data_dict['hostname'] = vmd.hostname
 
             user_data = '#cloud-config\n' + yaml.dump(data_dict, default_flow_style=False)
+            # user_data = MIMEText(user_data)
+            # print(user_data)
 
             if vmd.powershell_script:
                 user_data = '#ps1_sysnative\n' + vmd.powershell_script
