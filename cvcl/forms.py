@@ -48,7 +48,6 @@ class CourseUploadCsvForm(forms.Form):
         return f
 
     def process_data(self, course_id):
-        print("bitch")
         f = io.TextIOWrapper(self.cleaned_data['data_file'].file)
         reader = csv.DictReader(f)
         for users in reader:
