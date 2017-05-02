@@ -168,7 +168,7 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 image_id=vmd.image.uuid,
                 flavor_id=vmd.flavor.uuid,
                 networks=[{"uuid": get_default_network_id()}],
-                user_data=base64.b64encode(bytes(user_data, 'utf-8')).decode('utf-8')
+                user_data=base64.b64encode(user_data.encode('utf-8')).decode('utf-8')
             )
 
             vm = environment.vms.create(
