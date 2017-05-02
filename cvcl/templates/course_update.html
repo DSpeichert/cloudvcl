@@ -8,16 +8,14 @@
         {% csrf_token %}
         {% bootstrap_form form layout='horizontal' %}
         <div class="pull-right">
-            <div class="pull-right">
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">
-                        {% bootstrap_icon "ok" %} Update
-                    </button>
-                    <a href="{% url "courses" %}" class="btn btn-default">
-                        {% bootstrap_icon "chevron-left" %} Back
-                    </a>
-                {% endbuttons %}
-            </div>
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "ok" %} Update
+                </button>
+                <a href="{% url "courses" %}" class="btn btn-default">
+                    {% bootstrap_icon "chevron-left" %} Back
+                </a>
+            {% endbuttons %}
         </div>
     </form>
 {% endblock %}
