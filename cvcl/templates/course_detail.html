@@ -12,7 +12,8 @@
                         aria-expanded="false" aria-controls="collapseText">
                     {% bootstrap_icon "question-sign" %} Help
                 </button>
-                </div>
+        </div></h1>
+
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12">
@@ -22,6 +23,10 @@
                                         <h5><p>On this page, you can view, edit, or delete expired, current, and upcoming Assignments for this
                                             Course. You can also individually add/remove students to/from the Course or add multiple students at a time
                                             by uploading a .CSV file.</p>
+                                        </h5>
+                                        {% else %}
+                                        <h5><p>Here you can see the current and upcoming assignments for this Course. Click on the name
+                                            of an Assignment to view it's details.</p>
                                         </h5>
                                     {% endif %}
                                 </div>
@@ -34,7 +39,6 @@
                         {% bootstrap_icon "trash" %} Delete course
                     </a>
                 {% endif %}
-    </h1>
 
     <h2>Assignment List
         {% if assignment.course.instructor == user %}

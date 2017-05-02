@@ -11,7 +11,7 @@
                     aria-expanded="false" aria-controls="collapseText">
                 {% bootstrap_icon "question-sign" %} Help
             </button>
-            </div>
+            </div></h1>
             <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-12">
@@ -24,6 +24,10 @@
                                             Course. Click on a Course title to view active Assignments for that Course or to add/remove
                                             students in that Course.</p>
                                         </h5>
+                                        {% else%}
+                                        <h5><p>Here you can view the Courses that you are currently enrolled as well as the
+                                            current and upcoming Assignments associated with that Course. To do so, click on a
+                                            Course name.</p></h5>
                                     {% endif %}
                                 </div>
                             </div>
@@ -31,7 +35,6 @@
                     </div>
                 </div>
         {% endif %}
-    </h1>
 
     {% if course_list %}
         <table class="table table-hover">
