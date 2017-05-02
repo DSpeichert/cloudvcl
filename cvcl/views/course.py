@@ -85,8 +85,13 @@ class CourseDeleteStudents(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
-    template_name = 'user_upload.html'
+    template_name = 'course_upload_csv_form.html'
     form_class = CourseUploadCsvForm
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseAddStudents, self).get_context_data(**kwargs)
+        context['course'] = get_object_or_404(Course, pk=self.kwargs['pk'])
+        return context
 
     # Checks if the user is the instructor for this course
     def get(self, request, *args, **kwargs):
@@ -95,16 +100,16 @@ class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
             return redirect("courses")
         return super(CourseAddStudents, self).get(request, *args, **kwargs)
 
-    def form_valid(self, form):
-        course_id = self.kwargs['pk']
-        course = get_object_or_404(Course, pk=course_id)
-        if course.instructor != self.request.user:
+    # Checks if the user is the instructor for this course
+    def post(self, request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=self.kwargs['pk'])
+        if not course.instructor == self.request.user:
             return redirect("courses")
-        form.process_data(course_id)
+        return super(CourseAddStudents, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.process_data(self.kwargs['pk'])
         return super(CourseAddStudents, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
-
-    def get_queryset(self):
-        return Course.objects.filter(instructor=self.request.user)
