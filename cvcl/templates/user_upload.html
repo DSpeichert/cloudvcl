@@ -2,7 +2,32 @@
 {% load bootstrap3 %}
 {% block content %}
 
-    <h2>Upload CSV File</h2>
+    <h2>Upload CSV File
+     <span class="pull-right">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseText"
+                        aria-expanded="false" aria-controls="collapseText">
+                    {% bootstrap_icon "question-sign" %} Help
+                </button>
+        </span></h2>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="collapse" id="collapseText">
+                                <div class="well well-sm">
+                                    {% if user.is_instructor %}
+                                        <p>The format of the required .CSV file is concurrently used by Blackboard Learn, which is: <i>Last Name,
+                                            First Name, Username, Student ID, Last Access, Availability, Child Course ID</i></p><p>However, Cloud
+                                        VCL only requires the first three data columns (<i>Last Name, First Name, Username</i>). Once uploaded,
+                                        said information will be parsed and sent to the Cloud VCL database and those listed in the .CSV will be added as
+                                        students to this Course.</p><p>If you wish to add more students to the Course, upload a new .CSV the additions and
+                                        the student list forthis Course will be updated.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
