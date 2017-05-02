@@ -18,16 +18,15 @@
                             <div class="collapse" id="collapseText">
                                 <div class="well well-sm">
                                     {% if user.is_instructor %}
-                                        <h5><p>As an instructor, you are responsible for managing the courses you instruct. Create
+                                        <p>As an instructor, you are responsible for managing the courses you instruct. Create
                                             a VCL Course and add students (that are enrolled on the course website) to that
                                             VCL Course.</p><p>Click "Create Course" to create a new Course and add students to that
                                             Course. Click on a Course title to view active Assignments for that Course or to add/remove
                                             students in that Course.</p>
-                                        </h5>
-                                        {% else%}
-                                        <h5><p>Here you can view the Courses that you are currently enrolled as well as the
+                                    {% else %}
+                                        <p>Here you can view the Courses that you are currently enrolled as well as the
                                             current and upcoming Assignments associated with that Course. To do so, click on a
-                                            Course name.</p></h5>
+                                            Course name.</p>
                                     {% endif %}
                                 </div>
                             </div>
