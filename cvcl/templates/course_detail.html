@@ -105,10 +105,13 @@
                 {% for student in course.students.all %}
                     <tr>
                         <td>{{ student }}
-                            <form class="pull-right" action="{% url 'courses.delete_students' user_pk=student.pk pk=course.pk %}" method="post">
+                            <form class="pull-right"
+                                  action="{% url 'courses.delete_students2' user_pk=student.pk pk=course.pk %}"
+                                  method="get">
                                 {% csrf_token %}
                                 <input type="submit" class="btn btn-danger" value="Remove {{ student.first_name }} from course">
                             </form>
+
                         </td>
                     </tr>
                 {% endfor %}

@@ -1,4 +1,5 @@
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, FormView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, FormView, RedirectView, \
+    TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
@@ -77,6 +78,12 @@ class CourseDeleteStudents(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         self.object = self.get_object()
         user = User.objects.get(pk=self.kwargs['user_pk'])
         self.object.students.remove(user)
+        course = get_object_or_404(Course, pk=self.kwargs['pk'])
+        assignments = course.assignments.all()
+        for assignment in assignments:
+            tests = assignment.environments.filter(user=user)
+            for test in tests:
+                print(test)
         return HttpResponseRedirect(reverse_lazy('courses.detail', kwargs={'pk': self.object.pk}))
 
     def get_queryset(self):
@@ -113,3 +120,15 @@ class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
     def get_success_url(self):
         return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class CourseConfirmDeleteStudents(TemplateView):
+    template_name = 'course_delete_user.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseConfirmDeleteStudents, self).get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        context['user_pk'] = self.kwargs['user_pk']
+
+        # so students is a relationship with course and user
+        return context
