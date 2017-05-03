@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+
+    <p>Are you sure you want to remove this user from the course?</p>
+    <p>Removing the following user from the course wil also delete their environment</p>
+    <form class="pull-right" action="{% url 'courses.delete_students' user_pk=user_pk pk=pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Remove from course">
+
+    </form>
+
+{% endblock %}

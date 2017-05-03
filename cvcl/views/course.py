@@ -129,6 +129,4 @@ class CourseConfirmDeleteStudents(TemplateView):
         context = super(CourseConfirmDeleteStudents, self).get_context_data(**kwargs)
         context['pk'] = self.kwargs['pk']
         context['user_pk'] = self.kwargs['user_pk']
-
-        # so students is a relationship with course and user
         return context
