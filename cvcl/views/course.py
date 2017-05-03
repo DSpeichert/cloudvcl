@@ -81,9 +81,7 @@ class CourseDeleteStudents(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         course = get_object_or_404(Course, pk=self.kwargs['pk'])
         assignments = course.assignments.all()
         for assignment in assignments:
-            tests = assignment.environments.filter(user=user)
-            for test in tests:
-                print(test)
+            assignment.environments.filter(user=user).delete()
         return HttpResponseRedirect(reverse_lazy('courses.detail', kwargs={'pk': self.object.pk}))
 
     def get_queryset(self):
