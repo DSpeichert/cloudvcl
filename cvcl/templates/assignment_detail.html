@@ -47,6 +47,8 @@
                 </div>
             {% endif %}
 
+    <p>{{ assignment.description }}</p>
+
     {% if user in assignment.course.students.all %}
         {% if environment %}
             <div class="text-center">
