@@ -52,7 +52,7 @@ class CourseUploadCsvForm(forms.Form):
         return f
 
     def process_data(self, course_id):
-        f = io.TextIOWrapper(self.cleaned_data['csv_file'].file)
+        f = io.TextIOWrapper(self.cleaned_data['csv_file'].file, encoding="utf-8", errors='ignore')
         reader = csv.reader(f)
         next(reader, None)  # skip CSV header
         for line in reader:
