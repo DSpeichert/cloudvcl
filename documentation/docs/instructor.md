@@ -1,89 +1,82 @@
-# Traiectum Herse apertum
+# Instructor Documentation 
 
-## Vincat regis crimine
+##Create a Course
+1. From the home page, select the `Courses` tab found in the header. You'll be taken to the Course List page which will contain all of the instructor's courses.
+2. While on this page, click the `Create Course` button near the top right corner.
+3. Provide a name for the course and select the students you want to add to the course (see step 5 if a student doesn't exist in the database).
+4. After pressing submit, you'll be taken to the specific course page where you can view assignments and students in that particular course.
+5. If a student doesn't exist in the database, click the `Add Students (CSV Upload)` button near the right side.
+6. Click over `Browse for CSV` where you'll be prompted to upload a file. Ensure that the file uploaded includes the fields: *Last Name, First Name, Username*. Once the file is selected, press `Upload CSV and Add Students`.
 
-Lorem markdownum funis miserarum sacra, rex cornua pontum laedor!
-[Propiore](http://www.vertebar.org/) colubris inmitem, sustulerat omnia herbas
-Finis videbor pectora vulnera morique est deos Salmaci. Glaciali in ergo donasse
-furtisque biceps.
+## Update a Course
+1. Go to the Course List page (click the `Courses` tab found in the header).
+2. Find the course you want to update and select `Edit` in order to rename the course or add more students.
 
-    if (dram(startPum)) {
-        oop += raster(vdsl_language_tcp, worm - hoverJavascriptDvd,
-                umlCorrection);
-        card(-4, fileBoot);
-    } else {
-        netmask.e_station(scroll_tiff * -5);
-    }
-    if (tween(column, 2, market) + leftDot) {
-        pmu = xpPrebindingDynamic;
-        rpc = retina_ttl;
-        service_rate_typeface -= w * 961245;
-    } else {
-        sku(jsf.drmDisk(70, jre_lion, iconCommercialGuid),
-                realCompressionIntranet, tweet_voip_copy);
-        master = eDomain;
-        menu_control.digital_drive = load_flash;
-    }
-    if (wave * upsDvd < storagePath.domain_hdtv(scalable, 5, driveAdware) *
-            kvm_ipv) {
-        excel(lock_gis_mbps, mmsRepositoryWeb + 2);
-    }
-    handle_webcam_monitor.input_alignment(webcam_intranet_nui -
-            symbolicWikiAnimated);
+## Delete a Course
+*All corresponding students and assignments will be deleted when you delete a course.*
 
-## Fuerit Trinacriam metusque iam pulsat vestros
+1. Go to the Course List page by selecting the `Courses` tab found in the header.
+2. Find the course you want to delete and click on `Delete`.
 
-Non sed possis mea armiger ingens moveat, ad, hinc. Perque et contemptor gemit,
-nec deos [protinus in](http://euntem.io/ademptum-commemorare.aspx) indicat ad
-flamma *ignorans*. Habet fortunata ab fides et ulterius Saturnia, o nympha
-preces. Ante florem hausta Iuppiter nunc veniat iuvenem coniunx tunc lacus
-iacuere.
+## Create an Environment Definition
+1. From the home page, select the `Environment Definitions` tab found in the header. You'll be taken to the Environment Definitions List page which will contain all of the instructor's environment definitions.
+2. While on this page, click the `Create Environment Definition` button near the top right corner.
+3. Provide a name for the environment definition.
+4. Please see *Create a VM Definition* to know how to create a VM Definition within your environment definitions.
 
-    if (soap.commercialSouthbridge(computing_autoresponder,
-            swappable_pmu_repeater, rate_wi) <= left_status) {
-        webAdsl += newbie_dv_rt - circuitJumper;
-        buffer -= -5 / cookieBitRup;
-    } else {
-        keyDfs.map_extranet = flowchartHard.php(5, printerMulticastingMap) + 2;
-        start.hot_box_hard.odbcQwertyCmos(dslamDiskOlap, rawLcd(
-                parallelExcelSubnet, gbps_type), minisiteSrgbCompatible);
-        barModule.ddlFrameworkE = webcam_snapshot;
-    }
-    if (recursion_ansi != network.inputAnsiCircuit(utfListserv, megahertzXp)) {
-        readerPeopleware /= supply;
-        toolbarFormula = import + 4;
-        signature = compactGbpsMedia(midi(ipv, full_ipod_tween, 5));
-    } else {
-        ddr_illegal += parityCybersquatter(jsonStaticHeader + isa_delete_golden,
-                2);
-        ppp(-2, smartTiger, forum + ircTelecommunications);
-    }
-    if (gis.sidebarBug(fileFlood, 5, 38) - dithering) {
-        ideInternicRate.ioP(oopWindow + restore);
-        on.social_computing_kbps = 3;
-        opticDesktop = format_open + drag_boolean + 2;
-    } else {
-        pum_scrolling(413565, mca_web, on_autoresponder_lion(delete_batch,
-                e_vdu_load));
-    }
-    frequency(6 / restore_website_uat);
-    camelcase = server;
+## Update an Environment Definition
+1. Go to the Environment Definition List page (click the `Environment Definitions` tab found in the header).
+2. Find the environment definition you want to update and select `Edit` in order to rename it.
 
-## Nil per simulatoremque vigor
+## Delete an Environment Definition
+*All corresponding VM definitions will be deleted when you delete an environment definition.*
 
-Quoque obstem bracchia exanimem **Veneris**, omnia moras *levis erat humano*
-levant, cum stimulis, iners **flebile**! Sidoniae nec at Romanae duratur mearum
-avus, ulla sidera: quem **fusus**, non votique relicta et tempus cubile. Longius
-contraque veri praesens pugnae *aut* hinc, tumebat arcum tractus laudibus
-pactaeque iussit narrare aliquo procorum dolet!
+1. Go to the Environment Definition List page by selecting the `Environment Definitions` tab found in the header.
+2. Find the environment definition you want to delete and click on `Delete`.
 
-Erat *ignis numen*, fuit sub qui melioris sonis. Huic currus, est olivae,
-locuturum delere ore generatus socium caelestia villisque Dictys, laqueos. O
-nihil mandata. Non **quo** habet gravem a crede: dum tot sanguine honores,
-Parthaoniae? Edaci quoque malo aras tamen arent concubitus, cultus meritumque
-tractaque **fundebat**.
+## Create a VM Definition
+1. Go to the Environment Definitions List page by selecting the `Environment Definitions` tab found in the header.
+2. Click the environment definition you want to create VM definitions in.
+3. Select the `Create VM Definition` button towards the top right.
+4. Provide the name of the VM definition.
+5. Choose the type of image (*CentOS 7.3, Ubuntu Server 16.04.2, Windows Server 2012 R2*).
+6. Select the type of flavor (*01c-01m-10d reads 1 VCPU, 1 RAM GB, and 10 GB Total/Root Disk*).
+7. The timezone, hostname and Powershell script fields do not need to be complete in order to successfully create a VM definition. Please see *Cloud Configurations* to learn more about VM customizations.
+8. Press `Submit` when you have the necessary fields completed.
 
-Rerum subest vetustas tamen et atque visa virgine quantum Medusa Hebre, *pro
-dulcis* humanum sigillis. Sacris prospicit caudaque levibus; auctor et magicae
-undis falsam! Orba Mermeros grandia corpore caede pressit Priami, sub *huic*
-denique, accessit qui.
+## Update a VM Definition
+1. Go to the Environment Definitions List page by selecting the `Environment Definitions` tab found in the header.
+2. Choose the environment definition that has the VM definition you want to update.
+3. Find the VM definition and press the `Edit` button to modify any of the existing fields.
+
+## Delete a VM Definition
+1. Go to the Environment Definitions List page by selecting the `Environment Definitions` tab found in the header.
+2. Choose the environment definition that has the VM definition you want to delete.
+3. Find the VM definition and press the `Delete` button to delete it.
+
+## Create an Assignment
+1. From the home page, select the `Assignment` tab found in the header. You'll be taken to the Assignment List page which will contain all assignments created.
+2. While on this page, click the `Create Assignment` button near the top right corner.
+3. Provide a name, description, start and end date for the assignment, as well as choosing which course to add the assignment to along with the environment definition.
+4. After pressing `Submit`, you can spawn a fresh instance by selecting `Selecting a New Environment for this Assignment`.
+
+## Update an Assignment
+1. Go to the Assignment List page by clicking the `Assignments` tab found in the header.
+2. Find the assignment you want to update and select `Edit` in order to modify any of the existing fields.
+
+## Delete an Assignment
+1. Go to the Assignment List page by selecting the `Assignment` tab found in the header.
+2. Find the assignment you want to delete and click on `Delete`.
+
+## Timezone (Linux Only)
+Set the system timezone for an instance.
+Example:
+```
+American/New_York
+```
+
+## Hostname (Linux Only)
+Set the system hostname to be different than default value.
+
+## Powershell Script (Windows Only)
+Run a Powershell script once when the instance is created.
