@@ -8,7 +8,7 @@ from ..models import *
 
 
 def is_instructor_check(user):
-    return user.is_instructor
+    return user.is_authenticated and user.is_instructor
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
