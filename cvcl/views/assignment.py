@@ -140,26 +140,42 @@ class AssignmentLaunch(LoginRequiredMixin, View):
         # Create VMs
         for vmd in environment.assignment.environment_definition.vmdefinition_set.all():
             os_conn = os_connect()
-            username = self.request.user.username
-            password = get_random_string(length=8)
+            username = ""
+            password = ""
             data_dict = {
-                # 'password': password,
-                'users': [
-                    'default',
-                    {
-                        'name': username,
-                        'sudo': 'ALL = (ALL) NOPASSWD: ALL',
-                        'lock_passwd': False,
-                        'passwd': sha512_crypt.encrypt(password),
-                    }
-                ],
+                'users': [],
             }
+
+            if vmd.default_user_password or vmd.default_user_public_key:
+                data_dict['users'].append('default')
+
+            if vmd.install_packages:
+                packages = []
+                for line in vmd.install_packages.splitlines():
+                    packages.append(line.strip())
+                data_dict['packages'] = packages
 
             if vmd.timezone:
                 data_dict['timezone'] = vmd.timezone
 
             if vmd.hostname:
                 data_dict['hostname'] = vmd.hostname
+
+            if vmd.default_user_password:
+                data_dict['password'] = vmd.default_user_password
+
+            if vmd.default_user_public_key:
+                data_dict['ssh_authorized_keys'] = [vmd.default_user_public_key]
+
+            if vmd.student_user:
+                username = self.request.user.username
+                password = get_random_string(length=8)
+                data_dict['users'].append({
+                    'name': username,
+                    'sudo': vmd.student_user_sudo,
+                    'lock_passwd': False,
+                    'passwd': sha512_crypt.encrypt(password),
+                })
 
             # put together a MIME multipart message
             user_data = MIMEMultipart()

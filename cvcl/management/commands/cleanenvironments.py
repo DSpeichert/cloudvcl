@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for environment in Environment.objects.filter(assignment__end_date__lt=timezone.now()):
-            if environment.user != environment.course.instructor:
+            if environment.user != environment.assignment.course.instructor:
                 environment.delete()
                 self.stdout.write(
                     self.style.SUCCESS('Deleted expired environment for assignment %s in course %s, user: %s' % (
