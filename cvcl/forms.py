@@ -5,7 +5,6 @@ from .models import Assignment, VmDefinition, User, Course
 from bootstrap3_datetime.widgets import DateTimePicker
 import io
 import csv
-import re
 
 
 class AssignmentForm(ModelForm):
@@ -37,31 +36,35 @@ class VmDefinitionForm(ModelForm):
 
 
 class CourseUploadCsvForm(forms.Form):
-    data_file = forms.FileField()
+    csv_file = forms.FileField()
 
-    def clean_data_file(self):
-        f = self.cleaned_data['data_file']
+    def clean_csv_file(self):
+        f = self.cleaned_data['csv_file']
         if f:
-            ext = f.name.split('.')[-1]
-            if ext != 'csv':
-                raise forms.ValidationError('Please upload only csv file')
+            try:
+                ext = f.name.split('.')[-1]
+                if ext != 'csv':
+                    raise forms.ValidationError('Please upload only csv file')
+            except IndexError:
+                forms.ValidationError('Please upload only csv file')
 
         return f
 
     def process_data(self, course_id):
-        f = io.TextIOWrapper(self.cleaned_data['data_file'].file)
-        reader = csv.DictReader(f)
-        for users in reader:
-            users = {re.sub("['\"]", "", str(k.encode('ascii', 'ignore')))[1:]: v for k, v in users.items()}
-            username = users['Username']
-            email = users['Username'] + getattr(settings, "EMAIL_DOMAIN", "")
-            user, created = User.objects.get_or_create(username=username)
+        f = io.TextIOWrapper(self.cleaned_data['csv_file'].file)
+        reader = csv.reader(f)
+        next(reader, None)  # skip CSV header
+        for line in reader:
+            # line format: last name, first name, username, other fields...
+            try:
+                user, created = User.objects.get_or_create(username=line[2])
+                if created:
+                    user.first_name = line[1]
+                    user.last_name = line[0]
+                    user.email = line[2] + getattr(settings, "EMAIL_DOMAIN", "")
+                    user.save()
 
-            if created:
-                user.first_name = users['First Name']
-                user.last_name = users['Last Name']
-                user.email = email
-                user.save()
-
-            course = Course.objects.get(id=course_id)
-            course.students.add(user)
+                course = Course.objects.get(id=course_id)
+                course.students.add(user)
+            except IndexError:
+                pass
