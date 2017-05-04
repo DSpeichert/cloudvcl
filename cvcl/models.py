@@ -254,8 +254,8 @@ class VmDefinition(models.Model):
     environment = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, blank=False)
     flavor = models.ForeignKey('Flavor', on_delete=models.SET_NULL, null=True, blank=False)
-    powershell_script = models.TextField(blank=True, null=True,
-                                         help_text="(Windows only) Run a Powershell script once when the instance is created.")
+    shell_script = models.TextField(blank=True, null=True,
+                                         help_text="Run a shell script when the instance is created. Must provide a shebang.")
     timezone = models.CharField(max_length=50, blank=True, null=True,
                                 help_text="(Linux-only) Example: America/New_York")
     hostname = models.CharField(max_length=20, blank=True, null=True,

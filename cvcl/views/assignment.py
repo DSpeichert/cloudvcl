@@ -11,6 +11,9 @@ from django.utils.crypto import get_random_string
 from django.db import transaction
 from django.db.models import Q
 from passlib.hash import sha512_crypt
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import sys
 import base64
 import yaml
 from ..models import *
@@ -158,17 +161,23 @@ class AssignmentLaunch(LoginRequiredMixin, View):
             if vmd.hostname:
                 data_dict['hostname'] = vmd.hostname
 
-            user_data = '#cloud-config\n' + yaml.dump(data_dict, default_flow_style=False)
+            # put together a MIME multipart message
+            user_data = MIMEMultipart()
+            # when in MIME Multipart encoding, the #cloud-init shebang is not required but we provide it
+            cloud_config_content = '#cloud-config\n' + yaml.dump(data_dict, default_flow_style=False)
+            cloud_config_part = MIMEText(cloud_config_content, 'cloud-config', sys.getdefaultencoding())
+            user_data.attach(cloud_config_part)
 
-            if vmd.powershell_script:
-                user_data = '#ps1_sysnative\n' + vmd.powershell_script
+            if vmd.shell_script:
+                shell_part = MIMEText(vmd.shell_script, 'x-shellscript', sys.getdefaultencoding())
+                user_data.attach(shell_part)
 
             server = os_conn.compute.create_server(
                 name=vmd.name + '.' + username,
                 image_id=vmd.image.uuid,
                 flavor_id=vmd.flavor.uuid,
                 networks=[{"uuid": get_default_network_id()}],
-                user_data=base64.b64encode(user_data.encode('utf-8')).decode('utf-8')
+                user_data=base64.b64encode(user_data.as_string().encode('utf-8')).decode('utf-8')
             )
 
             vm = environment.vms.create(

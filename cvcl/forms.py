@@ -27,7 +27,7 @@ class AssignmentForm(ModelForm):
 class VmDefinitionForm(ModelForm):
     class Meta:
         model = VmDefinition
-        fields = ['name', 'image', 'flavor', 'timezone', 'hostname', 'powershell_script']
+        fields = ['name', 'image', 'flavor', 'timezone', 'hostname', 'shell_script']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # pop the 'user' from kwargs dictionary
