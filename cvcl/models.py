@@ -270,6 +270,13 @@ class VmDefinition(models.Model):
     install_packages = models.TextField(
         blank=True, null=True,
         help_text="(Linux-only) Install packages using system package manager. One package name per line.")
+    package_update = models.NullBooleanField(blank=True, verbose_name="Update package lists on boot",
+                                             help_text="(Linux-only)")
+    package_upgrade = models.NullBooleanField(blank=True, verbose_name="Upgrade all packages on boot",
+                                              help_text="(Linux-only)")
+    package_reboot_if_required = models.NullBooleanField(blank=True,
+                                                         verbose_name="Perform reboot if required after package install/upgrade",
+                                                         help_text="(Linux-only)")
     timezone = models.CharField(max_length=50, blank=True, null=True,
                                 help_text="(Linux-only) Example: America/New_York")
     hostname = models.CharField(max_length=20, blank=True, null=True,

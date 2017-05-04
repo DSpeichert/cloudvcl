@@ -155,6 +155,15 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                     packages.append(line.strip())
                 data_dict['packages'] = packages
 
+            if vmd.package_update is not None:
+                data_dict['package_update'] = vmd.package_update
+
+            if vmd.package_upgrade is not None:
+                data_dict['package_upgrade'] = vmd.package_upgrade
+
+            if vmd.package_reboot_if_required is not None:
+                data_dict['package_reboot_if_required'] = vmd.package_reboot_if_required
+
             if vmd.timezone:
                 data_dict['timezone'] = vmd.timezone
 
