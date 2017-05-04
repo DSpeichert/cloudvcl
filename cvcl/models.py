@@ -3,11 +3,13 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.dispatch import receiver
+from django.utils.encoding import python_2_unicode_compatible
 from .osapi import os_connect
 from novaclient import client as nc
 from novaclient.exceptions import NotFound as NovaNotFound
 
 
+@python_2_unicode_compatible
 class Assignment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -33,6 +35,7 @@ class Assignment(models.Model):
     is_current.boolean = True
 
 
+@python_2_unicode_compatible
 class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -59,6 +62,7 @@ class Course(models.Model):
 
 
 # an instance of EnvironmentDefinition that exists in OpenStack cloud
+@python_2_unicode_compatible
 class Environment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -75,6 +79,7 @@ class Environment(models.Model):
         return self.assignment.course
 
 
+@python_2_unicode_compatible
 class EnvironmentDefinition(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -116,6 +121,7 @@ class EnvironmentDefinition(models.Model):
 
 
 # This is simply a reference to OpenStack Flavors. Only flavors represented by UUIDs here are available to users.
+@python_2_unicode_compatible
 class Flavor(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
@@ -131,6 +137,7 @@ class Flavor(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class Image(models.Model):
     uuid = models.CharField(max_length=36)
     name = models.TextField()
@@ -142,6 +149,7 @@ class Image(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class User(AbstractUser):
     limit_instances = models.PositiveIntegerField(default=0, verbose_name="instance limit")
     limit_vcpus = models.PositiveIntegerField(default=0, verbose_name="vCPUs limit")
@@ -175,6 +183,7 @@ class User(AbstractUser):
 
 
 # an instance of VMDefinition that exists in OpenStack cloud
+@python_2_unicode_compatible
 class Vm(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -247,6 +256,7 @@ def pre_delete_vm(sender, instance, *args, **kwargs):
         ip.save()
 
 
+@python_2_unicode_compatible
 class VmDefinition(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -287,6 +297,7 @@ class VmDefinition(models.Model):
         return reverse('envdefs.detail', kwargs={'pk': self.environment.id})
 
 
+@python_2_unicode_compatible
 class IPOwnerHistory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
