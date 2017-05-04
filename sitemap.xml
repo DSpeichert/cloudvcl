@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>https://DSpeichert.github.io/cloudvcl/</loc>
+     <lastmod>2017-05-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://DSpeichert.github.io/cloudvcl/student/</loc>
+     <lastmod>2017-05-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://DSpeichert.github.io/cloudvcl/instructor/</loc>
+     <lastmod>2017-05-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://DSpeichert.github.io/cloudvcl/administrator/</loc>
+     <lastmod>2017-05-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>
