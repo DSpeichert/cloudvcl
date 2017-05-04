@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Remove Student: {{ student }}</h1>
+
+    <form method="post" class="form">
+        {% csrf_token %}
+        <p>Are you sure you want to remove student {{ student }} from course: {{ course }}?</p>
+        {% bootstrap_alert dismissable=False alert_type='warning' content='If the student has any environments associated with this course, they will be deleted now.' %}
+        <div class="pull-right">
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">
+                    {% bootstrap_icon "remove" %} Confirm removal
+                </button>
+                <a href="{% url "courses.detail" pk=course.id %}" class="btn btn-default">
+                    {% bootstrap_icon "chevron-left" %} Back
+                </a>
+            {% endbuttons %}
+        </div>
+    </form>
+{% endblock %}

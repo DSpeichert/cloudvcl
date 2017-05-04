@@ -21,8 +21,8 @@ urlpatterns = [
     url(r'^courses/(?P<pk>\d+)/update$', CourseUpdate.as_view(), name='courses.update'),  # instructor
     url(r'^courses/(?P<pk>\d+)/delete$', CourseDelete.as_view(), name='courses.delete'),  # instructor
     url(r'^courses/(?P<pk>\d+)/add_students$', CourseAddStudents.as_view(), name='courses.add_students'),
-    url(r'^courses/(?P<pk>\d+)/delete_students/(?P<user_pk>\d+)', CourseDeleteStudents.as_view(),
-        name='courses.delete_students'),
+    url(r'^courses/(?P<pk>\d+)/remove_student/(?P<student_pk>\d+)', CourseRemoveStudent.as_view(),
+        name='courses.remove_student'),
     url(r'^envdefs$', EnvironmentDefinitionList.as_view(), name='envdefs'),  # instructor
     url(r'^envdefs/create$', EnvironmentDefinitionCreate.as_view(), name='envdefs.create'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)$', EnvironmentDefinitionDetail.as_view(), name='envdefs.detail'),  # instructor

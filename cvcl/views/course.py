@@ -2,8 +2,9 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -63,24 +64,38 @@ class CourseDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
-class CourseDeleteStudents(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class CourseRemoveStudent(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Course
-    template_name = 'course_detail.html'
+    template_name = 'course_remove_student.html'
 
-    def get(self, request, *args, **kwargs):
-        course = get_object_or_404(Course, pk=self.kwargs['pk'])
-        if not course.instructor == self.request.user:
-            return redirect("courses")
-        return super(CourseDeleteStudents, self).get(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(CourseRemoveStudent, self).get_context_data(**kwargs)
+        try:
+            context['student'] = User.objects.get(pk=self.kwargs['student_pk'])
+            if context['student'] not in context['course'].students.all():
+                raise Http404('No student matches the given query.')
+        except User.DoesNotExist:
+            raise Http404('No student matches the given query.')
+        return context
 
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        user = User.objects.get(pk=self.kwargs['user_pk'])
-        self.object.students.remove(user)
-        return HttpResponseRedirect(reverse_lazy('courses.detail', kwargs={'pk': self.object.pk}))
+        course = self.get_object()
+        student = User.objects.get(pk=self.kwargs['student_pk'])
+        if student not in course.students.all():
+            messages.error(request, 'This student is not in this course!')
+            return HttpResponseRedirect(reverse_lazy('courses.detail', kwargs={'pk': course.pk}))
+
+        for assignment in course.assignments.all():
+            assignment.environments.filter(user=student).delete()
+
+        course.students.remove(student)
+        return HttpResponseRedirect(reverse_lazy('courses.detail', kwargs={'pk': course.pk}))
 
     def get_queryset(self):
         return Course.objects.filter(instructor=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
 
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')

@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Remove Course: {{ course.name }}</h1>
 
-    <form action="" method="post" class="form">
+    <form method="post" class="form">
         {% csrf_token %}
         <p>Are you sure you want to delete course: {{ object }}?</p>
         {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting course will also delete all assignments in it.' %}
