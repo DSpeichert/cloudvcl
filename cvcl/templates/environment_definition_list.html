@@ -39,7 +39,7 @@
         </tr>
         {% for ed in environmentdefinition_list %}
             <tr>
-                <td><a href="{% url "envdefs.detail" ed.id %}">{{ ed.name }}</a>
+                <td><a class="text-nowrap" href="{% url "envdefs.detail" ed.id %}">{{ ed.name }}</a>
                     <div class="pull-right">
                         {% url 'envdefs.update' pk=ed.id as url %}
                         {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}

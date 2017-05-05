@@ -42,7 +42,7 @@
             </tr>
             {% for course in course_list %}
                 <tr>
-                    <td><a href="{% url "courses.detail" course.id %}">{{ course.name }}</a>
+                    <td><a class="text-nowrap" href="{% url "courses.detail" course.id %}">{{ course.name }}</a>
                         {% if course.instructor == user %}
                             <div class="pull-right">
                                 {% url 'courses.update' pk=course.id as url %}

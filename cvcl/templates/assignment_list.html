@@ -53,8 +53,8 @@
             </tr>
             {% for assignment in assignment_list %}
                 <tr>
-                    <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
-                    <td><a href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a></td>
+                    <td><a class="text-nowrap" href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
+                    <td><a class="text-nowrap" href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a></td>
                     <td>{{ assignment.description | truncatewords:20 }}</td>
                     <td>{{ assignment.start_date }} - {{ assignment.end_date }}
                         {% if not assignment.is_current %}
