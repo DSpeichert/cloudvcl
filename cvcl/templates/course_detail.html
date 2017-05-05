@@ -51,7 +51,6 @@
     {% if course.current_assignments or course.instructor == user and course.assignments.all %}
         <table class="table table-hover">
             <tr>
-                <th>Course</th>
                 <th>Assignment Name</th>
                 <th>Description</th>
                 <th>Dates Available</th>
@@ -62,9 +61,8 @@
             {% for assignment in course.assignments.all %}
                 {% if course.instructor == user or assignment.is_current %}
                     <tr>
-                        <td><a href="{% url "courses.detail" assignment.course.id %}">{{ assignment.course.name }}</a>
-                        </td>
-                        <td><a href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
+                        <td><a class="text-nowrap"
+                               href="{% url "assignments.detail" assignment.id %}">{{ assignment.name }}</a></td>
                         <td>{{ assignment.description }}</td>
                         <td>{{ assignment.start_date }} - {{ assignment.end_date }}
                             {% if not assignment.is_current %}
