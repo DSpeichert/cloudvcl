@@ -1,37 +1,36 @@
 {% extends "master.html" %}
 {% load bootstrap3 %}
 
+{% block title %}Environment Definitions - Cloud VCL{% endblock %}
 {% block content %}
     <h1>Environment Definition List
-        {% if user.is_instructor %}
-            <div class="pull-right">
+        <span class="pull-right">
             <a class="btn btn-primary" href="{% url 'envdefs.create' %}" role="button">
-                {% bootstrap_icon "plus" %} Create Environment Definition</a>
+                        {% bootstrap_icon "plus" %} Create Environment Definition</a>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseText"
                     aria-expanded="false" aria-controls="collapseText">
-                {% bootstrap_icon "question-sign" %} Help
+                        {% bootstrap_icon "question-sign" %} Help
             </button>
-            </div></h1>
+        </span>
+    </h1>
 
-            <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="collapse" id="collapseText">
-                                <div class="well well-sm">
-                                    {% if user.is_instructor %}
-                                        <p>When a user spawns an Environment for their assignment, the corresponding Environment
-                                            Definition provides a number of Virtual Machines to load within that Environment and the
-                                            parameters of those Virtual Machines.</p><p>As an instructor, you must create a Virtual
-                                            Environment to be used for each Assignment by creating an Environment Definition (it only
-                                            needs a name). Once there is a Environment Definition, click on it's name to define Virtual Machines
-                                            to be used for the Assignment using that defined Environment.</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="collapse" id="collapseText">
+                    <div class="well well-sm">
+                        <p>When a user spawns an Environment for their assignment, the corresponding
+                            Environment Definition provides a number of Virtual Machines to load within that
+                            Environment and the parameters of those Virtual Machines.</p>
+                        <p>As an instructor, you must create a Virtual Environment to be used for each
+                            Assignment by creating an Environment Definition (it only needs a name). Once
+                            there is a Environment Definition, click on it's name to define Virtual Machines
+                            to be used for the Assignment using that defined Environment.</p>
                     </div>
                 </div>
-        {% endif %}
+            </div>
+        </div>
+    </div>
 
     <table class="table table-hover">
         <tr>
@@ -45,11 +44,9 @@
                         {% bootstrap_button button_type='link' content='Edit' button_class='btn-warning' href=url %}
                         {% url 'envdefs.delete' pk=ed.id as url %}
                         {% bootstrap_button button_type='link' content='Delete' button_class='btn-danger' href=url %}
-
                     </div>
                 </td>
             </tr>
         {% endfor %}
     </table>
-
 {% endblock %}

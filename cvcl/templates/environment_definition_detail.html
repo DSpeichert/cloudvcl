@@ -1,9 +1,10 @@
 {% extends "master.html" %}
 {% load bootstrap3 %}
 
+{% block title %}{{ environment_definition.name }} - Cloud VCL{% endblock %}
 {% block content %}
     <h1>Environment Definition: {{ environment_definition.name }}
-        <div class="pull-right">
+        <span class="pull-right">
             <a class="btn btn-warning" href="{% url 'envdefs.update' environment_definition.id %}" role="button">
                 {% bootstrap_icon "pencil" %} Update Environment Name</a>
             <a class="btn btn-primary" href="{% url 'envdefs.createvmdef' environment_definition.id %}" role="button">
@@ -12,22 +13,23 @@
                     aria-expanded="false" aria-controls="collapseText">
                 {% bootstrap_icon "question-sign" %} Help
             </button>
-        </div></h1>
+        </span>
+    </h1>
 
-        <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="collapse" id="collapseText">
-                                <div class="well well-sm">
-                                    <p>Here you can view the Virtual Machine Definitions that have been created for this
-                                        defined Environment or create new ones by click "Create VM Definition". These VM
-                                        Definitions will be used to load Virtual Machines into this Environment once it has
-                                        been launched for it's corresponding Assignment.</p>
-                                </div>
-                            </div>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="collapse" id="collapseText">
+                    <div class="well well-sm">
+                        <p>Here you can view the Virtual Machine Definitions that have been created for this
+                            defined Environment or create new ones by click "Create VM Definition". These VM
+                            Definitions will be used to load Virtual Machines into this Environment once it has
+                            been launched for it's corresponding Assignment.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
     <p class="lead">Students spawning an environment from this environment definition will receive the following
         VMs:</p>

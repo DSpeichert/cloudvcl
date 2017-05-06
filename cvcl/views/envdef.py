@@ -14,6 +14,7 @@ def is_instructor_check(user):
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class EnvironmentDefinitionCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = EnvironmentDefinition
+    context_object_name = 'environment_definition'
     template_name = './environment_definition_create.html'
     fields = ['name']
     success_message = "%(name)s was created successfully"
@@ -48,6 +49,7 @@ class EnvironmentDefinitionList(LoginRequiredMixin, ListView):
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class EnvironmentDefinitionUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = './environment_definition_update.html'
+    context_object_name = 'environment_definition'
     fields = ['name']
     success_message = "%(name)s was updated successfully"
 
@@ -58,6 +60,7 @@ class EnvironmentDefinitionUpdate(LoginRequiredMixin, SuccessMessageMixin, Updat
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class EnvironmentDefinitionDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = './environment_definition_delete.html'
+    context_object_name = 'environment_definition'
     success_url = reverse_lazy('envdefs')
     success_message = "%(name)s was deleted successfully"
 

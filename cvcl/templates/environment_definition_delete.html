@@ -1,12 +1,13 @@
 {% extends "master.html" %}
-
 {% load bootstrap3 %}
-{% block content %}
-    <h1>Remove Environment Definition: {{ environmentdefinition }}</h1>
 
-    <form action="" method="post" class="form">
+{% block title %}{{ environment_definition.name }} - Cloud VCL{% endblock %}
+{% block content %}
+    <h1>Remove Environment Definition: {{ environment_definition }}</h1>
+
+    <form method="post" class="form">
         {% csrf_token %}
-        <p>Are you sure you want to delete environment definition: {{ environmentdefinition }}?</p>
+        <p>Are you sure you want to delete environment definition: {{ environment_definition }}?</p>
         {% bootstrap_alert dismissable=False alert_type='warning' content='Deleting environment definition will also delete all assignments using it.' %}
         <div class="pull-right">
             {% buttons %}
