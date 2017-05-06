@@ -215,6 +215,15 @@ class Vm(models.Model):
         except NovaNotFound:
             pass
 
+    def get_log(self):
+        os_conn = os_connect()
+        nova = nc.Client("2.1", session=os_conn.session)
+        try:
+            server = nova.servers.get(self.uuid)
+            return server.get_console_output()
+        except NovaNotFound:
+            pass
+
     def claim_instructor_quota(self):
         instructor = self.environment.assignment.course.instructor
         instructor.usage_instances += 1
@@ -264,6 +273,10 @@ class VmDefinition(models.Model):
     environment = models.ForeignKey('EnvironmentDefinition', on_delete=models.CASCADE)
     image = models.ForeignKey('Image', on_delete=models.SET_NULL, null=True, blank=False)
     flavor = models.ForeignKey('Flavor', on_delete=models.SET_NULL, null=True, blank=False)
+    console_log = models.BooleanField(
+        default=True,
+        verbose_name="Allow student access to console log",
+        help_text="Disable when you want to conceal certain startup behavior. You always have access to console log.")
     shell_script = models.TextField(
         blank=True, null=True,
         help_text="Run a shell script when the instance is created. Must provide a shebang.")

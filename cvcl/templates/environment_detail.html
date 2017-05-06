@@ -41,7 +41,13 @@
 
         {% if vnc %}
             <p class="small">Please note: CTRL+C/CTRL+V (clipboard) does NOT work in this console.
-                <a class="btn btn-default btn-xs" target="_blank" href="{{ vnc.url }}">Open console in full screen mode</a></p>
+                <a class="btn btn-default btn-xs" target="_blank" href="{{ vnc.url }}">Open console in full screen
+                    mode</a>
+                {% if environment.assignment.course.instructor == user or vm.vm_definition.console_log %}
+                    <a class="btn btn-default btn-xs" target="_blank"
+                       href="{% url "environments.log" pk=environment.id uuid=vm.uuid %}">Open console log</a>
+                {% endif %}
+            </p>
             <iframe id="console_embed" src="{{ vnc.url }}" style="width: 100%; height: 638px;"></iframe>
         {% else %}
             <div class="alert alert-danger alert-border">

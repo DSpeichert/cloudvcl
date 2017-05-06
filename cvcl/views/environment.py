@@ -1,7 +1,8 @@
-from django.http import HttpResponseNotFound
+from django.http import HttpResponse, Http404
 from django.views.generic import DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models import Q
@@ -23,7 +24,7 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
             try:
                 context['vm'] = self.object.vms.get(uuid=self.kwargs.get('uuid', None))
             except Vm.DoesNotExist:
-                return HttpResponseNotFound('<h1>VM not found</h1>')
+                raise Http404('VM not found')
         else:
             context['vm'] = self.object.vms.first()
 
@@ -42,6 +43,33 @@ class EnvironmentDetail(LoginRequiredMixin, DetailView):
             if first_vm is not None:
                 return redirect(first_vm)
         return self.render_to_response(context)
+
+
+class EnvironmentLog(LoginRequiredMixin, DetailView):
+    model = Environment
+
+    def get_queryset(self):
+        queryset = super(EnvironmentLog, self).get_queryset()
+        return queryset.filter(
+            Q(user=self.request.user) | Q(assignment__course__instructor=self.request.user)).prefetch_related()
+
+    def get_context_data(self, **kwargs):
+        context = super(EnvironmentLog, self).get_context_data(**kwargs)
+        try:
+            context['vm'] = self.object.vms.get(uuid=self.kwargs.get('uuid', None))
+        except Vm.DoesNotExist:
+            raise Http404('VM not found')
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        vm = context.get('vm')
+        if not vm.vm_definition.console_log and request.user != vm.environment.assignment.course.instructor:
+            raise PermissionDenied()
+        
+        return HttpResponse(vm.get_log(), content_type='text')
 
 
 class EnvironmentDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):

@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^logout$', views.logout, name='logout'),  # logout page for all
     url(r'^environments/(?P<pk>\d+)(?:/vm/(?P<uuid>[a-z0-9\-]+))?$', EnvironmentDetail.as_view(),
         name='environments.detail'),
+    url(r'^environments/(?P<pk>\d+)(?:/vm/(?P<uuid>[a-z0-9\-]+))/log$', EnvironmentLog.as_view(),
+        name='environments.log'),
     url(r'^environments/(?P<pk>\d+)/delete$', EnvironmentDelete.as_view(), name='environments.delete'),
     url(r'^assignments$', AssignmentList.as_view(), name='assignments'),  # student, instructor (list)
     url(r'^assignments/create$', AssignmentCreate.as_view(), name='assignments.create'),  # instructor
@@ -23,7 +25,7 @@ urlpatterns = [
     url(r'^courses/(?P<pk>\d+)/add_student$', CourseAddStudent.as_view(), name='courses.add_student'),
     url(r'^courses/(?P<pk>\d+)/add_students$', CourseAddStudents.as_view(), name='courses.add_students'),
     url(r'^courses/(?P<pk>\d+)/remove_student/(?P<student_pk>\d+)', CourseRemoveStudent.as_view(),
-        name='courses.remove_student'),
+        name='courses.remove_student'),  # instructor
     url(r'^envdefs$', EnvironmentDefinitionList.as_view(), name='envdefs'),  # instructor
     url(r'^envdefs/create$', EnvironmentDefinitionCreate.as_view(), name='envdefs.create'),  # instructor
     url(r'^envdefs/(?P<pk>\d+)$', EnvironmentDefinitionDetail.as_view(), name='envdefs.detail'),  # instructor

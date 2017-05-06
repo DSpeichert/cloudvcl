@@ -1,7 +1,6 @@
 from django.forms import ModelForm, ModelChoiceField
 from django.conf import settings
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from .models import Assignment, VmDefinition, User, Course
 from bootstrap3_datetime.widgets import DateTimePicker
 import io
@@ -27,8 +26,8 @@ class AssignmentForm(ModelForm):
 class VmDefinitionForm(ModelForm):
     class Meta:
         model = VmDefinition
-        fields = ['name', 'image', 'flavor', 'shell_script', 'install_packages', 'package_update', 'package_upgrade',
-                  'package_reboot_if_required', 'timezone', 'hostname', 'default_user_password',
+        fields = ['name', 'image', 'flavor', 'console_log', 'shell_script', 'install_packages', 'package_update',
+                  'package_upgrade', 'package_reboot_if_required', 'timezone', 'hostname', 'default_user_password',
                   'default_user_public_key', 'student_user', 'student_user_sudo']
 
     def __init__(self, *args, **kwargs):
@@ -87,7 +86,8 @@ class CourseAddStudentForm(forms.Form):
             User.objects.get(username=username)
         except User.DoesNotExist:
             if not first_name or not last_name:
-                raise forms.ValidationError("Student does nCourseAddStudentFormot exist in the system, you must provide full name to add.")
+                raise forms.ValidationError(
+                    "Student does nCourseAddStudentFormot exist in the system, you must provide full name to add.")
 
     def add_student(self, course_id):
         user, created = User.objects.get_or_create(username=self.cleaned_data.get('username'))
