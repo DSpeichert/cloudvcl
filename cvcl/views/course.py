@@ -20,7 +20,7 @@ def is_instructor_check(user):
 class CourseCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Course
     template_name = './course_create.html'
-    fields = ['name', 'students']
+    fields = ['name']
     success_message = "%(name)s was created successfully"
 
     def form_valid(self, form):
@@ -46,7 +46,7 @@ class CourseList(LoginRequiredMixin, ListView):
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class CourseUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = './course_update.html'
-    fields = ['name', 'students']
+    fields = ['name']
     success_message = "%(name)s was updated successfully"
 
     def get_queryset(self):
