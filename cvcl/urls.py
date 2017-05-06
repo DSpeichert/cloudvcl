@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^courses/(?P<pk>\d+)$', CourseDetail.as_view(), name='courses.detail'),  # instructor
     url(r'^courses/(?P<pk>\d+)/update$', CourseUpdate.as_view(), name='courses.update'),  # instructor
     url(r'^courses/(?P<pk>\d+)/delete$', CourseDelete.as_view(), name='courses.delete'),  # instructor
+    url(r'^courses/(?P<pk>\d+)/add_student$', CourseAddStudent.as_view(), name='courses.add_student'),
     url(r'^courses/(?P<pk>\d+)/add_students$', CourseAddStudents.as_view(), name='courses.add_students'),
     url(r'^courses/(?P<pk>\d+)/remove_student/(?P<student_pk>\d+)', CourseRemoveStudent.as_view(),
         name='courses.remove_student'),

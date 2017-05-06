@@ -7,6 +7,7 @@
     <form method="post" class="form">
         {% csrf_token %}
         <p>Are you sure you want to delete VM Definition: {{ vmdefinition.name }}?</p>
+        {% bootstrap_alert dismissable=False alert_type='warning' content='If there exist environments using this VM definition, those VMs will be deleted now.' %}
         <div class="pull-right">
             {% buttons %}
                 <button type="submit" class="btn btn-danger">

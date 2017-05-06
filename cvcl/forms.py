@@ -1,6 +1,7 @@
 from django.forms import ModelForm, ModelChoiceField
 from django.conf import settings
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 from .models import Assignment, VmDefinition, User, Course
 from bootstrap3_datetime.widgets import DateTimePicker
 import io
@@ -69,3 +70,33 @@ class CourseUploadCsvForm(forms.Form):
                 course.students.add(user)
             except IndexError:
                 pass
+
+
+class CourseAddStudentForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    first_name = forms.CharField(max_length=30, required=False, help_text="Optional for known users.")
+    last_name = forms.CharField(max_length=30, required=False, help_text="Optional for known users.")
+
+    def clean(self):
+        cleaned_data = super(CourseAddStudentForm, self).clean()
+        username = cleaned_data.get('username')
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
+
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            if not first_name or not last_name:
+                raise forms.ValidationError("Student does nCourseAddStudentFormot exist in the system, you must provide full name to add.")
+
+    def add_student(self, course_id):
+        user, created = User.objects.get_or_create(username=self.cleaned_data.get('username'))
+        if created:
+            user.first_name = self.cleaned_data.get('first_name')
+            user.last_name = self.cleaned_data.get('last_name')
+            user.email = self.cleaned_data.get('username') + getattr(settings, "EMAIL_DOMAIN", "")
+            user.save()
+
+        course = Course.objects.get(id=course_id)
+        course.students.add(user)
+        pass

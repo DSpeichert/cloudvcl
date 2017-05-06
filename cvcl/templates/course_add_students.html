@@ -1,0 +1,107 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Upload CSV File
+                    <span class="pull-right">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseText"
+                                aria-expanded="false" aria-controls="collapseText">
+                            {% bootstrap_icon "question-sign" %} Help
+                        </button>
+                    </span>
+                </h2>
+
+                <div class="collapse" id="collapseText">
+                    <div class="well well-sm">
+                        <p>The format of the required CSV file is the one used by Blackboard Learn, which is:
+                            <i>Last Name, First Name, Username, Student ID, Last Access, Availability, Child
+                                CourseID</i></p>
+                        <p>However, Cloud VCL only requires the first three data columns (<i>Last Name, First Name,
+                            Username</i>).
+                            Once uploaded, said information will be parsed and saved to the Cloud VCL database and those
+                            listed in the CSV will be added as students in this Course.</p>
+                        <p>If you wish to add more students to the Course, upload a new CSV file with the additions
+                            and the student list for this Course will be updated.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <form action="{% url "courses.add_students" pk=course.id %}" method="post"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label class="control-label" for="csv_file">Select the CSV file</label>
+                        <input type="file" id="csv_file" name="csv_file">
+                        <input type="text" readonly class="form-control" placeholder="Browse for CSV...">
+                    </div>
+
+                    <div class="pull-right">
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">
+                                {% bootstrap_icon "upload" %} Upload CSV and add students
+                            </button>
+                            <a href="{% url "courses.detail" pk=course.id %}" class="btn btn-default">
+                                {% bootstrap_icon "chevron-left" %} Back
+                            </a>
+                        {% endbuttons %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Add a single student manually
+                    <span class="pull-right">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#collapseText2"
+                                aria-expanded="false" aria-controls="collapseText">
+                            {% bootstrap_icon "question-sign" %} Help
+                        </button>
+                    </span>
+                </h2>
+
+                <div class="collapse" id="collapseText2">
+                    <div class="well well-sm">
+                        <p>Here you can add a single student manually. If the student does not yet exist in the system,
+                            you must provide first and last names. Otherwise, it is sufficient to provide username.
+                            The username entered must match the student's username in the federated authentication
+                            system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <form action="{% url "courses.add_student" pk=course.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form_individual layout="horizontal" %}
+
+                    <div class="pull-right">
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">
+                                {% bootstrap_icon "ok" %} Add the student
+                            </button>
+                            <a href="{% url "courses.detail" pk=course.id %}" class="btn btn-default">
+                                {% bootstrap_icon "chevron-left" %} Back
+                            </a>
+                        {% endbuttons %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

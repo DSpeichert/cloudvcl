@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.db.models import Q
 from ..models import *
-from ..forms import CourseUploadCsvForm
+from ..forms import CourseUploadCsvForm, CourseAddStudentForm
 
 
 def is_instructor_check(user):
@@ -100,12 +100,13 @@ class CourseRemoveStudent(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 @method_decorator(user_passes_test(is_instructor_check), name='dispatch')
 class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
-    template_name = 'course_upload_csv_form.html'
+    template_name = 'course_add_students.html'
     form_class = CourseUploadCsvForm
 
     def get_context_data(self, **kwargs):
         context = super(CourseAddStudents, self).get_context_data(**kwargs)
         context['course'] = get_object_or_404(Course, pk=self.kwargs['pk'])
+        context['form_individual'] = CourseAddStudentForm
         return context
 
     # Checks if the user is the instructor for this course
@@ -124,7 +125,42 @@ class CourseAddStudents(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
     def form_valid(self, form):
         form.process_data(self.kwargs['pk'])
+        messages.success(self.request, 'CSV file with students was parsed successfully.')
         return super(CourseAddStudents, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
+
+
+@method_decorator(user_passes_test(is_instructor_check), name='dispatch')
+class CourseAddStudent(LoginRequiredMixin, SuccessMessageMixin, FormView):
+    template_name = 'course_add_students.html'
+    form_class = CourseAddStudentForm
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseAddStudent, self).get_context_data(**kwargs)
+        context['course'] = get_object_or_404(Course, pk=self.kwargs['pk'])
+        context['form_individual'] = context['form']
+        return context
+
+    # Checks if the user is the instructor for this course
+    def get(self, request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=self.kwargs['pk'])
+        if not course.instructor == self.request.user:
+            return redirect("courses")
+        return super(CourseAddStudent, self).get(request, *args, **kwargs)
+
+    # Checks if the user is the instructor for this course
+    def post(self, request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=self.kwargs['pk'])
+        if not course.instructor == self.request.user:
+            return redirect("courses")
+        return super(CourseAddStudent, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.add_student(self.kwargs['pk'])
+        messages.success(self.request, 'Student was added successfully to the course.')
+        return super(CourseAddStudent, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('courses.detail', kwargs={'pk': self.kwargs['pk']})
