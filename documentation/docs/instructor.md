@@ -1,82 +1,139 @@
-# Instructor Documentation 
+# Instructor Documentation
 
-##Create a Course
-1. From the home page, select the `Courses` tab found in the header. You'll be taken to the Course List page which will contain all of the instructor's courses.
-2. While on this page, click the `Create Course` button near the top right corner.
-3. Provide a name for the course and select the students you want to add to the course (see step 5 if a student doesn't exist in the database).
-4. After pressing submit, you'll be taken to the specific course page where you can view assignments and students in that particular course.
-5. If a student doesn't exist in the database, click the `Add Students (CSV Upload)` button near the right side.
-6. Click over `Browse for CSV` where you'll be prompted to upload a file. Ensure that the file uploaded includes the fields: *Last Name, First Name, Username*. Once the file is selected, press `Upload CSV and Add Students`.
+## Becoming an Instructor User
+Contact your system administrator to have them promote you to become an instructor user. If you aren't promoted, you will remain a student user and you won't have permission to create courses, assignments and such. 
 
-## Update a Course
-1. Go to the Course List page (click the `Courses` tab found in the header).
-2. Find the course you want to update and select `Edit` in order to rename the course or add more students.
+## Logging Into Cloud VCL
+Navigate to your institution's Cloud VCL site and log in using your institution's credentials. You will know that you've successfully logged in when you see Logged in as YourUsername in the top right corner. Once you log in and arrive on the home page, if you see a blue text box that indicates you're an instructor, you've been successfully promoted. If not, please ask your system administrator to promote you. To log out, select the Logout button in the top right corner.
 
-## Delete a Course
-*All corresponding students and assignments will be deleted when you delete a course.*
+## Checking Quota and Usage
+Whenever you or your student creates an instance, it will be indicated in the blue text box where it says Instance Count. Other usage details are provided (CPU, RAM, and disk) as well whenever a new instance is created. Your allocated quota is shared between you and your students in all your courses. If you exceed quota, you won't be able to create additional instances. Contact your system administrator if you want your quota increased.
 
-1. Go to the Course List page by selecting the `Courses` tab found in the header.
-2. Find the course you want to delete and click on `Delete`.
+## Creating a Course
+Visit the Course List page by selecting the Courses tab found in the header. Create a VCL course by finding and clicking the Create Course button near the top right corner, providing a name for the desired course, and pressing Submit. Courses can be edited or deleted on the Course List page. By clicking on a course title, you will see all enrolled students and assignments given in that course if they were already added and assigned. If you choose to delete a course, all of the students and assignments tied to that course will be deleted as well; however, students will remain in the database. 
 
-## Create an Environment Definition
-1. From the home page, select the `Environment Definitions` tab found in the header. You'll be taken to the Environment Definitions List page which will contain all of the instructor's environment definitions.
-2. While on this page, click the `Create Environment Definition` button near the top right corner.
-3. Provide a name for the environment definition.
-4. Please see *Create a VM Definition* to know how to create a VM Definition within your environment definitions.
+## Adding Students to a Course 
+Whenever a course is created, you must add students yourself either manually or through the CSV upload functionality. First, click on the course title you wish to add students to on the Course List page and then press the Add Students button. You can also remove students individually after you enter the specific course title page. Also, if you wish to launch your own environment for an assignment in a course you created, you must add yourself as a student in that class. This can be done through simply providing your username in the Username field in the manual entry functionality.  
 
-## Update an Environment Definition
-1. Go to the Environment Definition List page (click the `Environment Definitions` tab found in the header).
-2. Find the environment definition you want to update and select `Edit` in order to rename it.
+### CSV Upload
+The CSV upload functionality allows you to add multiple students to a certain course as well as to store data in Cloud VCL's database in general. Export the desired class list CSV file from Blackboard Learn and save it on your local machine. Note that Cloud VCL only requires three fields (Last Name, First Name, and Username respectively), and the CSV file generated by Blackboard Learn will have additional fields. Edit the the CSV file by removing the unneeded columns. Next, click over where it says Browse for CSV and select the class list CSV file. After selecting the correct file, press the Upload CSV and Add Students button. The students listed in the CSV will be added to the course and saved in the database.  
 
-## Delete an Environment Definition
-*All corresponding VM definitions will be deleted when you delete an environment definition.*
+### Manual Entry
+In the case that a student is missing from the master class list file generated by Blackboard Learn and does not exist in the system, you can manually add them using this functionality. If for any reason the master class list contained only the first and last name of a student but not a username, you can just provide the username; however, the entered username must be identical to the username found in the federated authentication system. For each field, you must only provide one value (you cannot list multiple usernames, first names, and last names with every entry). After filling out the given fields, press the Add the Student button to add them to the course and database.  
+ 
+## Creating an Environment Definition
+The environment definition is a virtual environment where assignments will be created through defining VMs (explained in the following section). View the Environment Definition List page by selecting the Environment Definitions tab found in the header. Create an environment definition by clicking Create Environment Definition in the top right corner and providing a name. Click on a environment definition title to view any corresponding defined VMs. Environment definitions can be edited or deleted through the Environment Definition List page. If you decide to delete an environment definition, note that all of the corresponding vm definitions will be deleted as well.
 
-1. Go to the Environment Definition List page by selecting the `Environment Definitions` tab found in the header.
-2. Find the environment definition you want to delete and click on `Delete`.
+`You can create multiple Environment Definitions for one Assignment, which can hold one or more VM Definitions.`
 
-## Create a VM Definition
-1. Go to the Environment Definitions List page by selecting the `Environment Definitions` tab found in the header.
-2. Click the environment definition you want to create VM definitions in.
-3. Select the `Create VM Definition` button towards the top right.
-4. Provide the name of the VM definition.
-5. Choose the type of image (*CentOS 7.3, Ubuntu Server 16.04.2, Windows Server 2012 R2*).
-6. Select the type of flavor (*01c-01m-10d reads 1 VCPU, 1 RAM GB, and 10 GB Total/Root Disk*).
-7. The timezone, hostname and Powershell script fields do not need to be complete in order to successfully create a VM definition. Please see *Cloud Configurations* to learn more about VM customizations.
-8. Press `Submit` when you have the necessary fields completed.
+## Creating a VM Definition
+A VM definition is a template for VMs. An environment definition can have multiple VM Definitions, where each will have a flavor, image, and other configurations found below. By clicking on an environment definition title from the Environment Definition List page, you can view, create, edit, or delete the Virtual Machine Definitions that have been created. Create a new VM by clicking Create VM Definition in the top right corner. These VM Definitions will be used to load virtual machines into the environment when it's launched through an assignment. Find more details about specific fields in the creation of a VM below:
 
-## Update a VM Definition
-1. Go to the Environment Definitions List page by selecting the `Environment Definitions` tab found in the header.
-2. Choose the environment definition that has the VM definition you want to update.
-3. Find the VM definition and press the `Edit` button to modify any of the existing fields.
+### Image
+You will have permission to select and use various OS images that your institution offers. Please select the type of image you want for your VM definition. Note that you can create and have multiple VM definitions in one environment definition. This allows your students to have multiple instances for an assignment using that particular environment definition.
 
-## Delete a VM Definition
-1. Go to the Environment Definitions List page by selecting the `Environment Definitions` tab found in the header.
-2. Choose the environment definition that has the VM definition you want to delete.
-3. Find the VM definition and press the `Delete` button to delete it.
+### Flavor
+A flavor is a predefined combination of virtual resources (CPU core count, RAM and disk space) defined in the OpenStack environment. Select the type of flavor for your VM definition but do not select a flavor that has more than what is required. Remember that each time a student creates an instance, it is using the particular combination of resources laid out in that flavor. Please refer to your institution's cloud documentation regarding flavor details and other best practices.
 
-## Create an Assignment
-1. From the home page, select the `Assignment` tab found in the header. You'll be taken to the Assignment List page which will contain all assignments created.
-2. While on this page, click the `Create Assignment` button near the top right corner.
-3. Provide a name, description, start and end date for the assignment, as well as choosing which course to add the assignment to along with the environment definition.
-4. After pressing `Submit`, you can spawn a fresh instance by selecting `Selecting a New Environment for this Assignment`.
+### Console Log
+The console log contains all of the log entries related to the system's functioning and start up behavior. As an instructor, you will always have access to console logs; however, you may disable this feature for students when they are viewing their console by unchecking the box in the VM definition creation form. The console log can be viewed when you enter your environment by clicking the Open Log Console button. 
 
-## Update an Assignment
-1. Go to the Assignment List page by clicking the `Assignments` tab found in the header.
-2. Find the assignment you want to update and select `Edit` in order to modify any of the existing fields.
+### Shell Script
+You may provide a script that will be ran by the instance once it's created (e.g. create a text file or directory without having a student do it). Depending on the image you chose, you will have to provide the appropriate shebang.
 
-## Delete an Assignment
-1. Go to the Assignment List page by selecting the `Assignment` tab found in the header.
-2. Find the assignment you want to delete and click on `Delete`.
+#### Windows
+For Windows-based images, you will be writing your scripts using Powershell (all Powershell scripts must begin with the '#ps1_sysnative' shebang). Powershell is not a compiled language but a command centric, dynamic scripting language. Learn more about Powershell scripting through this link: http://powershelltutorial.net/  
 
-## Timezone (Linux Only)
-Set the system timezone for an instance.
-Example:
+The example below creates a new directory named Test in another directory called VCL in the Windows file system:
 ```
-American/New_York
+#ps1_sysnative 
+New-Item c:\VCL\Test -type directory
 ```
 
-## Hostname (Linux Only)
-Set the system hostname to be different than default value.
+#### Linux
+For Linux-based images, you will be using bash scripts (all bash scripts must begin with the '#!/bin/sh' shebang). 
 
-## Powershell Script (Windows Only)
-Run a Powershell script once when the instance is created.
+The example below creates a text filed called test in the log directory:
+```
+#!/bin/sh
+sudo touch ../var/log/test.txt
+```
+
+### Install Packages (Linux Only)
+A Linux package is an item (which can take form of a script, text file, license, etc.) that installs a piece of software through the package manager into your system. Install packages by inserting one package name per line. You can search for packages and their names here: http://packages.ubuntu.com/. This feature is only for Linux-based images (NOT Windows).
+
+### Update Package Lists on Boot (Linux Only)
+By selecting yes, it will update the list of available packages and their versions, but does not install or upgrade any packages. This feature is only for Linux-based images (NOT Windows).
+
+### Upgrade All Packages on Boot (Linux Only)
+By selecting yes, it will upgrade to the newest versions of the packages you have. This feature is only for Linux-based images (NOT Windows).
+
+### Perform Reboot if Required After Package Install/Upgrade (Linux Only)
+By selecting yes, it will perform a reboot if packages are installed and upgraded. This feature is only for Linux-based images (NOT Windows).
+
+### Timezone (Linux Only)
+Set a different system timezone for your instance. You may find a list of all existing timezones through this link: http://manpages.ubuntu.com/manpages/trusty/man3/DateTime::TimeZone::Catalog.3pm.html. This feature is only for Linux-based images (NOT Windows). 
+
+This example sets the instance's timezone to New York's time:
+```
+America/New_York
+```
+
+This second example sets the instance's timezone to Dubai's time:
+```
+Asia/Dubai
+```
+
+### Hostname (Linux Only)
+Hostname is used to display the system's DNS name. You can set a new hostname that will replace the hostname generated by default. The format of the generated default hostname is `image@VMdefinitionName`. 
+
+### Default User Password (Linux Only)
+Sets the password for the default user (see table below for OS-dependant usernames). Please also refer to your institution's cloud documentation regarding usernames for additional images not found in the table below. Leave the field blank in order to disable the functionality. This feature is only for Linux-based images (NOT Windows).
+
+Image Type | Username 
+------------ | ------------- 
+Ubuntu | ubuntu 
+CentOS | centos
+Windows | Administrator 
+
+### Default User Public Key (Linux Only)
+This sets the SSH public key for the default user (see table above for OS-dependant usernames or refer to your institution's cloud documentation regarding usernames for additional images used by your institution). Supported key types are: rsa, dsa, ecdsa, and ed25519. Ensure that the public key is all in one line. Visit https://wiki.archlinux.org/index.php/SSH_keys to learn more about different key types. 
+
+Example for rsa key type:
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAywWhrwq4FjHt+UuwZcZePxtjtZOENFpOjufycaYso2nTlzNwnAQEQRfbqsUxKVtOtGxgApIkUvjRIjNBdJE6iOzvBXZhhJrM0GUDJragw7SMVIs/5xJBGAyHKJ1YUMGO7+nJTmsCLx6PFOlQYveuriiVVCCZerGCLH+UtSXK3z+l7hx9NiDg3/ylOLc3f3SLxrJKn0gMTgK7BHJFXo4PguuPjWZLVdUDX+XKiqtT2n4IsYs6N9qVFG3zUgNlEjZM47NK/ytAC0max98pK+QNzsuaQOo/IShJ1TOw5wwScflPArVJ2AyROqAe7cfQg7q12I9olASFd3U5NazfZCTYAvWA1kz9UZEWLJ1Br1XOkPqOleMM8KCp/PXzz8H0kISkMIji0/QuiZOPEBsKlszXjlALcXR8Mg1uiZVWy48i9JheyXyj1ToCj6cPScpgFHp3DAGSlKKbE1EFaVfeeyGAnHESuXC9wkSeFZCEyMJ+RgJxMkBXNZmyycbwsSqAeGJpMEUDlwzu2GD0obBz0HXqg9J1Xallop5AVDKfeszZcc= user@host
+```
+
+Example for dsa key type:
+```
+ssh-dss AAAAB3NzaC1kc3MAAACBAJ3hB5SAF6mBXPlZlRoJEZi0KSIN+NU2iGiaXZXi9CDrgVxTp6/sc56UcYCp4qjfrZ2G3+6PWbxYso4P4YyUC+61RU5KPy4EcTJske3O+aNvec/20cW7PT3TvH1+sxwGrymD50kTiXDgo5nXdqFvibgM61WW2DGTKlEUsZys0njRAAAAFQDs7ukaTGJlZdeznwFUAttTH9LrwwAAAIAMm4sLCdvvBx9WPkvWDX0OIXSteCYckiQxesOfPvz26FfYxuTG/2dljDlalC+kYG05C1NEcmZWSNESGBGfccSYSfI3Y5ahSVUhOC2LMO3JNjVyYUnOM/iyhzrnRfQoWO9GFMaugq0jBMlhZA4UO26yJqJ+BtXIyItaEEJdc/ghIwAAAIBFeCZynstlbBjP648+mDKIvzNSS+JYr5klGxS3q8A56NPcYhDMxGn7h1DKbb2AV4pO6y+6hDrWo3UT4dLVuzK01trwp PYp6JXTSZZ12ZaXNPz7sX9/z6pzMqhX4UEfjVsLcuF+ZS6aQCPO0ZZEa1z+EEIZSD/ykLQsDwPxGjPBqw== user@host
+```
+
+Example for ecdsa key type:
+```
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCNnJ7lJwykFIErYDb7RcM3kyGUXjhdsZdaMbsp2NTCPr9U9AR7ucONsb8G/Dr5pzOH2J47V/ceZ7Mrfw4gOYu8= user@host 
+```
+
+Example for ed25519 key type:
+```
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEXpBovNAOIz26NQ6KYp8Emn50pUds5tjiMLKXmN6hGH user@host
+```
+
+### Create System Account for Student (Linux Only)
+Creates a user in the system based on student's username and a random password (will be provided to student when they enter their instance). This feature is only for Linux-based images (NOT Windows).
+
+### Student User Sudo (Linux Only)
+Sets sudo access for the student's system user. It provides administrator privileges (usually available only to the root user) to normal users.  Set to 'ALL = (ALL) NOPASSWD: ALL' for unlimited sudo access. Here is a link for more information: https://help.ubuntu.com/community/RootSudo. This feature is only for Linux-based images (NOT Windows).
+
+### Creating an Assignment
+Visit the Assignment List page by selecting the Assignments tab found in the header. Create a course by clicking the Create Assignment button in the top right corner and then providing the necessary information. Each assignment will be assigned to one course and will become available to the students upon the given start date. The assignment will close and all associate Environments will be terminated based on the set end date. Assignments can be updated or deleted on the Assignment List page. Deleting an assignment will delete all existing environments that were launched by you or your students.
+
+`Course and Environment Definition must first be created in order for students to be assigned to an Assignment.`
+
+## Entering Your Environment
+On the Assignment List page, click on an assignment title and then press the Enter Your Environment button (it will take a moment for the console to load). Once the console appears and reaches the log in screen, enter the username and password given in the blue box if you set a new user password. The console can be in full screen mode by clicking the Open Console in Full Screen Mode. If there are multiple VMs, you can easily switch from one console to another by clicking on the desired VM found in the green box. Additionally, there is information regarding when the environment was created  and the date and time of when the environment will be terminated. You can also view the console log here by clicking the Open Console Log button and delete your environment by clicking the Delete Environment button in the top right corner. All KVM (keyboard, video, mouse) functionality will work; however, audio will not work. 
+
+`Please note: copy (CTRL+C) and paste (CTRL+V) functions do not work in the console.`
+
+## Entering a Student's Environment
+On the Assignment List page, click on the assignment title that has the student's environment you want to enter. In the list of students' environment, identify the student and click the corresponding Enter Environment button. You are able to view and interact with their console and their activity in this way as well as delete their environment. 
