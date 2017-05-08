@@ -1,89 +1,161 @@
-# Traiectum Herse apertum
+# **Administrator Documentation**
 
-## Vincat regis crimine
+## *Setup*
 
-Lorem markdownum funis miserarum sacra, rex cornua pontum laedor!
-[Propiore](http://www.vertebar.org/) colubris inmitem, sustulerat omnia herbas
-Finis videbor pectora vulnera morique est deos Salmaci. Glaciali in ergo donasse
-furtisque biceps.
+Welcome to the Cloud VCL Administrator guide. This guide will help you
+utilize the features of Cloud VCL and manage users and functions. The
+first step will be to install Django and Python. You will want to refer to official
+ django documentation to [Deploy Django](https://docs.djangoproject.com/en/1.11/howto/deployment/).
+Follow the getting-started documentation pertaining to your specific configuration. 
+Once you have setting up Django and the WGGI server, you will want to install several other packages.
 
-    if (dram(startPum)) {
-        oop += raster(vdsl_language_tcp, worm - hoverJavascriptDvd,
-                umlCorrection);
-        card(-4, fileBoot);
-    } else {
-        netmask.e_station(scroll_tiff * -5);
-    }
-    if (tween(column, 2, market) + leftDot) {
-        pmu = xpPrebindingDynamic;
-        rpc = retina_ttl;
-        service_rate_typeface -= w * 961245;
-    } else {
-        sku(jsf.drmDisk(70, jre_lion, iconCommercialGuid),
-                realCompressionIntranet, tweet_voip_copy);
-        master = eDomain;
-        menu_control.digital_drive = load_flash;
-    }
-    if (wave * upsDvd < storagePath.domain_hdtv(scalable, 5, driveAdware) *
-            kvm_ipv) {
-        excel(lock_gis_mbps, mmsRepositoryWeb + 2);
-    }
-    handle_webcam_monitor.input_alignment(webcam_intranet_nui -
-            symbolicWikiAnimated);
 
-## Fuerit Trinacriam metusque iam pulsat vestros
+These packages include:
+1. OpenStack SDK
+2. Django Bootstrap 3
+3. Pyyaml
+4. Python NovaClient
+5. Passlib6. Django Bootstrap 3 Datepicker 2
 
-Non sed possis mea armiger ingens moveat, ad, hinc. Perque et contemptor gemit,
-nec deos [protinus in](http://euntem.io/ademptum-commemorare.aspx) indicat ad
-flamma *ignorans*. Habet fortunata ab fides et ulterius Saturnia, o nympha
-preces. Ante florem hausta Iuppiter nunc veniat iuvenem coniunx tunc lacus
-iacuere.
+_Note: Ensure that you have installed the latest versions of these packages along with the lastest version of Django and Python._
 
-    if (soap.commercialSouthbridge(computing_autoresponder,
-            swappable_pmu_repeater, rate_wi) <= left_status) {
-        webAdsl += newbie_dv_rt - circuitJumper;
-        buffer -= -5 / cookieBitRup;
-    } else {
-        keyDfs.map_extranet = flowchartHard.php(5, printerMulticastingMap) + 2;
-        start.hot_box_hard.odbcQwertyCmos(dslamDiskOlap, rawLcd(
-                parallelExcelSubnet, gbps_type), minisiteSrgbCompatible);
-        barModule.ddlFrameworkE = webcam_snapshot;
-    }
-    if (recursion_ansi != network.inputAnsiCircuit(utfListserv, megahertzXp)) {
-        readerPeopleware /= supply;
-        toolbarFormula = import + 4;
-        signature = compactGbpsMedia(midi(ipv, full_ipod_tween, 5));
-    } else {
-        ddr_illegal += parityCybersquatter(jsonStaticHeader + isa_delete_golden,
-                2);
-        ppp(-2, smartTiger, forum + ircTelecommunications);
-    }
-    if (gis.sidebarBug(fileFlood, 5, 38) - dithering) {
-        ideInternicRate.ioP(oopWindow + restore);
-        on.social_computing_kbps = 3;
-        opticDesktop = format_open + drag_boolean + 2;
-    } else {
-        pum_scrolling(413565, mca_web, on_autoresponder_lion(delete_batch,
-                e_vdu_load));
-    }
-    frequency(6 / restore_website_uat);
-    camelcase = server;
+### *Superuser*
+To be able to administer the site and login to the admin panel, you must first create a superuser account.
+In order to do this go back to the command line and type
+```
+python manage.py createsuperuser`
+```
+Press enter, and when prompted, type your username (lowercase, no spaces), email address, and password.
+Don't worry that you can't see the password you're typing in – that's how it's supposed to be. Just type
+it in and press enter to continue. The output should look like this (where the username and email should
+be your own ones):
+```
+(myvenv) ~/django$ python manage.py createsuperuser
+Username: admin
+Email address: admin@admin.com
+Password:
+Password (again):
+Superuser created successfully.
+```
+Return to your browser. Log in with the superuser's credentials you chose; you should see the Django admin
+dashboard.
 
-## Nil per simulatoremque vigor
+## *The Django admin site*
 
-Quoque obstem bracchia exanimem **Veneris**, omnia moras *levis erat humano*
-levant, cum stimulis, iners **flebile**! Sidoniae nec at Romanae duratur mearum
-avus, ulla sidera: quem **fusus**, non votique relicta et tempus cubile. Longius
-contraque veri praesens pugnae *aut* hinc, tumebat arcum tractus laudibus
-pactaeque iussit narrare aliquo procorum dolet!
+One of the most powerful parts of Django is the automatic admin interface. If you want to know more about
+Django admin, you should check [Django's Admin documentation](https://docs.djangoproject.com/en/1.10/ref/contrib/admin/).
+ Once you have logged into the Django Admin panel, you will be able to begin site administration.
+ Here you can view recent actions that have been performed on the right center of the screen. You can also
+ drill down by subject area to perform actions. Note that each subject area has the option of `Add` or `Edit` that serves
+ as a quicklink to the action.
+ 
+ ###*Assignment Administration*
+ Select the second subject area by clicking on `Assignments`.
+ This will bring you to a new page where you be prompted to select an assignment to change. If there is no pre-existing
+ assignments, you can add one via the `Add Assignment` button in the top right corner of the screen. This will open up a
+ form that will require you to enter the Name, Description, Start Date/Time, End Date/Time, Course and Environment
+ Definition. Make sure you have filled out every field of the form before continuing. If you have completed adding
+ assignments, hit the `SAVE` button. If you wish to save your current input and return to the form, hit `Save and continue editing`
+ Lastly, if you have more assignments to add, hit `Save and add another`. If you do not want to save and wish to return back
+ to the main Assignments admin page, scroll up till the top of the screen and locate the site path in the top left corner.
+ This shows you, your current location within the admin panel and will look similar to this:
+ ```
+ Home>Cvcl>Assignments>Add Assignment
+ ```
+ If you have no changes to submit, navigate back to the main Assignments admin page, by clicking `Assignments`. If you have
+ changes, saving will return you back to the Assignments admin page.
+ 
+ _Filtering Assignments_
+ 
+ You may filter Assignments by course or environment definition in the right center of the screen.
+ This will help you quickly access a particular course or environment definition.
+ 
+ _Deleting an Assignment_
+ 
+ Deleting an assignment is done by selecting the checkbox next the Assignment to be deleted. You have the option to
+ delete multiple assignments or a single assignment by way of checkbox. Typically, this will be in the table and to
+ the left of the `Assignment Name` column. Once selected, navigate to the action dropdown located above the Assignments
+ table. Select the dropdown button and hit `Delete selected assignments`. Lastly, click the `Go` button to the right of the dropdown.
+ This will bring up a confirmation page which will ask to confirm the content you are deleting. If you wish to delete
+ the identified assignment, hit the red `Yes,I'm sure` button. If you changed your mind and wish to keep the assignment,
+ click the grey `No, take me back` button.
 
-Erat *ignis numen*, fuit sub qui melioris sonis. Huic currus, est olivae,
-locuturum delere ore generatus socium caelestia villisque Dictys, laqueos. O
-nihil mandata. Non **quo** habet gravem a crede: dum tot sanguine honores,
-Parthaoniae? Edaci quoque malo aras tamen arent concubitus, cultus meritumque
-tractaque **fundebat**.
+_Editing an Assignment_
 
-Rerum subest vetustas tamen et atque visa virgine quantum Medusa Hebre, *pro
-dulcis* humanum sigillis. Sacris prospicit caudaque levibus; auctor et magicae
-undis falsam! Orba Mermeros grandia corpore caede pressit Priami, sub *huic*
-denique, accessit qui.
+To edit an Assignment, navigate to where it is listed in the Assignments table. You may wish to use the filters for quick
+access. Click the blue hyperlink for the Course or Environment Definition to edit the form that generated the assignment.
+Upon, completion of editing, save the changes at the bottom of the form. This will update the assignment.
+
+###*Courses Administration*
+Select the first subject area by clicking on `Courses`.
+ This will bring you to a new page where you be prompted to select an course to change. If there is no pre-existing
+ courses, you can add one via the `Add Course` button in the top right corner of the screen. This will open up a
+ form that will require you to enter the Name, Instructor, and Students. Make sure you have filled out every field of the form before continuing. If you have completed adding
+courses, hit the `SAVE` button. If you wish to save your current input and return to the form, hit `Save and continue editing`
+ Lastly, if you have more courses to add, hit `Save and add another`. If you do not want to save and wish to return back
+ to the main Course admin page, scroll up till the top of the screen and locate the site path in the top left corner.
+ This shows you, your current location within the admin panel and will look similar to this:
+ ```
+ Home>Cvcl>Courses>Add Course
+ ```
+ If you have no changes to submit, navigate back to the main Courses admin page, by clicking `Courses`. If you have
+ changes, saving will return you back to the Courses admin page.
+ 
+ _Filtering Courses_
+ 
+ You may filter Courses by instructor in the right center of the screen.
+ This will help you quickly access a particular course.
+ 
+ _Deleting an Assignment_
+ 
+ Deleting a course is done by selecting the checkbox next the Course to be deleted. You have the option to
+ delete multiple courses or a single course by way of checkbox. Typically, this will be in the table and to
+ the left of the `Name` column. Once selected, navigate to the action dropdown located above the Courses
+ table. Select the dropdown button and hit `Delete selected courses`. Lastly, click the `Go` button to the right of the dropdown.
+ This will bring up a confirmation page which will ask to confirm the content you are deleting. If you wish to delete
+ the identified course, hit the red `Yes,I'm sure` button. If you changed your mind and wish to keep the course,
+ click the grey `No, take me back` button.
+
+_Editing an Assignment_
+
+To edit a Course, navigate to where it is listed in the Courses table. You may wish to use the filters for quick
+access. Click the blue hyperlink for the Instructor to edit the form that generated the course.
+Upon, completion of editing, save the changes at the bottom of the form. This will update the course. The edit course
+page also has an option to delete a course. 
+
+###*Environment Definition Administration*
+ Select the second subject area by clicking on `Environment Definition`.
+ This will bring you to a new page where you be prompted to select an environment definition to change. If there is no pre-existing
+ environment definitions , you can add one via the `Add environment definition` button in the top right corner of the screen. This will open up a
+ form that will require you to enter the Name, Instructor and VM Definition. Make sure you have filled out every field of the form before continuing. If you have completed adding
+ environment definitions, hit the `SAVE` button. If you wish to save your current input and return to the form, hit `Save and continue editing`
+ Lastly, if you have more environment definitions to add, hit `Save and add another`. If you do not want to save and wish to return back
+ to the main environment definitions admin page, scroll up till the top of the screen and locate the site path in the top left corner.
+ This shows you, your current location within the admin panel and will look similar to this:
+ ```
+ Home>Cvcl>Assignments>Add Environment Definition
+ ```
+ If you have no changes to submit, navigate back to the main Assignments admin page, by clicking `Environment Definitions`. If you have
+ changes, saving will return you back to the Environment definitions admin page.
+ 
+ _Filtering Environment Definition_
+ 
+ You may filter environment definitions by instructor in the right center of the screen.
+ This will help you quickly access an environment definition.
+ 
+ _Deleting an Environment Definition_
+ 
+ Deleting an environment definition is done by selecting the checkbox next the Environment Definition to be deleted. You have the option to
+ delete multiple environment definitions or a single environment definition by way of checkbox. Typically, this will be in the table and to
+ the left of the `Name` column. Once selected, navigate to the action dropdown located above the Environment Definitions
+ table. Select the dropdown button and hit `Delete selected environment definition`. Lastly, click the `Go` button to the right of the dropdown.
+ This will bring up a confirmation page which will ask to confirm the content you are deleting. If you wish to delete
+ the identified environment definition, hit the red `Yes,I'm sure` button. If you changed your mind and wish to keep the environment definition,
+ click the grey `No, take me back` button.
+
+_Editing an Environment Definition_
+
+To edit an Environment Definition, navigate to where it is listed in the Environment Definitions table. You may wish to use the filters for quick
+access. Click the blue hyperlink for the Course or Environment Definition to edit the form that generated the environment definition.
+Upon, completion of editing, save the changes at the bottom of the form. This will update the environment definition.
+
