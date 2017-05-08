@@ -94,7 +94,6 @@ Image Type | Username
 ------------ | ------------- 
 Ubuntu | ubuntu 
 CentOS | centos
-Windows | Administrator 
 
 ### Default User Public Key (Linux Only)
 This sets the SSH public key for the default user (see table above for OS-dependant usernames or refer to your institution's cloud documentation regarding usernames for additional images used by your institution). Supported key types are: rsa, dsa, ecdsa, and ed25519. Ensure that the public key is all in one line. Visit https://wiki.archlinux.org/index.php/SSH_keys to learn more about different key types. 
