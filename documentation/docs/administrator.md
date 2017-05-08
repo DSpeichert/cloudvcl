@@ -65,12 +65,12 @@ Django admin, you should check [Django's Admin documentation](https://docs.djang
  If you have no changes to submit, navigate back to the main Assignments admin page, by clicking `Assignments`. If you have
  changes, saving will return you back to the Assignments admin page.
  
- _Filtering Assignments_
+#####_Filtering Assignments_
  
  You may filter Assignments by course or environment definition in the right center of the screen.
  This will help you quickly access a particular course or environment definition.
  
- _Deleting an Assignment_
+#####_Deleting an Assignment_
  
  Deleting an assignment is done by selecting the checkbox next the Assignment to be deleted. You have the option to
  delete multiple assignments or a single assignment by way of checkbox. Typically, this will be in the table and to
@@ -80,7 +80,7 @@ Django admin, you should check [Django's Admin documentation](https://docs.djang
  the identified assignment, hit the red `Yes,I'm sure` button. If you changed your mind and wish to keep the assignment,
  click the grey `No, take me back` button.
 
-_Editing an Assignment_
+#####_Editing an Assignment_
 
 To edit an Assignment, navigate to where it is listed in the Assignments table. You may wish to use the filters for quick
 access. Click the blue hyperlink for the Course or Environment Definition to edit the form that generated the assignment.
@@ -101,12 +101,12 @@ courses, hit the `SAVE` button. If you wish to save your current input and retur
  If you have no changes to submit, navigate back to the main Courses admin page, by clicking `Courses`. If you have
  changes, saving will return you back to the Courses admin page.
  
- _Filtering Courses_
+#####_Filtering Courses_
  
  You may filter Courses by instructor in the right center of the screen.
  This will help you quickly access a particular course.
  
- _Deleting an Assignment_
+#####_Deleting an Assignment_
  
  Deleting a course is done by selecting the checkbox next the Course to be deleted. You have the option to
  delete multiple courses or a single course by way of checkbox. Typically, this will be in the table and to
@@ -116,7 +116,7 @@ courses, hit the `SAVE` button. If you wish to save your current input and retur
  the identified course, hit the red `Yes,I'm sure` button. If you changed your mind and wish to keep the course,
  click the grey `No, take me back` button.
 
-_Editing an Assignment_
+#####_Editing an Assignment_
 
 To edit a Course, navigate to where it is listed in the Courses table. You may wish to use the filters for quick
 access. Click the blue hyperlink for the Instructor to edit the form that generated the course.
@@ -138,12 +138,12 @@ page also has an option to delete a course.
  If you have no changes to submit, navigate back to the main Assignments admin page, by clicking `Environment Definitions`. If you have
  changes, saving will return you back to the Environment definitions admin page.
  
- _Filtering Environment Definition_
+#####_Filtering Environment Definition_
  
  You may filter environment definitions by instructor in the right center of the screen.
  This will help you quickly access an environment definition.
  
- _Deleting an Environment Definition_
+#####_Deleting an Environment Definition_
  
  Deleting an environment definition is done by selecting the checkbox next the Environment Definition to be deleted. You have the option to
  delete multiple environment definitions or a single environment definition by way of checkbox. Typically, this will be in the table and to
@@ -153,7 +153,7 @@ page also has an option to delete a course.
  the identified environment definition, hit the red `Yes,I'm sure` button. If you changed your mind and wish to keep the environment definition,
  click the grey `No, take me back` button.
 
-_Editing an Environment Definition_
+#####_Editing an Environment Definition_
 
 To edit an Environment Definition, navigate to where it is listed in the Environment Definitions table. You may wish to use the filters for quick
 access. Click the blue hyperlink for the Course or Environment Definition to edit the form that generated the environment definition.
