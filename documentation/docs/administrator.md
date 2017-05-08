@@ -87,7 +87,7 @@ access. Click the blue hyperlink for the Course or Environment Definition to edi
 Upon, completion of editing, save the changes at the bottom of the form. This will update the assignment.
 
 ###*Courses Administration*
-Select the first subject area by clicking on `Courses`.
+Select the third subject area by clicking on `Courses`.
  This will bring you to a new page where you be prompted to select an course to change. If there is no pre-existing
  courses, you can add one via the `Add Course` button in the top right corner of the screen. This will open up a
  form that will require you to enter the Name, Instructor, and Students. Make sure you have filled out every field of the form before continuing. If you have completed adding
@@ -124,7 +124,7 @@ Upon, completion of editing, save the changes at the bottom of the form. This wi
 page also has an option to delete a course. 
 
 ###*Environment Definition Administration*
- Select the second subject area by clicking on `Environment Definition`.
+ Select the fourth subject area by clicking on `Environment Definition`.
  This will bring you to a new page where you be prompted to select an environment definition to change. If there is no pre-existing
  environment definitions , you can add one via the `Add environment definition` button in the top right corner of the screen. This will open up a
  form that will require you to enter the Name, Instructor and VM Definition. Make sure you have filled out every field of the form before continuing. If you have completed adding
