@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 {% load bootstrap3 %}
 
-{% block title %}{{ environment.name }} - Cloud VCL{% endblock %}
+{% block title %}Environment for {{ environment.assignment.name }} - Cloud VCL{% endblock %}
 {% block content %}
     <h1>{{ environment.assignment.name }}
         <small>{{ environment.user }}'s environment</small>
