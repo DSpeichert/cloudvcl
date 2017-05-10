@@ -328,6 +328,7 @@ class IPOwnerHistory(models.Model):
 
     class Meta:
         verbose_name = "IP Owner History"
+        verbose_name_plural = "IP Owner History"
 
     def __str__(self):
         return str(self.id)
