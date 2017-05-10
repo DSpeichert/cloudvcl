@@ -14,9 +14,10 @@ admin_site = CloudVCLAdminSite(name='myadmin')
 
 @admin.register(Assignment, site=admin_site)
 class CustomAssignmentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'course', 'environment_definition', 'is_current')
-    list_display_links = ('course', 'environment_definition')
+    list_display = ('name', 'course', 'environment_definition', 'is_current',)
+    list_display_links = ('course', 'environment_definition',)
     list_filter = ('course', 'environment_definition',)
+    search_fields = ('name', 'course__name')
 
 
 @admin.register(Course, site=admin_site)
@@ -24,6 +25,7 @@ class CustomCourseAdmin(admin.ModelAdmin):
     list_display = ('name', 'instructor',)
     list_display_links = ('instructor',)
     list_filter = ('instructor',)
+    search_fields = ('name',)
 
 
 @admin.register(Environment, site=admin_site)
@@ -31,6 +33,7 @@ class CustomEnvironmentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'assignment', 'course',)
     list_display_links = ('user', 'assignment', 'course',)
     list_filter = ('assignment',)
+    search_fields = ('assignment__name', 'course__name',)
 
 
 @admin.register(Flavor, site=admin_site)
@@ -38,6 +41,7 @@ class CustomFlavorAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'vcpus', 'ram', 'swap', 'disk',)
     list_filter = ('vcpus', 'ram', 'swap', 'disk',)
     readonly_fields = ('vcpus', 'ram', 'swap', 'disk',)
+    search_fields = ('name',)
 
 
 @admin.register(Image, site=admin_site)
@@ -45,6 +49,7 @@ class CustomImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'size', 'min_ram', 'min_disk',)
     list_filter = ('min_ram', 'min_disk',)
     readonly_fields = ('min_ram', 'min_disk',)
+    search_fields = ('name',)
 
 
 @admin.register(User, site=admin_site)
@@ -63,6 +68,7 @@ class CustomUserAdmin(UserAdmin):
                              }
          ),
     )
+    search_fields = ('username', 'first_name', 'last_name',)
 
 
 class VmDefinitionInline(admin.TabularInline):
@@ -78,23 +84,27 @@ class CustomEnvironmentDefinitionAdmin(admin.ModelAdmin):
     inlines = [
         VmDefinitionInline,
     ]
+    search_fields = ('name',)
 
 
 @admin.register(Vm, site=admin_site)
 class CustomVmAdmin(admin.ModelAdmin):
     list_display = ('environment', 'uuid', 'name', 'user', 'assignment', 'course',)
     list_display_links = ('environment', 'user', 'assignment', 'course',)
-    list_filter = ('environment__assignment', 'environment__assignment__course')
+    list_filter = ('environment__assignment', 'environment__assignment__course',)
+    search_fields = ('name', 'user__username', 'assignment__name', 'course__name',)
 
 
 @admin.register(VmDefinition, site=admin_site)
 class CustomVmDefinitionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image', 'flavor',)
-    list_display_links = ('name', 'image', 'flavor',)
+    list_display = ('name', 'image', 'flavor', 'environment',)
+    list_display_links = ('name', 'image', 'flavor', 'environment',)
     list_filter = ('image', 'flavor',)
+    search_fields = ('name',)
 
 
 @admin.register(IPOwnerHistory, site=admin_site)
 class CustomIPOwnerHistoryAdmin(admin.ModelAdmin):
     list_display = ('created_at', 'end_at', 'ip_address', 'user', 'vm',)
     list_display_links = ('ip_address', 'user', 'vm',)
+    search_fields = ('ip_address', 'user__username',)
