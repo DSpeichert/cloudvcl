@@ -140,8 +140,8 @@ class AssignmentLaunch(LoginRequiredMixin, View):
         # Create VMs
         for vmd in environment.assignment.environment_definition.vmdefinition_set.all():
             os_conn = os_connect()
-            username = ""
-            password = ""
+            username = None
+            password = None
             data_dict = {
                 'users': [],
             }

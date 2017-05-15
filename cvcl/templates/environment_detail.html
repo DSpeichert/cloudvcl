@@ -35,8 +35,8 @@
             <ul class="list-inline">
                 <li>Image: <strong>{{ vm.vm_definition.image.name }}</strong></li>
                 <li>IP Address: <strong>{{ vm.ip_address }}</strong></li>
-                <li>Username: <strong>{{ vm.username }}</strong></li>
-                <li>Password: <strong>{{ vm.password }}</strong></li>
+                {% if vm.username %}<li>Username: <strong>{{ vm.username }}</strong></li>{% endif %}
+                {% if vm.password %}<li>Password: <strong>{{ vm.password }}</strong></li>{% endif %}
             </ul>
         </div>
 
