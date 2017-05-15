@@ -1,66 +1,33 @@
 # Student Documentation
 
 ## Overview
-As a student, Cloud VCL allows you to spawn Virtual Environments
-(predefined by instructors) and work with Virtual Machines to complete tasks outlined in
-instructor given course assignments, usually through a course website.
+As a student, Cloud VCL allows you to create Virtual Environments as predefined by your
+instructors. You will be able to interact with it using an HTML5 console providing keyboard,
+video and mouse through a web browser.
 
-Cloud VCL enables instructors to provide optimal feedback by allowing them to
-access your Virtual Environments and view your Virtual Machines at any time,
-even simultaneously.
+Your instructors will be able to enter your environment and see your work in real time.
 
-<i>Note:</i> Cloud VCL does not automatically track progress and completion, so simply doing the tasks
-may not satisfy the requirements of your assignments (screenshots or other proof
-may be necessary).
+**Note: Cloud VCL does not track progress or completion of your assignments.
+Make sure to follow instructions provided for your assignment.**
 
-## Accessing Cloud VCL
+## Introduction
 
-Cloud VCL utilizes the central authentication system of the institution that is facilitating
-your course. Simply log in by clicking `Log in` on the top navigation bar. After entering and
-successfully submitting your credentials to the central authentication system, your web browser
-will navigate to the Cloud VCL home page.
-
-## Accessing Courses
-
-In Cloud VCL, the `Courses` page is simply there to organize Assignments when you
-click on a Course name. Upon doing so, the active Assignments that belong to that Course will
-be listed.
-
-Click on the Assignment name to navigate to that Assignment's detail page. You can
-spawn a new Environment or enter an existing one from there.
+When you first access Cloud VCL, you may not see any assignments yet. They become visible
+between the dates defined by your instructor. You can, however, go to the Courses page
+and confirm that see the classes you are enrolled in (which use Cloud VCL). If you don't
+see your Course, you won't be able to work on Assignments in them. Make sure you see
+all Courses you expect to be part of in the system.
 
 ## Launching a Virtual Environment
 
 To launch an Environment, navigate to the `Assignments` page and click on the name of
-the Assignment you wish to launch an Environment for. Then simply click `LAUNCH A NEW
-ENVIRONMENT FOR THIS ASSIGNMENT` and wait for the Environment to load (may take several
-minutes). The Environment will then open within your web browser.
+the Assignment you wish to launch an Environment for. Then click `LAUNCH A NEW
+ENVIRONMENT FOR THIS ASSIGNMENT` and wait for the Environment to be ready, which may take
+several minutes. You will be redirected to the access for that environment.
 
-If the web browser page is closed, the Environment will close but not be deleted, and you
-can re-enter the Environment by following the same steps outlined above, but selecting
-`ENTER YOUR ENVIRONMENT` rather than launching a new one (impossible to do, anyways).
-
-## Deleting a Virtual Environment
-
-If you do not currently have an Environment open on your web browser, then you can delete
-an Environment by navigating to the `Assignments` page and clicking on the name of the Assignment that
-has an active Environment that you want to delete. From there, click `DELETE YOUR ENVIRONMENT`. Upon
-doing so, you will be directed to a confirmation page. Click `DELETE IRREVERSIBLY` to
-permanently delete that Environment and all of the Virtual Machines that belong to it.
-
-You can also delete an Environment when it is open in your web browser by clicking `DELETE ENVIRONMENT`
-in the upper right hand corner of the page (confirmation is required here as well).
-
-It is best practice to delete an Environment once you no longer need it (to free up resources), but
-make sure to save proof of the work you've done before deleting an Environment because all progress
-will be lost upon doing so.
-
-## Opening and Closing Virtual Machines (VM)
-
-Virtual Machines will be automatically loaded in your web browser when an Environment is launched.
-Progress made within the Virtual Machines will be saved if the web browser page is closed (until the
-Environment hosting those VMs is intentionally deleted). Remember that you can
-re-enter an Environment hosting VMs if the web browser page is closed.
+If you close the website, the Environment will continue working and you will be able to
+reconnect at a later time until the asssignment ends. Your environment will then be
+automatically deleted. You may delete and recreate your environment at any time.
 
 ## Using a Virtual Machine (VM)
 
@@ -68,11 +35,25 @@ After launching and loading an Environment, one or more Virtual Machines with pr
 operating systems will be ready to use. To switch between VMs, click on the name of one
 on the green navigation bar between the console and the main navigation bar.
 
-When you've navigated to the VM you want to work in, you can use the operating system instance loaded in
-the console, but first you must click on the blue bar (with "Connected to..." text) attached above the console.
+When you see the console with the screen of your VM, you may not be able to type in it until 
+you click on the gray bar with "Connected to..." text on it.
 
-The operating system will ask you for login credentials which will be listed as "Username" and
-"Password" (randomly generated) in the blue bar above the console.
+**The KVM console (NoVNC HTML5) may not always work properly in Chrome browser. It typically
+slows down or hangs the browser window. If you experience the issue, try using Firefox.**
 
-To load the the console in full screen mode, select `OPEN CONSOLE IN FULL SCREEN MODE`. You
-can also view the log of console output by selecting `OPEN CONSOLE LOG`.
+If login credentials apply to your environment, they will be available above the console
+on your screen. An IP address typically will be shown so you may be able to log in directly
+via SSH or RDP client, depending on the OS installed.
+
+You can load the console in full screen mode by selecting `OPEN CONSOLE IN FULL SCREEN MODE`.
+You may also be able to view the log of the console's screen via `OPEN CONSOLE LOG` button.
+
+## Deleting a Virtual Environment
+
+You can delete an Environment from Assignment list. Click `DELETE YOUR ENVIRONMENT`. Upon
+doing so, you will be directed to a confirmation page. Click `DELETE IRREVERSIBLY` to
+permanently delete that Environment and all of the Virtual Machines that belong to it.
+
+You are free to delete an Environment once you no longer need it (to free up resources), but
+make sure to save proof of the work you've done before deleting an Environment because all progress
+will be lost upon doing so.
