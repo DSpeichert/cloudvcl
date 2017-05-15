@@ -455,12 +455,75 @@ and you need to have Tenant ID, Username and Password ready.</p>
 <ol>
 <li>Install <code>pip -r requirements.txt</code></li>
 <li>Customize <code>settings.py</code> by putting changes into <code>local_settings.py</code> (you need to create it)</li>
+<li>Run <code>python manage.py collectstatic</code></li>
 <li>Run <code>python manage.py syncimages</code></li>
-<li>Run <code>python manage.py syncimages</code></li>
+<li>Run <code>python manage.py syncflavors</code></li>
 <li>Add <code>python manage.py cleanenvironments</code> as a cron job, as frequently as necessary</li>
 </ol>
 <h3 id="integration-with-shibboleth">Integration with Shibboleth<a class="headerlink" href="#integration-with-shibboleth" title="Permanent link">&para;</a></h3>
 <p><em>To be continued... (say it currently only supports Shibboleth and need to be set up at /Shibboleth.sso)</em></p>
+<p>Example Apache httpd vhost config file:</p>
+<div class="codehilite"><pre><span></span>&lt;VirtualHost *:80&gt;
+    ServerName      cloudvcl.example.com
+    RedirectMatch permanent ^(?!/\.well-known) https://cloudvcl.example.com/
+&lt;/VirtualHost&gt;
+
+# https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=apache-2.4.6&amp;openssl=1.0.1e&amp;hsts=yes&amp;profile=modern
+SSLProtocol             all -SSLv3 -TLSv1 -TLSv1.1
+SSLCipherSuite          ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
+SSLHonorCipherOrder     on
+SSLCompression          off
+
+
+# OCSP Stapling, only in httpd 2.3.3 and later
+SSLUseStapling          on
+SSLStaplingResponderTimeout 5
+SSLStaplingReturnResponderErrors off
+SSLStaplingCache        shmcb:/var/run/ocsp(128000)
+
+&lt;VirtualHost *:443&gt;
+    ServerName cloudvcl.example.com
+    SSLEngine On
+    SSLCertificateFile      /etc/letsencrypt/live/cloudvcl.example.com/cert.pem
+    SSLCertificateChainFile /etc/letsencrypt/live/cloudvcl.example.com/chain.pem
+    SSLCertificateKeyFile   /etc/letsencrypt/live/cloudvcl.example.com/privkey.pem
+
+    Header always set Strict-Transport-Security &quot;max-age=15768000&quot;
+
+    Alias /media/ /home/cloudvcl/cloudvcl/media/
+    Alias /static/ /home/cloudvcl/cloudvcl/static/
+
+    &lt;Directory /home/cloudvcl/cloudvcl/static&gt;
+        Require all granted
+    &lt;/Directory&gt;
+
+    &lt;Directory /home/cloudvcl/cloudvcl/media&gt;
+        Require all granted
+    &lt;/Directory&gt;
+
+    WSGIDaemonProcess cloudvcl python-path=/home/cloudvcl/cloudvcl
+    WSGIProcessGroup cloudvcl
+    WSGIScriptAlias / /home/cloudvcl/cloudvcl/cloudvcl/wsgi.py process-group=cloudvcl
+
+    &lt;Directory /home/cloudvcl/cloudvcl/cloudvcl&gt;
+        &lt;Files wsgi.py&gt;
+            Require all granted
+        &lt;/Files&gt;
+    &lt;/Directory&gt;
+
+    &lt;Location /Shibboleth.sso&gt;
+        SetHandler shib
+    &lt;/Location&gt;
+
+    &lt;Location /login&gt;
+        AuthType shibboleth
+        ShibRequestSetting requireSession 1
+        Require valid-user
+    &lt;/Location&gt;
+&lt;/VirtualHost&gt;
+</pre></div>
+
+
 <h3 id="superadmin-account">Superadmin account<a class="headerlink" href="#superadmin-account" title="Permanent link">&para;</a></h3>
 <p>To be able to administer the site and login to the admin panel, you must first create a superuser account.
 In order to do this go back to the command line and type</p>
