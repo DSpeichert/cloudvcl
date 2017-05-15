@@ -198,7 +198,7 @@ class AssignmentLaunch(LoginRequiredMixin, View):
                 user_data.attach(shell_part)
 
             server = os_conn.compute.create_server(
-                name=vmd.name + '.' + username,
+                name=vmd.name + '.' + self.request.user.username,
                 image_id=vmd.image.uuid,
                 flavor_id=vmd.flavor.uuid,
                 networks=[{"uuid": get_default_network_id()}],

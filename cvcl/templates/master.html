@@ -60,10 +60,12 @@
                     {% if user.is_staff %}
                         <li><a href="{% url "admin:index" %}">Admin</a></li>{% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="https://dspeichert.github.io/cloudvcl/" target="_blank">Documentation</a></li>
                 </ul>
             {% else %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'login' %}">Log in</a></li>
+                    <li><a href="https://dspeichert.github.io/cloudvcl/" target="_blank">Documentation</a></li>
                 </ul>
             {% endif %}
         </div><!--/.nav-collapse -->
