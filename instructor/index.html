@@ -422,15 +422,15 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-an-assignment" title="Creating an Assignment" class="md-nav__link">
     Creating an Assignment
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -677,15 +677,15 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-an-assignment" title="Creating an Assignment" class="md-nav__link">
     Creating an Assignment
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -722,32 +722,32 @@
 <h2 id="becoming-an-instructor-user">Becoming an Instructor User<a class="headerlink" href="#becoming-an-instructor-user" title="Permanent link">&para;</a></h2>
 <p>Contact your system administrator to have them promote you to become an instructor user. If you aren't promoted, you will remain a student user and you won't have permission to create courses, assignments and such. </p>
 <h2 id="logging-into-cloud-vcl">Logging Into Cloud VCL<a class="headerlink" href="#logging-into-cloud-vcl" title="Permanent link">&para;</a></h2>
-<p>Navigate to your institution's Cloud VCL site and log in using your institution's credentials. You will know that you've successfully logged in when you see Logged in as YourUsername in the top right corner. Once you log in and arrive on the home page, if you see a blue text box that indicates you're an instructor, you've been successfully promoted. If not, please ask your system administrator to promote you. To log out, select the Logout button in the top right corner.</p>
+<p>Navigate to your institution's Cloud VCL site and log in using your institution's credentials. You will know that you've successfully logged in when you see <code>Logged in as YourUsername</code> in the top right corner. Once you log in and arrive on the home page, if you see a blue text box that indicates you're an instructor, you've been successfully promoted. If not, please ask your system administrator to promote you. To log out, select the <code>Logout button</code> in the top right corner.</p>
 <h2 id="checking-quota-and-usage">Checking Quota and Usage<a class="headerlink" href="#checking-quota-and-usage" title="Permanent link">&para;</a></h2>
-<p>Whenever you or your student creates an instance, it will be indicated in the blue text box where it says Instance Count. Other usage details are provided (CPU, RAM, and disk) as well whenever a new instance is created. Your allocated quota is shared between you and your students in all your courses. If you exceed quota, you won't be able to create additional instances. Contact your system administrator if you want your quota increased.</p>
+<p>Whenever you or your student creates an instance, the counter will increase in the blue text box where it says <code>Instance Count</code>. Other usage details are provided (CPU, RAM, and disk) as well whenever a new instance is created. Note that your allocated quota is shared between you AND your students in ALL your courses. If you exceed quota, you or your students won't be able to create additional instances. Contact your system administrator if you want your quota increased.</p>
 <h2 id="creating-a-course">Creating a Course<a class="headerlink" href="#creating-a-course" title="Permanent link">&para;</a></h2>
-<p>Visit the Course List page by selecting the Courses tab found in the header. Create a VCL course by finding and clicking the Create Course button near the top right corner, providing a name for the desired course, and pressing Submit. Courses can be edited or deleted on the Course List page. By clicking on a course title, you will see all enrolled students and assignments given in that course if they were already added and assigned. If you choose to delete a course, all of the students and assignments tied to that course will be deleted as well; however, students will remain in the database. </p>
+<p>Visit the Course List page by selecting the <code>Courses</code> tab in the header. Create a VCL course by clicking the <code>Create Course</code> button near the top right corner, providing a name for the desired course, and pressing <code>Submit</code>. Courses can be edited or deleted on the Course List page too. When clicking on a course title, you will see all enrolled students and assignments given in that course if they were already added and assigned. If you choose to delete a course, all of the students and assignments tied to that course will be deleted as well; however, all students will remain in the database. You may wish to also just delete certain students or assignments once accessing a course title.  </p>
 <h2 id="adding-students-to-a-course">Adding Students to a Course<a class="headerlink" href="#adding-students-to-a-course" title="Permanent link">&para;</a></h2>
-<p>Whenever a course is created, you must add students yourself either manually or through the CSV upload functionality. First, click on the course title you wish to add students to on the Course List page and then press the Add Students button. You can also remove students individually after you enter the specific course title page. Also, if you wish to launch your own environment for an assignment in a course you created, you must add yourself as a student in that class. This can be done through simply providing your username in the Username field in the manual entry functionality.  </p>
+<p>Whenever a course is created, you must add students yourself either manually or through the CSV upload functionality. First, click on the course title you wish to add students to on the Course List page and then press the <code>Add Students</code> button. You can also remove students or assignments individually after you enter a specific course title. Note that if you wish to launch your own environment for an assignment in a course you created, you must add yourself as a student in that class. This can be done through simply providing only your username in the Username field through manual entry (make sure the username you enter is the same username found in the federated authentication system.</p>
 <h3 id="csv-upload">CSV Upload<a class="headerlink" href="#csv-upload" title="Permanent link">&para;</a></h3>
-<p>The CSV upload functionality allows you to add multiple students to a certain course as well as to store data in Cloud VCL's database in general. Export the desired class list CSV file from Blackboard Learn and save it on your local machine. Note that Cloud VCL only requires three fields (Last Name, First Name, and Username respectively), and the CSV file generated by Blackboard Learn will have additional fields. Edit the the CSV file by removing the unneeded columns. Next, click over where it says Browse for CSV and select the class list CSV file. After selecting the correct file, press the Upload CSV and Add Students button. The students listed in the CSV will be added to the course and saved in the database.  </p>
+<p>The CSV upload functionality allows you to add multiple students to a certain course as well as to store data in Cloud VCL's database in general. Export the desired class list CSV file from Blackboard Learn and save it on your local machine. Note that Cloud VCL only requires three fields (Last Name, First Name, and Username respectively), and the CSV file generated by Blackboard Learn will have additional fields. Edit the the CSV file by removing the unneeded columns. Next, click over where it says <code>Browse for CSV</code> and select the class list CSV file. After selecting the correct file, press the <code>Upload CSV and Add Students</code> button. The students listed in the CSV will be added to the course and saved in the database.  </p>
 <h3 id="manual-entry">Manual Entry<a class="headerlink" href="#manual-entry" title="Permanent link">&para;</a></h3>
-<p>In the case that a student is missing from the master class list file generated by Blackboard Learn and does not exist in the system, you can manually add them using this functionality. If for any reason the master class list contained only the first and last name of a student but not a username, you can just provide the username; however, the entered username must be identical to the username found in the federated authentication system. For each field, you must only provide one value (you cannot list multiple usernames, first names, and last names with every entry). After filling out the given fields, press the Add the Student button to add them to the course and database.  </p>
+<p>In the case that a student is missing from the master class list file generated by Blackboard Learn and does not exist in the system, you can manually add them using this functionality. If for any reason the master class list contained only the first and last name of a student but not a username, you can just provide the username; however, the entered username must be identical to the username found in the federated authentication system. For each field, you must only provide one value (you cannot list multiple usernames, first names, and last names with every entry). After filling out the given fields, press the <code>Add the Student</code> button to add them to the course and database.  </p>
 <h2 id="creating-an-environment-definition">Creating an Environment Definition<a class="headerlink" href="#creating-an-environment-definition" title="Permanent link">&para;</a></h2>
-<p>The environment definition is a virtual environment where assignments will be created through defining VMs (explained in the following section). View the Environment Definition List page by selecting the Environment Definitions tab found in the header. Create an environment definition by clicking Create Environment Definition in the top right corner and providing a name. Click on a environment definition title to view any corresponding defined VMs. Environment definitions can be edited or deleted through the Environment Definition List page. If you decide to delete an environment definition, note that all of the corresponding vm definitions will be deleted as well.</p>
-<p><code>You can create multiple Environment Definitions for one Assignment, which can hold one or more VM Definitions.</code></p>
+<p>The environment definition is a virtual environment where assignments will be created through defining VMs (explained in the following section). View the Environment Definition List page by selecting the <code>Environment Definitions</code> tab found in the header. Create an environment definition by clicking <code>Create Environment Definition</code> in the top right corner and providing a name. Once it's created, you will see it listed on the Environment Definition List page. Click on a particular environment definition title to view any corresponding defined VMs. Environment definitions can also be edited or deleted through the Environment Definition List page. If you decide to delete an environment definition, note that all of the corresponding VM definitions will be deleted as well.</p>
+<p><code>You can create multiple Environment Definitions for one Assignment, which can hold one or more VM Definitions. However, you cannot change an Environment Definition for an existing assignment because changing the image for an Environment Definition won't update the image of any existing environments created by you or your students. You would need to create a new assignment with the updated Environment Definition to accomplish this.</code></p>
 <h2 id="creating-a-vm-definition">Creating a VM Definition<a class="headerlink" href="#creating-a-vm-definition" title="Permanent link">&para;</a></h2>
-<p>A VM definition is a template for VMs. An environment definition can have multiple VM Definitions, where each will have a flavor, image, and other configurations found below. By clicking on an environment definition title from the Environment Definition List page, you can view, create, edit, or delete the Virtual Machine Definitions that have been created. Create a new VM by clicking Create VM Definition in the top right corner. These VM Definitions will be used to load virtual machines into the environment when it's launched through an assignment. Find more details about specific fields in the creation of a VM below:</p>
+<p>A VM definition is a template for VMs in an environment that can be launched through given assignments. Note that an environment definition can have multiple VM Definitions, where each will have a flavor, image, and other customizable configurations found below. By clicking on an environment definition title from the Environment Definition List page, you can view, create, edit, or delete the Virtual Machine Definitions that have been created. Create a new VM by clicking <code>Create VM Definition</code> in the top right corner. Remember that deleting a VM definition will delete all VMs inside the environment that is connected to that VM definition. Find more details about specific fields in the creation of a VM below:</p>
 <h3 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h3>
-<p>You will have permission to select and use various OS images that your institution offers. Please select the type of image you want for your VM definition. Note that you can create and have multiple VM definitions in one environment definition. This allows your students to have multiple instances for an assignment using that particular environment definition.</p>
+<p>You will have permission to select and use various OS images that your institution offers. Please select the type of image you want for your VM definition through the dropdown menu. Note that you can create and have multiple VM definitions in one environment definition. This allows you or your students to have multiple instances for an assignment using that particular environment definition. </p>
 <h3 id="flavor">Flavor<a class="headerlink" href="#flavor" title="Permanent link">&para;</a></h3>
-<p>A flavor is a predefined combination of virtual resources (CPU core count, RAM and disk space) defined in the OpenStack environment. Select the type of flavor for your VM definition but do not select a flavor that has more than what is required. Remember that each time a student creates an instance, it is using the particular combination of resources laid out in that flavor. Please refer to your institution's cloud documentation regarding flavor details and other best practices.</p>
+<p>A flavor is a predefined combination of virtual resources (CPU core count, RAM and disk space) defined in the OpenStack environment. Select the type of flavor through the dropdown menu for your VM definition but do not select a flavor that has more than what is required. Remember that each time a student creates an instance, it is using that particular combination of resources laid out in that flavor. Please refer to your institution's cloud documentation regarding flavor details and other best practices.</p>
 <h3 id="console-log">Console Log<a class="headerlink" href="#console-log" title="Permanent link">&para;</a></h3>
 <p>The console log contains all of the log entries related to the system's functioning and start up behavior. As an instructor, you will always have access to console logs; however, you may disable this feature for students when they are viewing their console by unchecking the box in the VM definition creation form. The console log can be viewed when you enter your environment by clicking the Open Log Console button. </p>
 <h3 id="shell-script">Shell Script<a class="headerlink" href="#shell-script" title="Permanent link">&para;</a></h3>
-<p>You may provide a script that will be ran by the instance once it's created (e.g. create a text file or directory without having a student do it). Depending on the image you chose, you will have to provide the appropriate shebang.</p>
+<p>You may provide a script that will be ran by the instance once it's created (e.g. create a text file or directory without having a student do it through the console via commands). Depending on the image you choose, you will have to provide the appropriate shebang in order for the script to run successfully.</p>
 <h4 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h4>
-<p>For Windows-based images, you will be writing your scripts using Powershell (all Powershell scripts must begin with the '#ps1_sysnative' shebang). Powershell is not a compiled language but a command centric, dynamic scripting language. Learn more about Powershell scripting through this link: http://powershelltutorial.net/  </p>
+<p>For Windows-based images, you will be writing your scripts using Powershell (all Powershell scripts must begin with the '#ps1_sysnative' shebang). Powershell is not a compiled language but a command centric, dynamic scripting language. Learn more about Powershell scripting and how to write one through this link: http://powershelltutorial.net/  </p>
 <p>The example below creates a new directory named Test in another directory called VCL in the Windows file system:</p>
 <div class="codehilite"><pre><span></span>#ps1_sysnative 
 New-Item c:\VCL\Test -type directory
@@ -755,7 +755,7 @@ New-Item c:\VCL\Test -type directory
 
 
 <h4 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h4>
-<p>For Linux-based images, you will be using bash scripts (all bash scripts must begin with the '#!/bin/sh' shebang). </p>
+<p>For Linux-based images, you will be using bash scripts (all bash scripts must begin with the '#!/bin/sh' shebang). Learn more about bash scripting here: http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html. </p>
 <p>The example below creates a text filed called test in the log directory:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/sh</span>
@@ -803,14 +803,10 @@ sudo touch ../var/log/test.txt
 <td>CentOS</td>
 <td>centos</td>
 </tr>
-<tr>
-<td>Windows</td>
-<td>Administrator</td>
-</tr>
 </tbody>
 </table>
 <h3 id="default-user-public-key-linux-only">Default User Public Key (Linux Only)<a class="headerlink" href="#default-user-public-key-linux-only" title="Permanent link">&para;</a></h3>
-<p>This sets the SSH public key for the default user (see table above for OS-dependant usernames or refer to your institution's cloud documentation regarding usernames for additional images used by your institution). Supported key types are: rsa, dsa, ecdsa, and ed25519. Ensure that the public key is all in one line. Visit https://wiki.archlinux.org/index.php/SSH_keys to learn more about different key types. </p>
+<p>This sets the SSH public key for the default user (see table above for OS-dependant usernames or refer to your institution's cloud documentation regarding usernames for additional images used by your institution). SSH public-key authentication is a more secure alternative to connecting to a remote system than logging in with an account password (learn more about SSH keys here: https://kb.iu.edu/d/aews). Supported key types are: rsa, dsa, ecdsa, and ed25519. Also, ensure that the public key is all in one line when entering a key in the field. Visit https://wiki.archlinux.org/index.php/SSH_keys to learn more about different key types. </p>
 <p>Example for rsa key type:</p>
 <div class="codehilite"><pre><span></span>ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAywWhrwq4FjHt+UuwZcZePxtjtZOENFpOjufycaYso2nTlzNwnAQEQRfbqsUxKVtOtGxgApIkUvjRIjNBdJE6iOzvBXZhhJrM0GUDJragw7SMVIs/5xJBGAyHKJ1YUMGO7+nJTmsCLx6PFOlQYveuriiVVCCZerGCLH+UtSXK3z+l7hx9NiDg3/ylOLc3f3SLxrJKn0gMTgK7BHJFXo4PguuPjWZLVdUDX+XKiqtT2n4IsYs6N9qVFG3zUgNlEjZM47NK/ytAC0max98pK+QNzsuaQOo/IShJ1TOw5wwScflPArVJ2AyROqAe7cfQg7q12I9olASFd3U5NazfZCTYAvWA1kz9UZEWLJ1Br1XOkPqOleMM8KCp/PXzz8H0kISkMIji0/QuiZOPEBsKlszXjlALcXR8Mg1uiZVWy48i9JheyXyj1ToCj6cPScpgFHp3DAGSlKKbE1EFaVfeeyGAnHESuXC9wkSeFZCEyMJ+RgJxMkBXNZmyycbwsSqAeGJpMEUDlwzu2GD0obBz0HXqg9J1Xallop5AVDKfeszZcc= user@host
 </pre></div>
@@ -832,17 +828,17 @@ sudo touch ../var/log/test.txt
 
 
 <h3 id="create-system-account-for-student-linux-only">Create System Account for Student (Linux Only)<a class="headerlink" href="#create-system-account-for-student-linux-only" title="Permanent link">&para;</a></h3>
-<p>Creates a user in the system based on student's username and a random password (will be provided to student when they enter their instance). This feature is only for Linux-based images (NOT Windows).</p>
+<p>Creates a user in the system based on student's username and a random password (will be provided to student when they enter their instance in a blue text box above the console region). This feature is only for Linux-based images (NOT Windows).</p>
 <h3 id="student-user-sudo-linux-only">Student User Sudo (Linux Only)<a class="headerlink" href="#student-user-sudo-linux-only" title="Permanent link">&para;</a></h3>
-<p>Sets sudo access for the student's system user. It provides administrator privileges (usually available only to the root user) to normal users.  Set to 'ALL = (ALL) NOPASSWD: ALL' for unlimited sudo access. Here is a link for more information: https://help.ubuntu.com/community/RootSudo. This feature is only for Linux-based images (NOT Windows).</p>
-<h3 id="creating-an-assignment">Creating an Assignment<a class="headerlink" href="#creating-an-assignment" title="Permanent link">&para;</a></h3>
-<p>Visit the Assignment List page by selecting the Assignments tab found in the header. Create a course by clicking the Create Assignment button in the top right corner and then providing the necessary information. Each assignment will be assigned to one course and will become available to the students upon the given start date. The assignment will close and all associate Environments will be terminated based on the set end date. Assignments can be updated or deleted on the Assignment List page. Deleting an assignment will delete all existing environments that were launched by you or your students.</p>
+<p>Sets sudo access for the student's system user. It provides administrator privileges (usually available only to the root user) to normal users.  Set to 'ALL = (ALL) NOPASSWD: ALL' for unlimited sudo access. Here is a link with more information: https://help.ubuntu.com/community/RootSudo. This feature is only for Linux-based images (NOT Windows).</p>
+<h2 id="creating-an-assignment">Creating an Assignment<a class="headerlink" href="#creating-an-assignment" title="Permanent link">&para;</a></h2>
+<p>Visit the Assignment List page by selecting the <code>Assignments</code> tab found in the header where you can a list of existing assignments and their corresponding course, description, and start and end dates. Create a course by clicking the <code>Create Assignment</code> button in the top right corner and then providing the necessary information. Each assignment will be assigned to one course and will become available to the students upon the given start date. The assignment will close and all associated environments will be terminated based on the given end date. Assignments can be updated or deleted on the Assignment List page. Note that deleting an assignment will delete all connected environments that were launched by you or your students.</p>
 <p><code>Course and Environment Definition must first be created in order for students to be assigned to an Assignment.</code></p>
 <h2 id="entering-your-environment">Entering Your Environment<a class="headerlink" href="#entering-your-environment" title="Permanent link">&para;</a></h2>
-<p>On the Assignment List page, click on an assignment title and then press the Enter Your Environment button (it will take a moment for the console to load). Once the console appears and reaches the log in screen, enter the username and password given in the blue box if you set a new user password. The console can be in full screen mode by clicking the Open Console in Full Screen Mode. If there are multiple VMs, you can easily switch from one console to another by clicking on the desired VM found in the green box. Additionally, there is information regarding when the environment was created  and the date and time of when the environment will be terminated. You can also view the console log here by clicking the Open Console Log button and delete your environment by clicking the Delete Environment button in the top right corner. All KVM (keyboard, video, mouse) functionality will work; however, audio will not work. </p>
+<p>On the Assignment List page, click on an assignment title where you can then see a list of student environments. You can see who created which environments and you also have the ability to delete or enter them. Press the <code>LAUNCH A NEW ENVIRONMENT FOR THIS ASSIGNMENT</code> if you want to create your own instance for the assignment. If an environment has already been created, press the <code>Enter Your Environment</code> button to revisit it or you may wish to delete it by pressing <code>Delete your Environment</code>. It will take a moment for the console to load. Once the console appears and reaches the log in screen, enter the username and password given in the blue box if you set a new user password. The console can be in full screen mode by clicking the <code>Open Console in Full Screen Mode</code>. If there are multiple VMs, you can easily switch from one console to another by clicking on the desired VM found in the green box. Additionally, there is information regarding when the environment was created  and the date and time of when the environment will be terminated. You can also view the console log here by clicking the <code>Open Console Log</code> button. All KVM (keyboard, video, mouse) functionality will work; however, audio will not work. If you wish to reboot your environment, press the <code>Send CtrlAltDel</code> button on the top right corner. This is in case the console freezes.  </p>
 <p><code>Please note: copy (CTRL+C) and paste (CTRL+V) functions do not work in the console.</code></p>
 <h2 id="entering-a-students-environment">Entering a Student's Environment<a class="headerlink" href="#entering-a-students-environment" title="Permanent link">&para;</a></h2>
-<p>On the Assignment List page, click on the assignment title that has the student's environment you want to enter. In the list of students' environment, identify the student and click the corresponding Enter Environment button. You are able to view and interact with their console and their activity in this way as well as delete their environment. </p>
+<p>On the Assignment List page, click on the assignment title that has the student's environment you want to enter. In the list of students' environment, identify the student and click the corresponding <code>Enter Environment</code> button. You are able to view and interact with their console and their activity in this way as well as delete their environment. </p>
                 
                   
                 
