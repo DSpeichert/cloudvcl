@@ -246,7 +246,8 @@ class Vm(models.Model):
 def post_delete_vm(sender, instance, *args, **kwargs):
     # delete in OS
     os_conn = os_connect()
-    os_conn.compute.delete_server(instance.uuid, ignore_missing=True, force=True)
+    # ignore_missing=True does not have any effect when force=True
+    os_conn.compute.delete_server(instance.uuid, ignore_missing=True, force=False)
 
     # decrease instructor's usage
     instructor = instance.environment.assignment.course.instructor
