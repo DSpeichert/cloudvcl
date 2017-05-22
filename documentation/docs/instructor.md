@@ -1,5 +1,19 @@
 # Instructor Documentation
 
+## Overview
+As an instructor, you will use Cloud VCL to administer and facilitate Assignments to students in your Course(s). Every Assignment will utilize a Virtual Environment to complete it. So, before you create an Assignment, you must create an Environment Definition (and corresponding Virtual Machine Definitions) which will determine the parameters of the Virtual Environments that students use for that Assignment. Also before you create an Assignment, you must create a Course.
+
+Typical Workflow:
+
+1. Create a Course
+1. Add Students to that Course
+1. Create an Environment Definition
+1. Create VM Definition within that Environment Definition
+1. Create an Assignment (assign that Course and Environment Definition to it)
+1. Monitor and/or help students complete the Assignment*
+
+***Cloud VCL does not track progress, so it may be best to require proof of completion (screenshots, answer sheet, etc.) from students.**
+
 ## Becoming an Instructor User
 Contact your system administrator to have them promote you to become an instructor user. If you aren't promoted, you will remain a student user and you won't have permission to create courses, assignments and such. 
 
@@ -60,7 +74,7 @@ sudo touch ../var/log/test.txt
 ```
 
 ### Install Packages (Linux Only)
-A Linux package is an item (which can take form of a script, text file, license, etc.) that installs a piece of software through the package manager into your system. Install packages by inserting one package name per line. You can search for packages and their names here: http://packages.ubuntu.com/. This feature is only for Linux-based images (NOT Windows).
+A Linux package is an item (which can take form of a script, text file, license, etc.) that installs a piece of software through the package manager into your system. Install packages by inserting one package name per line. You can search for Ubuntu packages and their names here: http://packages.ubuntu.com/. For CentOS packages, please use think link: https://centos-packages.com/7/. Click where it says `All Packages` to view a list of all packages available with a brief description on CentOS. This feature is only for Linux-based images (NOT Windows).
 
 ### Update Package Lists on Boot (Linux Only)
 By selecting yes, it will update the list of available packages and their versions, but does not install or upgrade any packages. This feature is only for Linux-based images (NOT Windows).
