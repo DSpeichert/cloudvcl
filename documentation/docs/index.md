@@ -1,17 +1,6 @@
-# Welcome to MkDocs
+Welcome to Cloud VCL Documentation!
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Project Overview
+We recognize that in the world of growing virtualization platforms and providers, where the development of standardized cloud solutions and interfaces is taking place, the academia could benefit from utilizing an open standard of computing resources to base its operations on. Therefore, we have chosen to implement VCL on top of the open-source and open-API OpenStack cloud.
+ 
+We hope to be able to connect the needs of instructors and students with the features and capabilities offered by OpenStack-based clouds, whether self-hosted by academic institutions or public clouds available from commercial providers. This allows infrastructures operators and VCL installation owners to choose how they want to invest in the infrastructure and it gives them a one-click solution to outsource the whole infrastructure to a cloud provider of their choice.

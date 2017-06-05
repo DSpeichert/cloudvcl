@@ -8,27 +8,38 @@ for use by instructors and students. and manage users and functions.
 The Cloud VCL application is a Django project. It may be helpful to refer to the official
 Django documentation on [deploying Django apps](https://docs.djangoproject.com/en/1.11/howto/deployment/).
 
-*To be continued...*
 
 ## Prerequisites
 
 The Cloud VCL requires access to an OpenStack Cloud project. It may be private or public cloud
 and you need to have Tenant ID, Username and Password ready.
 
-*To be continued...*
+Besides this you must have SSL certificate and a (sub)domain name.
+
+To utilize Shibboleth you must be a registered service provider (SP)
+recognized by your Shibboleth identity provider (IdP), meaning you
+exchanged Metadata before. Refer to [mod_shib](https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPApacheConfig) and shibd daemon documentation.
+
 
 ## Setup
 
 1. Install `pip -r requirements.txt`
-1. Customize `settings.py` by putting changes into `local_settings.py` (you need to create it)
+1. Customize `settings.py` by putting changes into `local_settings.py` (you will need to create it)
 1. Run `python manage.py collectstatic`
 1. Run `python manage.py syncimages`
 1. Run `python manage.py syncflavors`
-1. Add `python manage.py cleanenvironments` as a cron job, as frequently as necessary
+1. Add `python manage.py cleanenvironments` as a cron job, run as frequently as necessary
 
 ### Integration with Shibboleth
 
-*To be continued... (say it currently only supports Shibboleth and need to be set up at /Shibboleth.sso)*
+ Cloud VCl is usable with any authentication plugin type that interacts with Apache. only supports Shibboleth and needs to be set up at /Shibboleth.sso
+
+Before you begin it is recommended you complete the following steps:
+1. an SSL certificate that you'll use to secure your IdP's browser-facing HTTP connection
+2. a source of SAML Metadata for the service providers your IdP will communicate with (this could come from a Federation you've joined, directly from the SP owners, or created and maintained by hand)
+3. If you would like to test Cloud VCL for yourself for trial purposes, you can use the [TestShib](http://www.testshib.org/) site 
+
+Next you will need to install Shibboleth SP.
 
 
 Example Apache httpd vhost config file:
@@ -107,7 +118,7 @@ be your own ones):
 ```
 (myvenv) ~/django$ python manage.py createsuperuser
 Username: admin
-Email address: admin@admin.com
+Email address: admin@example.com
 Password:
 Password (again):
 Superuser created successfully.
@@ -125,14 +136,33 @@ drill down by subject area to perform actions. Note that each subject area has t
 as a quicklink to the action.
  
  
-### Adding/modifying instructors
+### Adding/modifying flavors,images and quotas
 
-TODO: how to select flavors, images, quotas
+The admin panel will give you the ability to select and set flavors, images and quotas.
+
+Flavors are accessed via login into the admin panel and selecting 'Flavors' in Site Administration.
+Here you will see a list of all flavors available with the ability to filter and organize by column.
+To modify a flavor, click on the ID number and you will be able to edit the flavor.
+To add a flavor, click the 'Add Flavor' button located on the top right corner of the Flavor administration page.
+
+Images are also accessed via admin panel and selecting 'Images' in Site Administration.
+Here you will see a list of all images available with the ability to filter and organize by column.
+To modify a image, click on the ID number and you will be able to edit the image.
+To add a image, click the 'Add Flavor' button located on the top right corner of the Image administration page.
+
+Quotas are also accessed via admin panel and selecting 'Users' in Site Administration.
+Here you will see a list of all users available with the ability to filter and organize by column.
+To edit a quota, select the instructor user you wish to change by clicking on their username. Scroll down till the
+'Instructor Data' section and edit the values.
 
 ### Blocking access to Cloud VCL for specific users
-
-TODO
+Select 'Users' in Site Administration. To block, select the user by clicking on their username. Scroll down till the
+Permissions section and un-check the 'Active' checkbox.
 
 ### Finding instance/user by IP
 
-TODO
+You can find IP Owner History by navigating to:
+```
+Home/Cvcl/IP Owner History
+```
+Once at that path, select the username of the user or IP address that you wish to track.
