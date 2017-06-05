@@ -235,6 +235,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#becoming-an-instructor-user" title="Becoming an Instructor User" class="md-nav__link">
     Becoming an Instructor User
   </a>
@@ -490,6 +497,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#becoming-an-instructor-user" title="Becoming an Instructor User" class="md-nav__link">
     Becoming an Instructor User
   </a>
@@ -719,6 +733,18 @@
                 
                 
                 <h1 id="instructor-documentation">Instructor Documentation<a class="headerlink" href="#instructor-documentation" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>As an instructor, you will use Cloud VCL to administer and facilitate Assignments to students in your Course(s). Every Assignment will utilize a Virtual Environment to complete it. So, before you create an Assignment, you must create an Environment Definition (and corresponding Virtual Machine Definitions) which will determine the parameters of the Virtual Environments that students use for that Assignment. Also before you create an Assignment, you must create a Course.</p>
+<p>Typical Workflow:</p>
+<ol>
+<li>Create a Course</li>
+<li>Add Students to that Course</li>
+<li>Create an Environment Definition</li>
+<li>Create VM Definition within that Environment Definition</li>
+<li>Create an Assignment (assign that Course and Environment Definition to it)</li>
+<li>Monitor and/or help students complete the Assignment*</li>
+</ol>
+<p><strong>*Cloud VCL does not track progress, so it may be best to require proof of completion (screenshots, answer sheet, etc.) from students.</strong></p>
 <h2 id="becoming-an-instructor-user">Becoming an Instructor User<a class="headerlink" href="#becoming-an-instructor-user" title="Permanent link">&para;</a></h2>
 <p>Contact your system administrator to have them promote you to become an instructor user. If you aren't promoted, you will remain a student user and you won't have permission to create courses, assignments and such. </p>
 <h2 id="logging-into-cloud-vcl">Logging Into Cloud VCL<a class="headerlink" href="#logging-into-cloud-vcl" title="Permanent link">&para;</a></h2>
@@ -764,7 +790,7 @@ sudo touch ../var/log/test.txt
 </td></tr></table>
 
 <h3 id="install-packages-linux-only">Install Packages (Linux Only)<a class="headerlink" href="#install-packages-linux-only" title="Permanent link">&para;</a></h3>
-<p>A Linux package is an item (which can take form of a script, text file, license, etc.) that installs a piece of software through the package manager into your system. Install packages by inserting one package name per line. You can search for packages and their names here: http://packages.ubuntu.com/. This feature is only for Linux-based images (NOT Windows).</p>
+<p>A Linux package is an item (which can take form of a script, text file, license, etc.) that installs a piece of software through the package manager into your system. Install packages by inserting one package name per line. You can search for Ubuntu packages and their names here: http://packages.ubuntu.com/. For CentOS packages, please use think link: https://centos-packages.com/7/. Click where it says <code>All Packages</code> to view a list of all packages available with a brief description on CentOS. This feature is only for Linux-based images (NOT Windows).</p>
 <h3 id="update-package-lists-on-boot-linux-only">Update Package Lists on Boot (Linux Only)<a class="headerlink" href="#update-package-lists-on-boot-linux-only" title="Permanent link">&para;</a></h3>
 <p>By selecting yes, it will update the list of available packages and their versions, but does not install or upgrade any packages. This feature is only for Linux-based images (NOT Windows).</p>
 <h3 id="upgrade-all-packages-on-boot-linux-only">Upgrade All Packages on Boot (Linux Only)<a class="headerlink" href="#upgrade-all-packages-on-boot-linux-only" title="Permanent link">&para;</a></h3>
